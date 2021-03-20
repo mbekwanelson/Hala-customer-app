@@ -12,6 +12,7 @@ import 'package:mymenu/Models/Order.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Models/PromoCheckOut.dart';
 import 'package:mymenu/Models/Promotion.dart';
+import 'package:mymenu/OzowPayment/OzowPayment.dart';
 import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/Shared/Price.dart';
@@ -32,7 +33,8 @@ class _CheckOutState extends State<CheckOut> {
   PromoCheckOut promo = PromoCheckOut();
   int promoStop =0;
   String promoApplied;
-
+  String dropdownValue = "Cash";
+  int extraCardFee = 2;
 
 
   @override
@@ -273,6 +275,39 @@ class _CheckOutState extends State<CheckOut> {
                   ),
                 ),
 
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Card(
+                    color: Colors.amber,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: DropdownButton<String>(
+                        value: dropdownValue,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        iconSize: 20,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.black),
+                        // underline: Container(
+                        //   height: 5,
+                        //   color: Colors.red,
+                        // ),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>['Cash','Card: total + 4 %']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                ),
+
 
                 Container(
                   height: 50,
@@ -291,33 +326,53 @@ class _CheckOutState extends State<CheckOut> {
                               //final orders = snapshot.data;
                               final promoIndex = promo.index;
                               final isPromoApplied = promoApplied;
-
-                              for(int i =0;i<snapshot.data.length;i++){
-                                print("promo applied : $promoApplied");
+                              final String total = (calculateTotal(snapshot.data)*1.004).toStringAsFixed(2);
 
 
-                                await Auth().checkOutApproved(snapshot.data[i],promo.promoValue,promoIndex,isPromoApplied);
-
-                              }
                               // Position position = await Geolocator().getCurrentPosition(
                               //     desiredAccuracy: LocationAccuracy.high);
                               // await Database().loadLocation(position.latitude, position.longitude);
                               // print(position.latitude);
                               // print(position.longitude);
 
-                              setState(() {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => StreamProvider.value(
-                                          value: AfterCheckOutState().getShopProgress(uid: uid),
-                                            child: AfterCheckOut())
-                                    )
-                                );
-                              });
+                              if(dropdownValue=="Cash"){
+                                for(int i =0;i<snapshot.data.length;i++){
+                                  print("promo applied : $promoApplied");
 
-                            },
+
+                                  await Auth().checkOutApprovedCash(snapshot.data[i],promo.promoValue,promoIndex,isPromoApplied);
+
+                                }
+
+                                setState(() {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => StreamProvider.value(
+                                              value: AfterCheckOutState().getShopProgress(uid: uid),
+                                              child: AfterCheckOut())
+                                      )
+                                  );
+                                });
+
+                              }
+                              else{
+        setState(() {
+        Navigator.pop(context);
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+        builder: (context) => RedirectToOzow(amount: total,)
+        )
+        );
+        });
+
+        }
+                              }
+
+
+                              ,
                             icon: Icon(
 
                               Icons.add_shopping_cart,

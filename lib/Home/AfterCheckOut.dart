@@ -156,7 +156,6 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
             mainAxisAlignment: MainAxisAlignment.center,
 
             children: [
-
               Container(
                 height: 500,
                 child: ListView.builder(
@@ -228,29 +227,14 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
                     }
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-              //   child: Container(
-              //       height: MediaQuery.of(context).size.height*0.4,
-              //       width: MediaQuery.of(context).size.width*0.6,
-              //
-              //       child:Image(
-              //         image: AssetImage(
-              //             "Picture/preparingOrder.gif"
-              //         ),
-              //         fit: BoxFit.cover,
-              //       )
-              //
-              //   ),
-              // ),
-
-              FlatButton(
+              SizedBox(height: 20),
+              TextButton(
                   onPressed: () {
                     Navigator
                         .push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => RedirectToOzow(amount: "200")),
+                          builder: (context) => RedirectToOzow(amount: "6.00")),
                     );
                   },
                   child: Text(
@@ -260,7 +244,7 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
                       )
                   )
               ),
-              FlatButton(
+              TextButton(
                   onPressed: () {
                    updateShop();
                   },

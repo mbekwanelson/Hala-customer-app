@@ -27,7 +27,7 @@ class _MyListViewPhoneState extends State<MyListViewPhone> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Container(
-      height:screenSize.height*0.6,
+      height:screenSize.height*0.7,
 
 
       child:ListView.builder(

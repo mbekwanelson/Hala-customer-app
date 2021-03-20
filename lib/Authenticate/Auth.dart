@@ -62,7 +62,7 @@ class Auth {
 
 
   //CB and edit
-  Future checkOutApproved(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied) async{
+  Future checkOutApprovedCash(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied) async{
 
     String uid = await inputData();
     DateTime date = DateTime.now();
@@ -86,7 +86,8 @@ class Auth {
         'user': uid,
         'date':date,
         'shopSeen':"No",
-        'promo': promoApplied=="Yes" ? promo: 0
+        'promo': promoApplied=="Yes" ? promo: 0,
+        'Payment Method':"Cash"
 
       }
 
@@ -105,12 +106,69 @@ class Auth {
     return await Firestore.instance.collection("OrdersRefined").document(uid).updateData(
         {
           "${food.title}.checkOut": "Yes",
-          "${food.title}.promo":promoApplied=="Yes" ? promo: 0
+          "${food.title}.promo":promoApplied=="Yes" ? promo: 0,
+        "${food.title}.Payment Method":"Cash"
+
         });
 
 
 
   }
+
+
+  Future checkOutApprovedCard(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied) async{
+
+    String uid = await inputData();
+    DateTime date = DateTime.now();
+    String time = date.toString();
+    int index = time.indexOf('.');
+    String timeUsed = time.substring(0,index);
+    String mealOption = "";
+
+    for(String option in food.mealOptions){
+      mealOption+=option +",";
+    }
+
+
+    await Firestore.instance.collection("OrdersShops").document("OrdersShops").collection(food.shop).document(uid).setData({
+      "$timeUsed": {
+        'title': food.title,
+        'mealOptions':mealOption,
+        'price': food.price,
+        'quantity': food.quantity,
+        'active': 1,
+        'user': uid,
+        'date':date,
+        'shopSeen':"No",
+        'promo': promoApplied=="Yes" ? promo: 0,
+        "Payment Method":"Card"
+
+      }
+
+
+
+    },merge: true);
+    await Future.delayed(const Duration(seconds: 1), () => "1");
+    if(promoApplied=="Yes") {
+      indexPromo.isEmpty ? print(indexPromo) : await Firestore.instance.collection("Users").document(uid).updateData(
+          {
+            "promotions.$indexPromo.used": "Yes",
+          });
+    }
+
+
+    return await Firestore.instance.collection("OrdersRefined").document(uid).updateData(
+        {
+          "${food.title}.checkOut": "Yes",
+          "${food.title}.promo":promoApplied=="Yes" ? promo: 0,
+          "${food.title}.Payment Method":"Card"
+
+        });
+
+
+
+  }
+
 
   List<ConfirmCheckOut> _ordersFromSnapshot(DocumentSnapshot snapshot) {
    orders = [];

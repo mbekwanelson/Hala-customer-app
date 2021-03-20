@@ -22,15 +22,15 @@ class _OzowPaymentState extends State<OzowPayment> {
 
 class RedirectToOzow extends StatefulWidget {
 
-  String siteCode = 'TSTSTE0001';
+  String siteCode = 'HAL-HAL-001';
   String countryCode = 'ZA';
   String currencyCode = 'ZAR';
-  String amount = '25.00';
-  String transactionReference = '123';
-  String bankReference = 'ABC123';
+  String amount = '5.00';
+  String transactionReference = 'Hala Kala Purchase 01';
+  String bankReference = 'Sales22';
   String isTest = 'false';
   String hashCheck;
-  String privateKey = 'your private key';
+  String privateKey = 'pi4ZwRMzMvqVZ0dpNylAaYdmIWTKDrfl';
 
   RedirectToOzow({this.amount});
 
@@ -55,7 +55,7 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
     return hash;
   }
 
-  Future createRequest()async{
+  Future createRequest() async{
     widget.hashCheck = getHashCheck(widget.siteCode, widget.countryCode, widget.currencyCode, widget.amount, widget.transactionReference, widget.bankReference, /*widget.customerName, */widget.isTest, widget.privateKey);
     Map<String, dynamic> body = {
       "SiteCode": widget.siteCode,
@@ -71,13 +71,12 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
       "NotifyUrl": "http://demo.ozow.com/notify.aspx",
       "IsTest": /*widget.isTest.toLowerCase() ==*/ false ,
       "HashCheck": getHashCheck(widget.siteCode, widget.countryCode, widget.currencyCode, widget.amount, widget.transactionReference, widget.bankReference,/* widget.customerName,*/ widget.isTest, widget.privateKey),
-
     } ;
    var posta='';
     var resp =  await http.post(
       Uri.encodeFull('https://pay.ozow.com/'),
       headers: {
-        "ApiKey": 'EB5758F2C3B4DF3FF4F2669D5FF5B',
+        "ApiKey": ' ZUXVOvt39xaavip2M1BZygU4CjDpD930',
         "Content-Type": 'application/x-www-form-urlencoded',
         "Accept": 'application/json'
       },
@@ -102,8 +101,6 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
     ).toString());
     print(resp.toString());
 
-
-
    if(json.decode(resp.body)['success'] == true){
       String selectedUrl = json.decode(resp.body)["payment_request"]['longurl'].toString() + "?embed=form";
       FlutterWebviewPlugin().close();
@@ -126,10 +123,17 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Confirm Payment'),
+        centerTitle: true,
+        title: Text(
+            'Confirm Payment',
+          style: TextStyle(
+            letterSpacing: 2
+          ),
+        ),
+        backgroundColor: Colors.red[900],
+
       ),
       body: InAppWebView(
-
         onWebViewCreated: (InAppWebViewController w) async{
           widget.hashCheck = getHashCheck(widget.siteCode, widget.countryCode, widget.currencyCode, widget.amount, widget.transactionReference, widget.bankReference, /*widget.customerName,*/ widget.isTest, widget.privateKey);
           Map<String, dynamic> body = {
@@ -152,7 +156,7 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
           var resp =  await http.post(
               Uri.encodeFull('https://api.ozow.com/PostPaymentRequest'),
               headers: {
-                "ApiKey": 'EB5758F2C3B4DF3FF4F2669D5FF5B',
+                "ApiKey": 'ZUXVOvt39xaavip2M1BZygU4CjDpD930',
                 "Content-Type": 'application/json',
                 "Accept": 'application/json'
               },
@@ -164,7 +168,9 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
           print(resp.request.url.toString());
           print("----------------------------------------------------------------------------------");
           _controller=w;
-          _controller.loadUrl(url:json.decode(resp.body)["url"]!=null?json.decode(resp.body)["url"]:"http://demo.ozow.com/error.aspx");
+          _controller.loadUrl(
+              url: json.decode(resp.body)["url"] != null ? json.decode(resp.body)["url"] : "http://demo.ozow.com/error.aspx"
+          );
           // await _controller.postUrl(url: 'https://api.ozow.com/PostPaymentRequest',postData: utf8.encode(body.toString()));
           // print(await _controller.getTRexRunnerHtml());
           // print(await _controller.getUrl());

@@ -114,6 +114,10 @@ class SignInState with ChangeNotifier {
         case "ERROR_NETWORK_REQUEST_FAILED":
           error = "Please check your internet connection";
           break;
+        case "ERROR_USER_NOT_FOUND":
+          error = "There is no user record corresponding to this account";
+          break;
+
 
         default:
           error = "An undefined Error happened.";

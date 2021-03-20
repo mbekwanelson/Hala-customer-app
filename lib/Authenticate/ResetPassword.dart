@@ -28,18 +28,18 @@ class _ResetPassWordState extends State<ResetPassWord> {
              ),
             TextFormField(
               decoration:
-              textInputDecoration.copyWith(hintText: "Confirm Password"),
+              textInputDecoration.copyWith(hintText: "Enter Email"),
               controller: _resetPasswordState.email,
 
 
             ),
-            FlatButton(
+            TextButton(
               child: Text("Submit"),
-              onPressed: ()async{
+              onPressed: () async{
                 await _resetPasswordState.resetPassword();
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context)=>Wrapper()
+                  builder: (context)=> Wrapper()
                 ));
               },
             ),
