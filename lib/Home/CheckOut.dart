@@ -12,6 +12,7 @@ import 'package:mymenu/Models/Order.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Models/PromoCheckOut.dart';
 import 'package:mymenu/Models/Promotion.dart';
+import 'package:mymenu/Models/cardPaymentDetail.dart';
 import 'package:mymenu/OzowPayment/OzowPayment.dart';
 import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/Shared/Loading.dart';
@@ -323,10 +324,18 @@ class _CheckOutState extends State<CheckOut> {
                               dynamic uid = await Auth().inputData();
                               shop = snapshot.data[0].shop;
 
-                              //final orders = snapshot.data;
+                              final orders = snapshot.data;
                               final promoIndex = promo.index;
                               final isPromoApplied = promoApplied;
                               final String total = (calculateTotal(snapshot.data)*1.004).toStringAsFixed(2);
+                              cardPaymentDetail cardPayment = cardPaymentDetail(
+                                promoApplied: isPromoApplied,
+                                promoIndex: promoIndex,
+                                orders: orders,
+                                promoValue: promo.promoValue
+                              );
+
+
 
 
                               // Position position = await Geolocator().getCurrentPosition(
@@ -358,12 +367,14 @@ class _CheckOutState extends State<CheckOut> {
 
                               }
                               else{
+
+
         setState(() {
         Navigator.pop(context);
         Navigator.push(
         context,
         MaterialPageRoute(
-        builder: (context) => RedirectToOzow(amount: total,)
+        builder: (context) => RedirectToOzow(amount: total,customerOrderDetail:cardPayment)
         )
         );
         });
