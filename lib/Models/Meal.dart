@@ -47,7 +47,6 @@ class Meal{
     for(int i = 0;i<this.differentOptions.length;i++) {
       try {
         if (this.differentOptions[i].isNotEmpty) {
-          print(' avalable options: $i ${this.differentOptions[i]}');
           available++;
         }
       }
@@ -55,8 +54,7 @@ class Meal{
 
       }
     }
-    print(' available number: $available');
-    return available;
+      return available;
     }
 
 

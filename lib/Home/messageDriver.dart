@@ -36,8 +36,6 @@ class _messageDriverState extends State<messageDriver> {
 
       stream:messageDriverState().Messages(uid),
     builder:( BuildContext context, AsyncSnapshot snapshot) {
-        print(snapshot);
-
       if (!snapshot.hasData) {
 
         return Scaffold(

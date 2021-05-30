@@ -186,7 +186,6 @@ class _SignInState extends State<SignIn> {
                             onPressed:() async{
 
                               widget.toggleView();
-                              print("Clicked register");
 
                             },
                             color:Colors.black,

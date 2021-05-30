@@ -17,7 +17,6 @@ class ConfirmOrderScreenState{
 
   Future confirmOrders()async{
     List<ConfirmOrder> confirmOrders = [];
-    print("Here");
     dynamic uid = await Auth().inputData();
     await Firestore.instance.collection("OrdersShops").document("OrdersShops").collection("Food and Connect").document(uid).snapshots().forEach((element) {
       element.data.forEach((key, value) {
@@ -38,14 +37,6 @@ class ConfirmOrderScreenState{
 
     });
     await Future.delayed(const Duration(seconds: 1), () => "1");
-    print(confirmOrders);
-
     return confirmOrders;
-
   }
-
-
-
-
-
 }

@@ -192,10 +192,7 @@ class _HomeState extends State<Home> {
                                       style:TextStyle(
                                         letterSpacing: 2,
                                       )
-
-
                                   ),
-
                                 ),
                                 onTap: ()async{
                                   // await homeState.category(widget.shop.shopName, widget.shop.categories[index]);

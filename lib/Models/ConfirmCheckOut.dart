@@ -13,11 +13,4 @@ class ConfirmCheckOut{
   List<dynamic> mealOptions;
 
   ConfirmCheckOut({this.title,this.price,this.quantity,this.time,this.shop,this.mealOptions});
-
-
-
-
-
-
-
 }

@@ -20,12 +20,8 @@ class SignInState with ChangeNotifier {
   String error = "";
   String email = "";
   String password = "";
-
-
   //GETTERS
   GlobalKey<FormState> get formKey => _formKey;
-
-
   SignInState();
 
   String validateEmail(String email) {
@@ -117,13 +113,10 @@ class SignInState with ChangeNotifier {
         case "ERROR_USER_NOT_FOUND":
           error = "There is no user record corresponding to this account";
           break;
-
-
         default:
           error = "An undefined Error happened.";
       }
       return null;
-
     }
   }
 
@@ -138,7 +131,6 @@ class SignInState with ChangeNotifier {
       // if so, return the current user
       user = await _auth.currentUser();
       await _googleSignIn.signOut();
-
     }
     else {
       final GoogleSignInAccount googleUser =
@@ -158,80 +150,52 @@ class SignInState with ChangeNotifier {
 
     if (user!=null){
       dynamic uid = await Auth().inputData();
-      print("hey man this is your userID $uid");
-
        Firestore.instance.collection("Users").snapshots().forEach((element) {
 
         // checks if user is already on database
         element.documents.forEach((document) {
-
           if(uid ==document.documentID){
             new_user = false;
-            print("________is the user new_______________ $new_user");
           }
         });
       });
 
       await Future.delayed(const Duration(seconds: 1), () => "1");
-
-
       if(new_user){
-
         await Firestore.instance.collection("Users").document(uid).setData({
-
-
           "name":user.displayName,
           "email":user.email,
           "user":"Customer",
           "date":DateTime.now()
-
         });
       }
     }
-
     return user;
   }
 
   /// This mehtod makes the real auth
   Future firebaseAuthWithFacebook({@required FacebookAccessToken token}) async {
-
     AuthCredential credential= FacebookAuthProvider.getCredential(accessToken: token.token);
-   dynamic user = await _auth.signInWithCredential(credential);
+    dynamic user = await _auth.signInWithCredential(credential);
     return user;
   }
 
   Future signInFB() async {
     bool new_facebook_user = true;
     final fbLogin = new FacebookLogin();
-    print(fbLogin.isLoggedIn);
     FacebookLoginResult result = await fbLogin.logIn(["email"]);
-
-
-
     final String token = result.accessToken.token;
-
     final response = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
     final profile = jsonDecode(response.body);
-    print(profile);
-    print("NkaaaaaaaaaH:${result.status}");
-    //return profile;
-
-
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
-
         final FacebookAccessToken facebookAccessToken = result.accessToken;
-
         await firebaseAuthWithFacebook(
             token: facebookAccessToken);
-
         dynamic uid = await Auth().inputData();
-
         Firestore.instance.collection("Users").snapshots().forEach((element) {
-
           // checks if user is already on database
           element.documents.forEach((document) {
-
             if(uid ==document.documentID){
               new_facebook_user = false;
             }
@@ -239,35 +203,20 @@ class SignInState with ChangeNotifier {
         });
 
         await Future.delayed(const Duration(seconds: 1), () => "1");
-
         if(new_facebook_user){
-
           await Firestore.instance.collection("Users").document(uid).setData({
-
-
             "name":profile["name"],
             "email":profile["email"],
             "user":"Customer",
             "date":DateTime.now()
-
           });
         }
-
         break;
       case FacebookLoginStatus.cancelledByUser:
-        print('Login cancelled by the user.');
         break;
       case FacebookLoginStatus.error:
-        print('Something went wrong with the login process.\n'
-            'Here\'s the error Facebook gave us: ${result.errorMessage}');
         break;
     }
     return profile;
   }
-
-
-
-
-
-
 }

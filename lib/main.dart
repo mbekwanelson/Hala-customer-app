@@ -24,23 +24,17 @@ void main(){
   WidgetsFlutterBinding.ensureInitialized();//helps with multiprovider
   runApp(
       MaterialApp(
-    debugShowCheckedModeBanner: false,
-    navigatorObservers: [observer],
-    home:Main(analytics:analytics,observer:observer),
-  )
+        debugShowCheckedModeBanner: false,
+        navigatorObservers: [observer],
+        home: Main(analytics:analytics,observer:observer),
+    )
   );
-
-
 }
 
 class Main extends StatefulWidget {
 
   final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
-
-
-
-
   Main({this.analytics,this.observer });
   @override
   _MainState createState() => _MainState();
@@ -48,10 +42,7 @@ class Main extends StatefulWidget {
 
 class _MainState extends State<Main> {
   PushNotificationsManager pushNotificationsManager = PushNotificationsManager();
-
-
-
-  Future _sendAnalytics()async{
+  Future _sendAnalytics() async {
     await widget.analytics.logEvent(
           name: 'test_event',
           parameters: <String, dynamic>{
@@ -62,9 +53,6 @@ class _MainState extends State<Main> {
             'bool': true,
           },
         );
-        print('logEvent succeeded');
-
-
   }
 
 
@@ -88,8 +76,7 @@ class _MainState extends State<Main> {
           width: 900,
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            home:Wrapper(),
-
+            home: Wrapper(),
           ),
         ),
       ),

@@ -58,7 +58,6 @@ TextEditingController promoCode = TextEditingController();
     for(int i=0;i<promotions.length;i++){
 
       if(promoCode.text == promos[promotions[i]]["promoCode"]){
-        print("Promo Used");
         return true;
         //promo used
       }
@@ -66,7 +65,7 @@ TextEditingController promoCode = TextEditingController();
     return false;
   }
 
-  void verifyPromo()async{
+  void verifyPromo() async {
     dynamic uid = await Auth().inputData();
     Promotion validPromoCheck = await _findPromos();
     bool promoUsed = await checkIfPromoUsed();
@@ -85,12 +84,10 @@ TextEditingController promoCode = TextEditingController();
               "used":"No"
             }
           }
-
         };
         await Firestore.instance.collection("Users").document(uid).setData(data,merge:true);
       }
       else{
-
         Map<String,dynamic> data = {
           "promotions":{
             "${DateTime.now()}".split('.').join(','):{
@@ -101,20 +98,12 @@ TextEditingController promoCode = TextEditingController();
 
         };
         await Firestore.instance.collection("Users").document(uid).setData(data,merge:true);
-
       }
-
-
-      validPromo = "Successfully added Promo!";
-
-
-    promoCode.clear();
-     notifyListeners();
-
-
+       validPromo = "Successfully added Promo!";
+       promoCode.clear();
+       notifyListeners();
     }
-    else if (promoUsed==true){
-
+    else if (promoUsed == true){
       validPromo = "Promo already used!";
       promoCode.clear();
       notifyListeners();
@@ -135,8 +124,6 @@ TextEditingController promoCode = TextEditingController();
     return false;
   }
 
-
-
   Future<Customer> customerInfo()async{
     String uid = await Auth().inputData();
     return await Firestore.instance.collection("Users").document(uid).snapshots().forEach((element) {
@@ -149,46 +136,27 @@ TextEditingController promoCode = TextEditingController();
       email=element.data["email"];
       return customer;
     });
-
-
   }
 
 bool  _hasOrdered(DocumentSnapshot snapshot){
   List<String> all =[];
   bool placedOrder= false;
-
-
   snapshot.data.keys.forEach((element) {
-
     try {
-
       if(snapshot[element]["active"]==1){
         placedOrder = true;
-
-        print('shopSeen: snapshot[element]["shopSeen"]');
-        print(snapshot[element]["active"]);
-        print(snapshot[element]["shop"]);
-
       }
     }
     catch(e){
       print(e);
     }
   });
-
   return placedOrder;
-
 }
-
-
-
-
-
-
 
 Stream<bool> hasCustomerOrdered(){
     dynamic uid = Auth().inputData();
-  return Firestore.instance.collection('OrdersRefined').document(uid).snapshots().map(_hasOrdered);
+    return Firestore.instance.collection('OrdersRefined').document(uid).snapshots().map(_hasOrdered);
 }
 
 
@@ -197,15 +165,13 @@ Stream<bool> hasCustomerOrdered(){
   logUser(){
    FirebaseAnalytics().setCurrentScreen(screenName: "UserDrawerScreen");
    // FirebaseAnalytics().logEvent(name: "userDrawerOpened",parameters: {
-   //   "name":name,
-   //   "email":email
+   //   "name": name,
+   //   "email": email
    // });
-
-
   }
+
   setOccupation(String occupation){
     FirebaseAnalytics().setUserProperty(
         name: "Ocupation", value: occupation);
   }
-
 }

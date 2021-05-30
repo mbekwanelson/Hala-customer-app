@@ -20,7 +20,6 @@ class Database{
 // Sends users location to driver
   Future loadLocation(double latitude,double longitude)async{
     String uid = await Auth().inputData();
-    print("###############################################################################################---->$uid");
     return await Firestore.instance.collection("Location").document(uid)
         .updateData({
       "Customerlatitude":latitude,
@@ -60,13 +59,11 @@ class Database{
                          shop: docs.documents[i].data["restaurant"] ?? "nja"
                      )
                  );
-             print(docs.documents[i].data["title"]?? "no");
            }
             return foods;
            burgers = foods;
          }
          else{
-           print("nah its empty bro!");
            return null;
          }
   });
@@ -83,7 +80,6 @@ class Database{
 
   LocationN _locationFromSnapshot(DocumentSnapshot snapshot){
 
-
     return LocationN(
         lat: snapshot["Driverlatitude"] ?? -28.5556216, // if doesn't exist give it an empty string
         long: snapshot["Driverlongitude"] ?? 29.7773499,
@@ -91,8 +87,6 @@ class Database{
   }
 
   Stream<LocationN> DriverLocation({String uid}){
-
-
     return Firestore.instance.collection("Location")
         .document(uid)
         .snapshots()

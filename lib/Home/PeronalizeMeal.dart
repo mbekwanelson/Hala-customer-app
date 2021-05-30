@@ -28,10 +28,7 @@ class _PersonalizeMealState extends State<PersonalizeMeal> {
           dropDownItem: _dropdownMenuItems,
           selected: _dropdownMenuItems[0].value
       ));
-
-
     }
-
   }
 
   // Layout of drop Items
@@ -44,14 +41,12 @@ class _PersonalizeMealState extends State<PersonalizeMeal> {
             children: [
               Text(
                 option.title,
-
               ),
               SizedBox(
                   width:10
               ),
               Text(
                 'R ${option.price.toStringAsFixed(2)}',
-
               )
             ],
           ),
@@ -59,7 +54,6 @@ class _PersonalizeMealState extends State<PersonalizeMeal> {
         ),
       );
     }
-
     return items;
   }
 
@@ -92,13 +86,10 @@ class _PersonalizeMealState extends State<PersonalizeMeal> {
     PersonalizeMealState().checkIfSameShop( widget.meal.shop).then((value)
     {
       setState(() {
-        print('Value: $value');
         orderSameShop =value;
       });
     }
     );
-    print('OrderSameShop: $orderSameShop');
-
     super.initState();
   }
 
@@ -121,7 +112,6 @@ class _PersonalizeMealState extends State<PersonalizeMeal> {
             ),
             Text(
                 "Please continue checkOut your previous order first",
-
                 style:TextStyle(
                     color:Colors.red[900],
                     fontWeight: FontWeight.bold,
@@ -148,7 +138,6 @@ class _PersonalizeMealState extends State<PersonalizeMeal> {
               SizedBox(
                   height: 30
               ),
-
               Container(
                 height: MediaQuery.of(context).size.height/3,
                 child: Image.network(
@@ -156,7 +145,6 @@ class _PersonalizeMealState extends State<PersonalizeMeal> {
                   fit: BoxFit.cover,
                 ),
               ),
-
               SizedBox(
                   height: 30
               ),
@@ -224,8 +212,6 @@ class _PersonalizeMealState extends State<PersonalizeMeal> {
                 ),
                 color: Colors.black,
               ),
-
-
             ],
           ),
         ),

@@ -3,11 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class OzowPaymentState{
 
-
-
-
-
-
   bool pastPayment(String uid){
 
     DocumentReference doc = Firestore.instance.collection("CardPayments").document(uid);
@@ -18,12 +13,5 @@ class OzowPaymentState{
       return true;
     }
   }
-
-
-
-
-
-
-
 
 }

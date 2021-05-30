@@ -60,8 +60,6 @@ class _ShopsState extends State<Shops> {
               //         letterSpacing: 2,
               //         //fontWeight: FontWeight.bold
               //         //fontStyle:FontStyle.italic,
-              //
-              //
               //       ),
               //     ),
               //   ),
@@ -189,11 +187,7 @@ class _ShopsState extends State<Shops> {
                       padding: const EdgeInsets.fromLTRB(20,0,20,20),
                       child: GestureDetector(
                         onTap:(){
-
                           shopsState.logShopSelected(shops[index].shopName);
-
-
-
                       setState(() {
                         Navigator.push(
                             context,
@@ -202,7 +196,6 @@ class _ShopsState extends State<Shops> {
                       });
                       },
                         child: Column(
-
                           children:[
                      Text(
                        shops[index].shopName,
@@ -217,13 +210,9 @@ class _ShopsState extends State<Shops> {
                                 //width:300,
                                 //height:600,
                                 margin:EdgeInsets.all(20),
-
-
-
                                 child:CircleAvatar(
                                   backgroundImage:NetworkImage(shops[index].shopBackground ?? "https://www.bengi.nl/wp-content/uploads/2014/10/no-image-available1.png"),
                                   radius:100,
-
                                 ),
 //                            Card(
 //                              //color:Colors.black,

@@ -13,11 +13,10 @@ class messageDriverState with ChangeNotifier{
 
 
 
-  sendDriverMessage(String msg)async{
+  sendDriverMessage(String msg) async {
     dynamic uid = await Auth().inputData();
     var data = {
       "${DateTime.now()}": {
-
         "message": msg,
         "from":"Customer",
         "time": DateTime.now()
@@ -30,7 +29,6 @@ class messageDriverState with ChangeNotifier{
     messages = [];
     snapshot.data.keys.forEach((element){
       messages.add(
-
           Message(
               message: snapshot[element]["message"],
               time: snapshot[element]["time"],
@@ -46,13 +44,8 @@ class messageDriverState with ChangeNotifier{
     return messages;
 
   }
+
   Stream<List<Message>> Messages(dynamic uid){
-    print(uid);
-
     return Firestore.instance.collection("Messages").document(uid).snapshots().map(_messageFromSnapshot);
-
   }
-
-
-
-  }
+}

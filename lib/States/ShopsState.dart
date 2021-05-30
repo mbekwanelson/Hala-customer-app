@@ -1,17 +1,27 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart' as l2;
+import 'package:location/location.dart' as l;
+import 'package:mymenu/Maps/Requests/GoogleMapsServices.dart';
 import 'package:mymenu/Models/FoodItem.dart';
 import 'package:mymenu/Models/Option.dart';
 import 'package:mymenu/Models/Restuarant.dart';
 import 'package:mymenu/Models/Shop.dart';
+import 'package:great_circle_distance/great_circle_distance.dart';
 
 
 
 class ShopsState with ChangeNotifier{
 
   List<FoodItem> food =[];
+  final double CUTOFFDISTANCE = 30.00;
 
+  //constructor
   ShopsState();
 
 
@@ -20,8 +30,6 @@ class ShopsState with ChangeNotifier{
   List<FoodItem> _shopChosenFromSnapshot(QuerySnapshot snapshot){
 
     try {
-
-
       for (int data = 0; data < snapshot.documents.length; data++) {
 
         food.add(FoodItem(
@@ -83,9 +91,7 @@ class ShopsState with ChangeNotifier{
     }).toList();
   }
 
-
   Stream<List<Restaurant>> numberRestaurants(){
-
     //returns snapshot of database and tells us of any changes [provider]
     return Firestore.instance.collection("Restaurants").snapshots().map( _numRestaurants);
   }
@@ -96,29 +102,39 @@ class ShopsState with ChangeNotifier{
     });
   }
 
-  List<Shop> _shopsFromDb(QuerySnapshot snapshot){
-
+  Stream<List<Shop>> getShops({String category,Position currentUserPosition}) async* {
     List<Shop> shops = [];
+      CollectionReference collectionReference =  Firestore.instance.collection("Options").document(category).collection(category); //.//snapshots();
+       Future<QuerySnapshot> fquerySnapshot = collectionReference.getDocuments();
 
-    for(int shop = 0;shop<snapshot.documents.length;shop++){
+       QuerySnapshot snapshot = await fquerySnapshot; //.then((snapshot) async {
+         for(int shop = 0;shop < snapshot.documents.length;shop++){
+           double lat = snapshot.documents[shop].data["latitude"];
+           double long = snapshot.documents[shop].data["longitude"];
 
-      shops.add(Shop(
-          shopName: snapshot.documents[shop].data["name"],
-          shopBackground: snapshot.documents[shop].data["background"],
-          categories: snapshot.documents[shop].data["categories"],
-          category:snapshot.documents[shop].data["category"]
-      ));
+           var gcd = new GreatCircleDistance
+               .fromDegrees(latitude1: currentUserPosition.latitude, longitude1: currentUserPosition.longitude, latitude2: lat, longitude2: long);
+
+           print('Distance from ${snapshot.documents[shop].data["name"]} to 2 using the Haversine formula is: ${gcd.haversineDistance()}');
+           print('Distance from ${snapshot.documents[shop].data["name"]} to 2 using the Spherical Law of Cosines is: ${gcd.sphericalLawOfCosinesDistance()}');
+           print('Distance from ${snapshot.documents[shop].data["name"]} to 2 using the Vicenty`s formula is: ${gcd.vincentyDistance()}');
+
+           final l2.Distance distance = new l2.Distance();
+
+           double km = 0.00;
+           String carRouteDistance = await GoogleMapsServices().getRouteCoordinates( LatLng(currentUserPosition.latitude,currentUserPosition.longitude) , LatLng(lat, long));
+           km = double.parse(carRouteDistance)/1000;
+           if(km <= 30.00) {
+                  shops.add(Shop(
+                    shopName: snapshot.documents[shop].data["name"],
+                    shopBackground: snapshot.documents[shop].data["background"],
+                    categories: snapshot.documents[shop].data["categories"],
+                    category: snapshot.documents[shop].data["category"],
+                    longitude: long,
+                    latitude: lat,
+                  ));
+           }
+         }
+       yield shops;
     }
-    return shops;
-
-  }
-
-  Stream<List<Shop>> getShops({String category}){
-
-    return Firestore.instance.collection("Options").document(category).collection(category).snapshots().map(_shopsFromDb);
-  }
-
-
-
-
 }

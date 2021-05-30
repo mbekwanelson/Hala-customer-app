@@ -10,11 +10,4 @@ class Customer{
   String email;
 
   Customer({this.name,this.email});
-
-
-
-
-
-
-
 }

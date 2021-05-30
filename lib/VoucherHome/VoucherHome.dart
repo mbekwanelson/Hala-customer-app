@@ -46,8 +46,6 @@ class _ImageCaptureState extends State<ImageCapture> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-
       bottomNavigationBar: BottomAppBar(
         child:Row(
           children: <Widget>[
@@ -61,7 +59,7 @@ class _ImageCaptureState extends State<ImageCapture> {
               onPressed: (){
                 return _pickImage(ImageSource.gallery);
               },
-              icon:Icon(Icons.photo_library),
+              icon: Icon(Icons.photo_library),
             ),
           ],
         )
@@ -72,13 +70,13 @@ class _ImageCaptureState extends State<ImageCapture> {
             clipper:MyClipper(),
             child: Container(
               height:320,
-              decoration:BoxDecoration(
+              decoration: BoxDecoration(
                 color:Colors.red,
-              ) ,
-              child:Center(
-                child:Text(
+              ),
+              child: Center(
+                child: Text(
                   "Voucher",
-                  style:TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 45,
@@ -87,28 +85,23 @@ class _ImageCaptureState extends State<ImageCapture> {
               ),
             ),
           ),
-
           Expanded(
             child: Container(
               child: ListView(
                 children: <Widget>[
                   if(_imageFile != null) ...[
-
                     Image.file(_imageFile),
                     Row(
                     children: <Widget>[
                       FlatButton(
                         onPressed: _cropImage,
-                        child:Icon(Icons.crop),
-
-
+                        child: Icon(Icons.crop),
                       ), FlatButton(
                         child: Icon(Icons.refresh),
                         onPressed: _clear,
                       ),
                     ],
                     ),
-
               Uploader(file: _imageFile)//
                 ],
               ]),
@@ -138,5 +131,4 @@ class MyClipper extends CustomClipper<Path>{
     // TODO: implement shouldReclip
     return true;
   }
-
 }

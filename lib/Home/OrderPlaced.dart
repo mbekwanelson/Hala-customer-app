@@ -14,12 +14,11 @@ class _OrderPlacedState extends State<OrderPlaced> {
   Widget build(BuildContext context) {
     List<ConfirmOrder> orders = [];
     ConfirmOrderScreenState().confirmOrders().then((value){
-      print("Hey");
-      print(value);
+
       setState(() {
         orders = value;
       });
-      print(orders);
+
     });
 
 

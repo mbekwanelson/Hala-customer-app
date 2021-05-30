@@ -35,7 +35,6 @@ class Transaction{
       Status:json['Status'],
       StatusMessage:json['StatusMessage'],
       TransactionId:json[' TransactionId'],
-
     );
   }
 

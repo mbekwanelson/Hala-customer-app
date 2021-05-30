@@ -20,7 +20,6 @@ class FoodItem {
     this.image,
     this.quantity=1,
     this.shop
-
   });
 
   void incrementQuantity() {

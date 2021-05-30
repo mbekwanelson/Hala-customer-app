@@ -9,7 +9,4 @@ class ConfirmOrder{
 
 
   ConfirmOrder({this.shopName,this.orderName,this.price,this.quantity,this.date});
-
-
-
 }

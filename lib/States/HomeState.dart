@@ -27,7 +27,6 @@ class HomeState with ChangeNotifier{
         pizzas = [];
         for(int pizza =0;pizza<docs.documents.length;pizza++){
           pizzas.add(
-
               FoodItem(
                   title :docs.documents[pizza].data["title"]?? "no",
                   image:docs.documents[pizza].data["image"] ?? "https://cdn.pixabay.com/photo/2018/03/04/20/08/burger-3199088__340.jpg",
@@ -43,10 +42,8 @@ class HomeState with ChangeNotifier{
       }
       else{
         print("nah its empty bro!");
-
       }
     });
-
   }
 
   // Displays drink food items only
@@ -60,7 +57,6 @@ class HomeState with ChangeNotifier{
         drinks= [];
         for(int drink =0;drink<docs.documents.length;drink++){
           drinks.add(
-
               FoodItem(
                   title :docs.documents[drink].data["title"]?? "no",
                   image:docs.documents[drink].data["image"] ?? "https://cdn.pixabay.com/photo/2018/03/04/20/08/burger-3199088__340.jpg",
@@ -91,7 +87,6 @@ class HomeState with ChangeNotifier{
         desserts= [];
         for(int dessert =0;dessert<docs.documents.length;dessert++){
           desserts.add(
-
               FoodItem(
                   title :docs.documents[dessert].data["title"]?? "no",
                   image:docs.documents[dessert].data["image"] ?? "https://cdn.pixabay.com/photo/2018/03/04/20/08/burger-3199088__340.jpg",
@@ -105,21 +100,17 @@ class HomeState with ChangeNotifier{
       }
       else{
         print("nah its empty bro!");
-
       }
     });
 
   }
 
   List<FoodItem> _showSelectedCategory(QuerySnapshot snapshot){
-   print("Here");
-    print(snapshot);
     return [];
   }
 
 
   category(Shop shop, String category)async{
-    print("Options/${shop.category}/${shop.category}/${shop.shopName}/Items");
     //selectedCategory = [];
     tab=1;
 
@@ -129,9 +120,7 @@ class HomeState with ChangeNotifier{
           .getDocuments().then((QuerySnapshot categoryItems){
       selectedCategory= [];
       for(int item =0;item<categoryItems.documents.length;item++){
-        print(categoryItems.documents[item].data["category"]);
         selectedCategory.add(
-
             FoodItem(
                 title :categoryItems.documents[item].data["title"]?? "no",
                 image:categoryItems.documents[item].data["image"] ?? "https://cdn.pixabay.com/photo/2018/03/04/20/08/burger-3199088__340.jpg",
@@ -154,12 +143,8 @@ class HomeState with ChangeNotifier{
   }
 
 
-  Future<List<Meal>> allMeals(Shop shop, String category)async{
-
-
-
+  Future<List<Meal>> allMeals(Shop shop, String category) async {
     List<MealOption> options = [];
-
     Meal meal;
     List<dynamic> compulsoryOptions = [];
     Map<dynamic,dynamic> numberPerOption = {};
@@ -170,11 +155,8 @@ class HomeState with ChangeNotifier{
 
           value.documents.forEach((doc) {
             doc.data.forEach((key, value) {
-
               if(key == 'compulsoryOptions'){
                 compulsoryOptions = value.toList();
-
-
               }
             });
 
@@ -190,9 +172,7 @@ class HomeState with ChangeNotifier{
                 // Different options
                 for(int optionName = 0;optionName<compulsoryOptions.length;optionName++){
                   numberPerOption = value[compulsoryOptions[optionName]];
-
                   for(int optionValue =1;optionValue< numberPerOption.length +1;optionValue++){
-
                     options.add(
                         MealOption(
                             title: doc.data['Options'][compulsoryOptions[optionName]]['Item $optionValue']['title'],
@@ -200,46 +180,17 @@ class HomeState with ChangeNotifier{
                             category:compulsoryOptions[optionName]
                         )
                     );
-
                   }
                   meal.addOption(options);
-
                   options = [];
-
-
                 }
-
-
-
-
               }
             });
-
-
             meals.add(meal);
           });
-
-
-
-
-
-
     });
     tab=2;
     notifyListeners();
-
     return meals;
-
-
-
-
   }
-
-
-
-
-
-
-
-
 }

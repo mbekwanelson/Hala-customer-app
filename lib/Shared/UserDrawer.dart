@@ -44,15 +44,11 @@ class _UserDrawerState extends State<UserDrawer> {
       child: ListView(
         children: <Widget>[
           Container(
-
-
             height:300,
             child: UserAccountsDrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.grey[800],
               ),
-
-
               accountName: Padding(
                 padding: const EdgeInsets.only(bottom:12),
                 child: Text(
@@ -64,10 +60,8 @@ class _UserDrawerState extends State<UserDrawer> {
               ),
               currentAccountPicture:CircleAvatar(
                 radius:50,
-                backgroundImage:AssetImage("Picture/avatar.png") ,
+                backgroundImage: AssetImage("Picture/avatar.png") ,
                 backgroundColor: Colors.grey[400],
-
-
               ),
             ),
           ),
@@ -115,63 +109,17 @@ class _UserDrawerState extends State<UserDrawer> {
             },
             child: Text("Submit"),
           ),
-          FlatButton(
-            child:Text("Order Progress"),
-            onPressed: ()async{
+          // FlatButton(
+          //   child:Text("Order Progress"),
+          //   onPressed: ()async{
+          //
+          //       Navigator.push(context, MaterialPageRoute(builder: (context)=> AfterCheckOut()));
+          //
+          //     Navigator.pop(context);
+          //
+          //   },
+          // ),
 
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> AfterCheckOut()));
-
-              Navigator.pop(context);
-
-            },
-          ),
-          FlatButton(
-              onPressed: (){
-                return showDialog<void>(
-                  context: context,
-                  barrierDismissible: false, // user must tap button!
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('AlertDialog Title'),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: <Widget>[
-                            Text('What is your occupation?'),
-
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-
-                        TextButton(
-                          child: Text('In school'),
-                          onPressed: () {
-                            userDrawerState.setOccupation('In school');
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        TextButton(
-                          child: Text('In varsity'),
-                          onPressed: () {
-                            userDrawerState.setOccupation('In varsity');
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        TextButton(
-                          child: Text('Working'),
-                          onPressed: () {
-                            userDrawerState.setOccupation('Working');
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              child: Text(
-                "show dialog"
-              )),
           FlatButton(
             child: Text(
               "Order Progress"
@@ -187,9 +135,6 @@ class _UserDrawerState extends State<UserDrawer> {
     )
     );
     }),
-
-
-
         ],
       ),
     );

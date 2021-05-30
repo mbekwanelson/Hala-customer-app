@@ -5,8 +5,4 @@ class PromoCheckOut{
   double price;
 
   PromoCheckOut({this.promoValue,this.index,this.price});
-
-
-
-
 }

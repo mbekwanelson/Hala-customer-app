@@ -5,5 +5,4 @@ class Promotion{
   String shop;
 
   Promotion({this.promoCode,this.promoValue,this.shop});
-
 }

@@ -13,23 +13,16 @@ class OptionsState with ChangeNotifier{
 
   logOptionScreen(String category){
     FirebaseAnalytics().logEvent(name: "SelectedCategory",parameters: {
-      "Category":category,
+      "Category": category,
     });
-
-
-
-
-
   }
   List<Option> _optionsFromDb(QuerySnapshot snapshot){
 
     List<Option> options = [];
-
     for(int cat = 0;cat<snapshot.documents.length;cat++){
-
       options.add(Option(
         category: snapshot.documents[cat].data["name"],
-        url:snapshot.documents[cat].data["url"]
+        url: snapshot.documents[cat].data["url"]
       ));
     }
     return options;
@@ -37,21 +30,6 @@ class OptionsState with ChangeNotifier{
 
   //ALLOW US TO ADD DIFFERENT CATEGORIES
   Stream<List<Option>> getOptions(){
-
     return Firestore.instance.collection("Options").snapshots().map(_optionsFromDb);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

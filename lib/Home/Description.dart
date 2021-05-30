@@ -32,19 +32,16 @@ class _DescriptionState extends State<Description> {
     DescriptionState().checkIfSameShop( widget.food.shop).then((value)
     {
       setState(() {
-        print('Value: $value');
-        orderSameShop =value;
+        orderSameShop = value;
       });
     }
     );
-    print('OrderSameShop: $orderSameShop');
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     final descriptionState = Provider.of<DescriptionState>(context);
     widget.food.quantity = descriptionState.count;
-
     return orderSameShop !=true ? Container(
 
       child:Column(
@@ -79,7 +76,6 @@ class _DescriptionState extends State<Description> {
               fontSize: 20,
               letterSpacing: 2,
             ),
-
           ),
           SizedBox(
               height:30
@@ -100,7 +96,6 @@ class _DescriptionState extends State<Description> {
             style:TextStyle(
               fontSize: 20,
               letterSpacing: 2,
-
             ),
           ),
 
@@ -137,7 +132,6 @@ class _DescriptionState extends State<Description> {
                 backgroundColor: Colors.red,
                 onPressed: (){
                   setState(() {
-
                     widget.food.quantity = descriptionState.addQuantity();
                   });
                 },

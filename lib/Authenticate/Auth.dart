@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commons/commons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -47,12 +48,9 @@ class Auth {
     try{
       await _googleSignIn.signOut();
       return await _auth.signOut();
-
     }
     catch(e){
-      print("________________________________no SIGN OUT $e");
       return null;
-
     }
   }
 
@@ -84,7 +82,7 @@ class Auth {
         'quantity': food.quantity,
         'active': 1,
         'user': uid,
-        'date':date,
+        'date':DateTime.now(),
         'shopSeen':"No",
         'promo': promoApplied=="Yes" ? promo: 0,
         'Payment Method':"Cash"
@@ -107,8 +105,8 @@ class Auth {
         {
           "${food.title}.checkOut": "Yes",
           "${food.title}.promo":promoApplied=="Yes" ? promo: 0,
-        "${food.title}.Payment Method":"Cash"
-
+        "${food.title}.Payment Method":"Cash",
+          "${food.title}.date": DateTime.now()
         });
 
 
@@ -126,7 +124,7 @@ class Auth {
     String mealOption = "";
 
     for(String option in food.mealOptions){
-      mealOption+=option +",";
+      mealOption += option + ",";
     }
 
 
@@ -138,16 +136,18 @@ class Auth {
         'quantity': food.quantity,
         'active': 1,
         'user': uid,
-        'date':date,
+        'date':DateTime.now(),
         'shopSeen':"No",
         'promo': promoApplied=="Yes" ? promo: 0,
         "Payment Method":"Card"
-
       }
 
 
 
+
+
     },merge: true);
+
     await Future.delayed(const Duration(seconds: 1), () => "1");
     if(promoApplied=="Yes") {
       indexPromo.isEmpty ? print(indexPromo) : await Firestore.instance.collection("Users").document(uid).updateData(
@@ -161,7 +161,8 @@ class Auth {
         {
           "${food.title}.checkOut": "Yes",
           "${food.title}.promo":promoApplied=="Yes" ? promo: 0,
-          "${food.title}.Payment Method":"Card"
+          "${food.title}.Payment Method":"Card",
+          "${food.title}.date": DateTime.now()
 
         });
 
@@ -172,7 +173,6 @@ class Auth {
 
   List<ConfirmCheckOut> _ordersFromSnapshot(DocumentSnapshot snapshot) {
    orders = [];
-
     snapshot.data.keys.forEach((element) {
 
       try {
@@ -187,20 +187,13 @@ class Auth {
               shop:snapshot[element]["shop"],
               mealOptions: snapshot[element]["selectedOptions"] ?? []
           ));
-
-
-
         }
       }
       catch(e){
         print(e);
       }
     });
-
-
-
-  return orders;
-
+   return orders;
   }
 
 
@@ -229,10 +222,7 @@ class Auth {
 
   Future inputData() async {
     final FirebaseUser user = await _auth.currentUser();
-
     return user.uid;
     // here you write the codes to input the data into firestore
   }
-
-
 }

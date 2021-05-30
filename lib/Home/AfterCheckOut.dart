@@ -38,9 +38,6 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
   Widget build(BuildContext context) {
     /// Example 02
     final shopsSeen = Provider.of<List<String>>(context);
-
-
-
     var customWidth02 = CustomSliderWidths(
         trackWidth: 1, progressBarWidth: 2);
     var customColors02 = CustomSliderColors(
@@ -154,7 +151,6 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
           ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-
             children: [
               Container(
                 height: 500,
@@ -206,14 +202,12 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
                               // return ' $budget';
                               // }
                       ),
-                                  startAngle: 180,
-                                  angleRange: 270,
-                                  size: 400.0,
-                                  animationEnabled: true
-                              ),
-                              min: viewModel02.min,
-                              max: viewModel02.max,
-                              initialValue:double.parse(shopsSeen[index].split('*')[2]) , // progress level
+                          startAngle: 180,
+                          angleRange: 270,
+                          size: 400.0,
+                          animationEnabled: true
+                      ), min: viewModel02.min,
+                       max: viewModel02.max, initialValue:double.parse(shopsSeen[index].split('*')[2]) , // progress level
                               )),
                               ),
                             ),
@@ -227,34 +221,8 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
                     }
                 ),
               ),
-              SizedBox(height: 20),
-              TextButton(
-                  onPressed: () {
-                    Navigator
-                        .push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RedirectToOzow(amount: "6.00")),
-                    );
-                  },
-                  child: Text(
-                      "Make Payment via Ozow",
-                      style: TextStyle(
-                          fontSize: 25
-                      )
-                  )
-              ),
-              TextButton(
-                  onPressed: () {
-                   updateShop();
-                  },
-                  child: Text(
-                      "Order Progress",
-                      style: TextStyle(
-                          fontSize: 25
-                      )
-                  )
-              ),
+
+
             ],
           )
       );

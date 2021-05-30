@@ -86,7 +86,7 @@
 //     _polyLines.add(
 //         Polyline(
 //           polylineId: PolylineId(_lastPosition.toString()),//why lastposition?
-//           width: 3,
+//
 //           geodesic: true,
 //           points: _convertToLatLng(_decodePoly(encodedPolly)),
 //           color:Colors.blue, // color of route

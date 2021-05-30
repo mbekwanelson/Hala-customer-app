@@ -6,6 +6,4 @@ class DropDown{
   MealOption selected;
 
   DropDown({this.dropDownItem,this.selected});
-
-
 }

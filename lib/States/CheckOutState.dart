@@ -20,20 +20,12 @@ class CheckOutState with ChangeNotifier{
   final price = Price();
   double promo=0;
 
-
-
   CheckOutState(){
-
   }
   List<ConfirmCheckOut> _ordersFromSnapshot(DocumentSnapshot snapshot) {
     snapshot.data.keys.forEach((element) {
-
-
       try {
-
-
         if(snapshot[element]["inActive"]==1 && snapshot[element]["checkOut"]!="Yes"){
-
 
           ConfirmCheckOut confirmCheckOut = ConfirmCheckOut(
               title:snapshot[element]["title"],
@@ -42,7 +34,6 @@ class CheckOutState with ChangeNotifier{
               time: snapshot[element]["date"],
               shop:snapshot[element]["shop"],
               mealOptions: snapshot[element]["selectedOptions"] ?? []
-
           );
 
           //log('THOSE OPTIONS ${confirmCheckOut.mealOptions}');
@@ -53,15 +44,12 @@ class CheckOutState with ChangeNotifier{
 
 
         }
-        print(snapshot[element]["shop"]);
       }
       catch(e){
         print(e);
       }
     });
-
     return orders;
-
   }
 
   Future userID() async {
@@ -71,7 +59,6 @@ class CheckOutState with ChangeNotifier{
 
 
   Stream<List<ConfirmCheckOut>> myOrders(String uid){
-
     return Firestore.instance.collection("OrdersRefined").document(uid).snapshots().map(_ordersFromSnapshot);
   }
 
@@ -116,7 +103,6 @@ class CheckOutState with ChangeNotifier{
   Future<Map<String,dynamic>> _getPromosFromUser()async{
     dynamic uid = await Auth().inputData();
      DocumentSnapshot user =await Firestore.instance.collection("Users").document(uid).get();
-     print(user['promotions']);
       return user['promotions'];
   }
 
@@ -129,9 +115,6 @@ class CheckOutState with ChangeNotifier{
     if(userPromoKey.isNotEmpty) {
       for (int i = 0; i < userPromoKey.length; i++) {
         for (int j = 0; j < promos.length; j++) {
-          print("${promos[j]
-              .data['promoCode']} VS ${userPromos[userPromoKey[i]]["promoCode"]}");
-          print(promos[j].documentID);
           if (promos[j].data['promoCode'] == userPromos[userPromoKey[i]]["promoCode"] &&
               userPromos[userPromoKey[i]]["used"] == "No" &&
               promos[j].documentID == shop) {
@@ -146,10 +129,5 @@ class CheckOutState with ChangeNotifier{
       }
     }
     return null;
-
-
-
   }
-
-
 }

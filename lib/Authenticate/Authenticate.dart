@@ -26,9 +26,6 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) {
-    print("Show Sign INNNNNN : ${showSignIn}");
-
-
     if(showSignIn){
       return ChangeNotifierProvider.value(
         value:SignInState(),

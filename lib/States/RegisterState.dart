@@ -101,16 +101,13 @@ class RegisterState with ChangeNotifier {
   registerClicked() async {
     if (_formKey.currentState.validate()) {
       // if the form is valid
-
       loading = true;
-
       dynamic result = await registerWithEmailAndPassword(
           email, password); //used dynamic because could either get user or null
       if (result == null) {
         loading = false;
         //error = "please supply a valid email";
       }
-
     }
     notifyListeners();
   }
@@ -131,30 +128,18 @@ class RegisterState with ChangeNotifier {
 
       if(fb_user !=null){
         await fb_user.sendEmailVerification().then((value){
-          print("__________________Is email verified: ${fb_user.isEmailVerified}");
-
         });
         // loads user data to database every time new user registers
         String uid = await Auth().inputData();
         await Firestore.instance.collection("Users").document(uid).setData({
-
-
           "name":name.text,
           "surname":surname.text,
           "email":email,
           "user":"Customer",
           "date":DateTime.now()
-
         });
         //await Future.delayed(const Duration(seconds: 1), () => "1");
       }
-
-
-
-      print("Is email verified: ${fb_user.isEmailVerified}");
-
-
-
 
       //create a new document for user with uid
       return fb_user.isEmailVerified ? _userFromFireBaseUser(fb_user): null;
@@ -189,16 +174,12 @@ class RegisterState with ChangeNotifier {
         case "ERROR_NETWORK_REQUEST_FAILED":
           error = "Please check your internet connection";
           break;
-
-
         default:
           error = "An undefined Error happened.";
       }
       notifyListeners();
       print("could not create user");
       return null;
-
     }
   }
-
 }

@@ -11,13 +11,10 @@ class PersonalizeMealState{
   Future updateUserData(Meal meal) async{
 
     var uid = await Auth().inputData();
-
-
     List<String> selectedOptions = [];
     for(int option=0;option<meal.selected.length;option++){
       selectedOptions.add(meal.selected[option].title);
     }
-
 
     var docData = {
       "${meal.title}":{
@@ -35,15 +32,9 @@ class PersonalizeMealState{
         "shopSeen":null,
         "orderCollected":null
       }
-
     };
 
-
-
-
     return await Firestore.instance.collection("OrdersRefined").document(uid).setData(docData,merge: true);
-
-
   }
 
   Future checkIfSameShop(String shop)async{
@@ -53,20 +44,12 @@ class PersonalizeMealState{
     DocumentSnapshot currentOrders;
     int count = 0;
     int numberOptions =0;
-
-
-
     snapshot  = await Firestore.instance.collection('OrdersRefined').document(uid).get();
     // gets all order items in database
-
-
     // checks for items that were not checked out
-
-
 
     if(snapshot.data !=null){
       List<dynamic> keys = snapshot.data.keys.toList();
-
       try {
         for(int i=0;i<snapshot.data.length;i++){
           if(snapshot.data[keys[i]]['checkOut']=="No"){
@@ -78,18 +61,11 @@ class PersonalizeMealState{
         print('index null');
       }
 
-
-
-
-
-
-
       try {
         for(int i = 0;i<snapshot.data.length;i++){
           if(snapshot.data[keys[i]]['shop'] == shop && snapshot.data[keys[i]]['checkOut']=="No" ){
             count++;
           }
-
         }
       } on Exception catch (e) {
         // TODO
@@ -103,19 +79,7 @@ class PersonalizeMealState{
       else{
         return false;
       }
-
-
     }
     return true;
-
   }
-
-
-
-
-
-
-
-
-
 }

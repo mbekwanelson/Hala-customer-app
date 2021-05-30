@@ -32,10 +32,8 @@ class _WrapperState extends State<Wrapper> {
     // if it returns a user that means that that user is signed in (registered)
     try {
       user.reload().then((value){
-        print(user.isEmailVerified);
-      });
-      print(user.isEmailVerified);
 
+      });
       if (user==null){
         // user not signed in
         return Authenticate();

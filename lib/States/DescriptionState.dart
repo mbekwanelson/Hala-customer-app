@@ -38,10 +38,7 @@ class DescriptionState with ChangeNotifier{
 
   //saves user orders to database
   Future updateUserData(FoodItem food,String id) async{
-
     var uid = await userId();
-
-
     var docData = {
       "${food.title}":{
         "title":food.title,
@@ -59,17 +56,7 @@ class DescriptionState with ChangeNotifier{
       
     };
 
-
-
-
-
-
-
-
-
     return await Firestore.instance.collection("OrdersRefined").document(uid).setData(docData,merge: true);
-
-
   }
 
   logOrderToCart({String title,int quantity,String shop,double price}) {
@@ -89,19 +76,12 @@ class DescriptionState with ChangeNotifier{
     int count = 0;
     int numberOptions =0;
 
-
-
    snapshot  = await Firestore.instance.collection('OrdersRefined').document(uid).get();
    // gets all order items in database
-
-
    // checks for items that were not checked out
-
-
 
    if(snapshot.data !=null){
      List<dynamic> keys = snapshot.data.keys.toList();
-
      try {
        for(int i=0;i<snapshot.data.length;i++){
          if(snapshot.data[keys[i]]['checkOut']=="No"){
@@ -112,12 +92,6 @@ class DescriptionState with ChangeNotifier{
        // TODO
        print('index null');
      }
-
-
-
-
-
-
 
      try {
        for(int i = 0;i<snapshot.data.length;i++){
@@ -170,6 +144,4 @@ class DescriptionState with ChangeNotifier{
   //
   //  return true;
   }
-
-
 }

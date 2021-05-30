@@ -8,6 +8,4 @@ class Message{
   Timestamp time;
 
   Message({this.message,this.from,this.time});
-
-
 }
