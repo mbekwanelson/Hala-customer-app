@@ -61,6 +61,9 @@ class Auth {
 
   //CB and edit
   Future checkOutApprovedCash(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied) async{
+    print("In here!");
+    print(food.title);
+
 
     String uid = await inputData();
     DateTime date = DateTime.now();
@@ -72,6 +75,7 @@ class Auth {
     for(String option in food.mealOptions){
       mealOption+=option +",";
     }
+
 
 
     await Firestore.instance.collection("OrdersShops").document("OrdersShops").collection(food.shop).document(uid).setData({

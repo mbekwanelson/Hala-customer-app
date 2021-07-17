@@ -36,6 +36,8 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
 
   @override
   Widget build(BuildContext context) {
+    print(uid);
+    print(shopName);
     /// Example 02
     final shopsSeen = Provider.of<List<String>>(context);
     var customWidth02 = CustomSliderWidths(
@@ -87,7 +89,7 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
       }
     }
 
-    if (shopsSeen == null){
+    if (shopsSeen == null ){
       return Scaffold(
 
           appBar: AppBar(
@@ -135,7 +137,56 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
           )
       );
   }
+    else if (shopsSeen==[]){
+      return Scaffold(
+
+          appBar: AppBar(
+            title: Text(
+              "Order progress",
+              style: TextStyle(
+                  letterSpacing: 2
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
+          body: Column(
+
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(60),
+                child: Center(
+                    child:Text(
+                      "Preparing your order",
+                      style: TextStyle(
+                          fontSize: 30
+                      ),
+                    )
+                ),
+              ),
+              Center(
+                child:  Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Container(
+                      height: MediaQuery.of(context).size.height*0.4,
+                      width: MediaQuery.of(context).size.width*0.6,
+
+                      child:Image(
+                        image: AssetImage(
+                            "Picture/preparingOrder.gif"
+                        ),
+                        fit: BoxFit.cover,
+                      )
+
+                  ),
+                ),
+              )
+            ],
+          )
+      );
+    }
     else {
+
       updateShop();
       return Scaffold(
           backgroundColor: Colors.black,

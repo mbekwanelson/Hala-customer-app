@@ -108,33 +108,49 @@ class ShopsState with ChangeNotifier{
        Future<QuerySnapshot> fquerySnapshot = collectionReference.getDocuments();
 
        QuerySnapshot snapshot = await fquerySnapshot; //.then((snapshot) async {
-         for(int shop = 0;shop < snapshot.documents.length;shop++){
-           double lat = snapshot.documents[shop].data["latitude"];
-           double long = snapshot.documents[shop].data["longitude"];
+    try {
+      for (int shop = 0; shop < snapshot.documents.length; shop++) {
+        double lat = snapshot.documents[shop].data["latitude"];
+        double long = snapshot.documents[shop].data["longitude"];
+        print(snapshot.documents[shop].data["name"]);
+        print(lat);
+        print(long);
+        print("VS");
+        print(currentUserPosition.latitude);
+        print(currentUserPosition.longitude);
 
-           var gcd = new GreatCircleDistance
-               .fromDegrees(latitude1: currentUserPosition.latitude, longitude1: currentUserPosition.longitude, latitude2: lat, longitude2: long);
+        final l2.Distance distance = new l2.Distance();
 
-           print('Distance from ${snapshot.documents[shop].data["name"]} to 2 using the Haversine formula is: ${gcd.haversineDistance()}');
-           print('Distance from ${snapshot.documents[shop].data["name"]} to 2 using the Spherical Law of Cosines is: ${gcd.sphericalLawOfCosinesDistance()}');
-           print('Distance from ${snapshot.documents[shop].data["name"]} to 2 using the Vicenty`s formula is: ${gcd.vincentyDistance()}');
 
-           final l2.Distance distance = new l2.Distance();
+        double km = 0.00;
+        String carRouteDistance = await GoogleMapsServices()
+            .getRouteCoordinates(
+            LatLng(currentUserPosition.latitude, currentUserPosition.longitude),
+            LatLng(lat, long));
+        km = double.parse(carRouteDistance)/1000;
+        print("km:$km");
+        // need to change km
 
-           double km = 0.00;
-           String carRouteDistance = await GoogleMapsServices().getRouteCoordinates( LatLng(currentUserPosition.latitude,currentUserPosition.longitude) , LatLng(lat, long));
-           km = double.parse(carRouteDistance)/1000;
-           if(km <= 30.00) {
-                  shops.add(Shop(
-                    shopName: snapshot.documents[shop].data["name"],
-                    shopBackground: snapshot.documents[shop].data["background"],
-                    categories: snapshot.documents[shop].data["categories"],
-                    category: snapshot.documents[shop].data["category"],
-                    longitude: long,
-                    latitude: lat,
-                  ));
-           }
-         }
+        if (km <= 3000.00) {
+          print("km:$km");
+          print("IN ${snapshot.documents[shop].data["name"]}");
+          shops.add(Shop(
+            shopName: snapshot.documents[shop].data["name"],
+            shopBackground: snapshot.documents[shop].data["background"],
+            categories: snapshot.documents[shop].data["categories"],
+            category: snapshot.documents[shop].data["category"],
+            longitude: long,
+            latitude: lat,
+          ));
+          print(shop);
+        }
+      }
+      print(shops);
+    }
+    catch(e){
+      print(e);
+    }
+
        yield shops;
     }
 }

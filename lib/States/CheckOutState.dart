@@ -88,11 +88,11 @@ class CheckOutState with ChangeNotifier{
 
   }
 
-  double calculateTotal(List<ConfirmCheckOut> ordersSelected){
+  double calculateTotal(List<ConfirmCheckOut> ordersSelected,String paymentMethod){
     try {
 
       return double.parse(
-          (price.calculatePrice(ordersSelected))
+          (price.calculatePrice(ordersSelected,paymentMethod))
               .toStringAsFixed(2));
     }
     catch(e){

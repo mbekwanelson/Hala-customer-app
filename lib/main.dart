@@ -8,6 +8,8 @@ import 'package:mymenu/Home/Home.dart';
 
 
 import 'package:mymenu/Authenticate/Auth.dart';
+import 'package:mymenu/Home/Shops.dart';
+import 'package:mymenu/Navigate/Director.dart';
 import 'package:mymenu/Notifications/PushNotificationsManager.dart';
 import 'package:mymenu/Navigate/Wrapper.dart';
 import 'package:mymenu/States/UserDrawerState.dart';
@@ -76,7 +78,8 @@ class _MainState extends State<Main> {
           width: 900,
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: Wrapper(),
+           home: Wrapper(),
+
           ),
         ),
       ),

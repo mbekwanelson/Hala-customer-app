@@ -26,6 +26,7 @@ class Director extends StatefulWidget {
 
 
 
+
   Director({this.shop,this.category});
   @override
   _DirectorState createState() => _DirectorState();
@@ -66,7 +67,7 @@ class _DirectorState extends State<Director> {
         // home: Home(
         //   restaurant:widget.restaurant
         // ),
-     home:Home(shop:widget.shop),
+     home:Home(shop:widget.shop,category:widget.category),
       ),
     );
 

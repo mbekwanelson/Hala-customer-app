@@ -33,8 +33,9 @@ import 'package:mymenu/VoucherHome/VoucherHome.dart';
 class Home extends StatefulWidget {
 
   Shop shop;
+  String category;
 
-  Home({this.shop});
+  Home({this.shop,this.category});
   @override
   _HomeState createState() => _HomeState();
 }
@@ -43,8 +44,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-//    analytics.logLogin();
-//    analytics.logEvent(name: "Restaurant Screen");
+
   List<String> words = [
     "one","two","three","four","five","one","two","three","four","five","one","two","three","four","five"
   ];
@@ -233,7 +233,7 @@ class _HomeState extends State<Home> {
                       setState(() {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CheckOut())
+                          MaterialPageRoute(builder: (context) => CheckOut(shop:widget.shop,category:widget.category))
                         );
                       });
                     },

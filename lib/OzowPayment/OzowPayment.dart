@@ -39,7 +39,7 @@ class RedirectToOzow extends StatefulWidget {
   String bankReference = 'Sales442';
   String isTest = 'false';
   String hashCheck;
-  String privateKey = '';
+  String privateKey = 'pi4ZwRMzMvqVZ0dpNylAaYdmIWTKDrfl';
   Transaction transaction;
   cardPaymentDetail customerOrderDetail;
   String uid;
@@ -99,7 +99,7 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
     var transactionStatusResponse = await http.get(
       uri,
       headers: {
-        "ApiKey": '',
+        "ApiKey": 'ZUXVOvt39xaavip2M1BZygU4CjDpD930',
         "Content-Type": 'application/x-www-form-urlencoded',
         "Accept": 'application/json'
       },
@@ -157,7 +157,7 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
     var posta = '';
     var resp = await http.post(Uri.encodeFull('https://pay.ozow.com/'),
         headers: {
-          "ApiKey": '',
+          "ApiKey": 'ZUXVOvt39xaavip2M1BZygU4CjDpD930',
           "Content-Type": 'application/x-www-form-urlencoded',
           "Accept": 'application/json'
         },
@@ -245,7 +245,7 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
         var resp = await http
             .post(Uri.encodeFull('https://api.ozow.com/PostPaymentRequest'),
                 headers: {
-                  "ApiKey": '',
+                  "ApiKey": 'ZUXVOvt39xaavip2M1BZygU4CjDpD930',
                   "Content-Type": 'application/json',
                   "Accept": 'application/json'
                 },
