@@ -26,7 +26,7 @@ class _MyListViewState extends State<MyListView> {
 
 
     if(widget.foodAndConnect.length==0){
-      return Loading();}
+      return Expanded(child: Loading());}
     else{
       return  MyListViewPhone(foodAndConnect: widget.foodAndConnect,);
       return isPortrait =="Yes" ? MyListViewPhone(foodAndConnect: widget.foodAndConnect,) :

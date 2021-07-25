@@ -31,9 +31,9 @@ class _MealDescriptionState extends State<MealDescription> {
     }
 
     return widget.meals.isEmpty ?
-    Loading() : Container(
-      height: MediaQuery.of(context).size.height*0.7,
-      child: Expanded(
+    Expanded(child:Loading() ,) : Expanded(
+      child: Container(
+        height: MediaQuery.of(context).size.height*0.7,
         child: ListView.builder(
           //scrollDirection: Axis.horizontal,
           //shrinkWrap: true,

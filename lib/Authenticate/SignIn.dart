@@ -163,7 +163,6 @@ class _SignInState extends State<SignIn> {
                             onPressed:() async{
 
                               singInState.signInClicked();
-
                             },
                             color:Colors.black,
                             child:Text(
