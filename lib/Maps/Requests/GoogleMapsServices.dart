@@ -6,6 +6,7 @@ const apiKey = "AIzaSyB6KaI6MDBB2gorARw-DpktzVRRQQTFmZ0";
 class GoogleMapsServices {
 
   Future<String> getRouteCoordinates(LatLng l1, LatLng l2) async {
+
      String url = "https://maps.googleapis.com/maps/api/directions/json?origin=${l1
          .latitude},${l1.longitude}&destination=${l2.latitude},${l2
          .longitude}&key=$apiKey";
