@@ -29,7 +29,7 @@ dependencies:
   flutter_spinkit: "^4.1.2"
   google_maps_flutter: ^0.5.25+3
   location: ^2.3.5
-  great_circle_distance: ^1.0.1
+
   firebase_messaging:
 
   image_picker: ^0.6.0+17

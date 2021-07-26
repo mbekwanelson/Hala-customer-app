@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Home/AfterCheckOut.dart';
 import 'package:mymenu/Models/ConfirmCheckOut.dart';
@@ -7,6 +8,7 @@ import 'package:mymenu/Models/Promotion.dart';
 import 'package:mymenu/Models/Shop.dart';
 import 'package:mymenu/Models/cardPaymentDetail.dart';
 import 'package:mymenu/OzowPayment/OzowPayment.dart';
+import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/States/AfterCheckOutState.dart';
 import 'package:mymenu/States/MealDetailsState.dart';
@@ -172,6 +174,9 @@ class _MealDetailsState extends State<MealDetails> {
 
                   }
                   else{
+                    Position position = await Geolocator().getCurrentPosition(
+                    desiredAccuracy: LocationAccuracy.high);
+                     await Database().loadLocation(position.latitude, position.longitude);
 
                     for (int i = 0; i < widget.meals.length; i++) {
                       print(widget.meals[i].title);

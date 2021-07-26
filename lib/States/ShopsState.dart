@@ -12,14 +12,14 @@ import 'package:mymenu/Models/FoodItem.dart';
 import 'package:mymenu/Models/Option.dart';
 import 'package:mymenu/Models/Restuarant.dart';
 import 'package:mymenu/Models/Shop.dart';
-import 'package:great_circle_distance/great_circle_distance.dart';
+
 
 
 
 class ShopsState with ChangeNotifier{
 
   List<FoodItem> food =[];
-  final double CUTOFFDISTANCE = 30.00;
+  final double CUTOFFDISTANCE = 300000.00;
 
   //constructor
   ShopsState();
@@ -127,7 +127,7 @@ class ShopsState with ChangeNotifier{
             .getRouteCoordinates(
             LatLng(currentUserPosition.latitude, currentUserPosition.longitude),
             LatLng(lat, long));
-        km = double.parse(carRouteDistance)/1000;
+        km = double.parse(carRouteDistance) / 1000;
         print("km:$km");
         // need to change km
 
@@ -144,11 +144,13 @@ class ShopsState with ChangeNotifier{
           ));
           print(shop);
         }
+
       }
       print(shops);
     }
-    catch(e){
+    catch(a,e){
       print(e);
+      print(a);
     }
 
        yield shops;

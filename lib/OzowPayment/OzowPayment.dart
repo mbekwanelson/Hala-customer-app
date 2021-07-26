@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Home/AfterCheckOut.dart';
@@ -13,6 +14,7 @@ import 'package:mymenu/Models/PaymentRequest.dart';
 import 'package:mymenu/Models/Transaction.dart';
 import 'package:mymenu/Models/cardPaymentDetail.dart';
 import 'package:mymenu/OzowPayment/OzowPaymentState.dart';
+import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/States/AfterCheckOutState.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -277,6 +279,10 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
               negativeAction: (){},
               negativeText: "Cancel"
           );
+          // sends user coordinates to database
+          Position position = await Geolocator().getCurrentPosition(
+              desiredAccuracy: LocationAccuracy.high);
+          await Database().loadLocation(position.latitude, position.longitude);
 
           for (int j= 0; j < widget.customerOrderDetail.orders.length; j++) {
             // updates customer order
