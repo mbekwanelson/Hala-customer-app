@@ -20,15 +20,10 @@ class Database{
 // Sends users location to driver
   Future loadLocation(double latitude,double longitude)async{
     String uid = await Auth().inputData();
-
-    print("Load Location Method");
-    print("${latitude}" + ", ${longitude}");
-    print("${uid}");
-
     return await Firestore.instance.collection("Location").document(uid)
         .setData({
-      "Customerlatitude":latitude,
-      "Customerlongitude":longitude,
+        "Customerlatitude":latitude,
+        "Customerlongitude":longitude,
     });
 
   }
@@ -41,9 +36,6 @@ class Database{
   // returns only burgers from food and connect
 
   Future  test() async{
-
-
-
     foodAndConnectCollection
         .where("category",isEqualTo:"Burger")
         .getDocuments()
