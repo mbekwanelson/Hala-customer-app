@@ -20,8 +20,13 @@ class Database{
 // Sends users location to driver
   Future loadLocation(double latitude,double longitude)async{
     String uid = await Auth().inputData();
+
+    print("Load Location Method");
+    print("${latitude}" + ", ${longitude}");
+    print("${uid}");
+
     return await Firestore.instance.collection("Location").document(uid)
-        .updateData({
+        .setData({
       "Customerlatitude":latitude,
       "Customerlongitude":longitude,
     });
@@ -49,7 +54,6 @@ class Database{
            for(int i =0;i<docs.documents.length;i++){
 
                 foods.add(
-
                      FoodItem(
                          title :docs.documents[i].data["title"]?? "no",
                          image:docs.documents[i].data["image"] ?? "https://cdn.pixabay.com/photo/2018/03/04/20/08/burger-3199088__340.jpg",

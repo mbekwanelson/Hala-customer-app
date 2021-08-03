@@ -153,56 +153,50 @@ class _MealDetailsState extends State<MealDetails> {
 
 
                 OutlinedButton(
-        onPressed: ()async{
-                  if(widget.card){
+                onPressed: ()async{
+                          if(widget.card){
 
 
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context){
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context){
 
-                                return RedirectToOzow(
-                                      amount: (widget.subtotal+cardFee+deliveryFee-promoValue).toStringAsFixed(2),
-                                      customerOrderDetail:
-                                          widget.cardPayment);
-                              }
-                          )
-                           );
+                                        return RedirectToOzow(
+                                              amount: (widget.subtotal+cardFee+deliveryFee-promoValue).toStringAsFixed(2),
+                                              customerOrderDetail:
+                                                  widget.cardPayment);
+                                      }
+                                  )
+                                   );
+                          }
+                          else{
+                            Position position = await Geolocator().getCurrentPosition(
+                            desiredAccuracy: LocationAccuracy.high);
+                             await Database().loadLocation(position.latitude, position.longitude);
 
+                            for (int i = 0; i < widget.meals.length; i++) {
+                              print(widget.meals[i].title);
+                              await Auth().checkOutApprovedCash(
+                                  widget.meals[i],
+                                  widget.promo.promoValue,
+                                  widget.promo.index,
+                                  widget.promoApplied);
+                              //Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          StreamProvider.value(
+                                              value: AfterCheckOutState()
+                                                  .getShopProgress(
+                                                  uid: widget.user),
+                                              child: AfterCheckOut())));
 
-                  }
-                  else{
-                    Position position = await Geolocator().getCurrentPosition(
-                    desiredAccuracy: LocationAccuracy.high);
-                     await Database().loadLocation(position.latitude, position.longitude);
-
-                    for (int i = 0; i < widget.meals.length; i++) {
-                      print(widget.meals[i].title);
-                      await Auth().checkOutApprovedCash(
-                          widget.meals[i],
-                          widget.promo.promoValue,
-                          widget.promo.index,
-                          widget.promoApplied);
-
-
-
-
-                      //Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  StreamProvider.value(
-                                      value: AfterCheckOutState()
-                                          .getShopProgress(
-                                          uid: widget.user),
-                                      child: AfterCheckOut())));
-
-                  }
-                }
-                  },
+                          }
+                        }
+                          },
                     child: Text("Check Out")
                 )
 

@@ -131,7 +131,7 @@ class ShopsState with ChangeNotifier{
         print("km:$km");
         // need to change km
 
-        if (km <= 3000.00) {
+        if (km <= 10.00) {
           print("km:$km");
           print("IN ${snapshot.documents[shop].data["name"]}");
           shops.add(Shop(
