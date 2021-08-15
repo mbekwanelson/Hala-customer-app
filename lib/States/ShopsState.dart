@@ -127,11 +127,14 @@ class ShopsState with ChangeNotifier{
             .getRouteCoordinates(
             LatLng(currentUserPosition.latitude, currentUserPosition.longitude),
             LatLng(lat, long));
+
+        print("Shop Name : ${snapshot.documents[shop].data["name"]}");
+        print("Car Route Distance : ${carRouteDistance}");
         km = double.parse(carRouteDistance) / 1000;
         print("km:$km");
         // need to change km
 
-        if (km <= 10.00) {
+        if (km <= 400.00) {
           print("km:$km");
           print("IN ${snapshot.documents[shop].data["name"]}");
           shops.add(Shop(

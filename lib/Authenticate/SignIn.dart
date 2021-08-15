@@ -1,5 +1,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
@@ -31,72 +32,44 @@ class _SignInState extends State<SignIn> {
     //if loading is true  return loading widget
     return singInState.loading? Loading() :Scaffold(
          resizeToAvoidBottomInset: true,
-      
-      backgroundColor: HexColor("#393939"),
+
+      //backgroundColor: HexColor("#393939"),
       body: Align(
         alignment:Alignment.topCenter,
         child: SingleChildScrollView(
+          reverse: true,
           child: Container(
-
             padding:EdgeInsets.symmetric(vertical:20,horizontal: 50),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("Picture/halaNopotyi.jpeg"),
+                fit: BoxFit.cover,
+              ),
+            ),
             child: Column(
               children: [
-
-
-
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height*0.6,
+                  padding : const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child : Container(
+                    height : MediaQuery.of(context).size.height*0.6,
                     width: MediaQuery.of(context).size.width*0.6,
 
-                   child:Image(
-                     image:AssetImage(
-                         "Picture/HalaLogo.jpeg"
-                     ),
-                   )
+
+                   child: CircleAvatar(
+                     radius: 50,
+                        child: Container(
+                           decoration: BoxDecoration(
+                             shape: BoxShape.circle,
+                              image: DecorationImage(
+                               image: AssetImage('Picture/HalaLogo.jpeg')
+                           )
+                         ),
+                       ),
+                   ),
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(20),
-                //   child: Material(
-                //     elevation: 4.0,
-                //     shape: CircleBorder(),
-                //     clipBehavior: Clip.hardEdge,
-                //     color: Colors.black,
-                //     child: Ink.image(
-                //       image: AssetImage("Picture/HalaTransparent.jpeg"),
-                //       fit: BoxFit.scaleDown,
-                //       width: 300.0,
-                //       height: 300.0,
-                //       child: InkWell(
-                //         onTap: () {},
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.all(20),
-                //   child: Container(
-                //     child: Material(
-                //       elevation: 4.0,
-                //       shape: CircleBorder(),
-                //       clipBehavior: Clip.hardEdge,
-                //       color: Colors.transparent,
-                //       child: Ink.image(
-                //         image: AssetImage("Picture/HalaLogo.jpeg"),
-                //         fit: BoxFit.scaleDown,
-                //         width: 300.0,
-                //         height: 300.0,
-                //         child: InkWell(
-                //           onTap: () {},
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                Form(
 
+                Form(
                   key:singInState.formKey,
                   child:Column(
                     children: <Widget>[
@@ -104,7 +77,7 @@ class _SignInState extends State<SignIn> {
                         height:20,
                       ),
                       TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: "Email") ,
+                        decoration:textInputDecoration.copyWith(hintText: "Email",prefixIcon: Icon(Icons.email_outlined)),
                         validator: (val){
                          return singInState.validateEmail(val);
                         },
@@ -120,7 +93,7 @@ class _SignInState extends State<SignIn> {
                           height:20
                       ),
                       TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: "Password"),
+                        decoration: textInputDecoration.copyWith(hintText: "Password",prefixIcon: Icon(Icons.vpn_key)),
                         validator: (val) {
                           return singInState.validatePassword(val);
                         },
