@@ -11,6 +11,7 @@ class FoodItem {
   String image;
   int quantity;
   String shop;
+  bool inStock;
 
   FoodItem({
     this.id,
@@ -19,7 +20,8 @@ class FoodItem {
     this.price,
     this.image,
     this.quantity=1,
-    this.shop
+    this.shop,
+    this.inStock
   });
 
   void incrementQuantity() {

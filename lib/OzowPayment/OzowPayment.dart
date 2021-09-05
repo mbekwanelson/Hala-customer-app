@@ -45,8 +45,9 @@ class RedirectToOzow extends StatefulWidget {
   Transaction transaction;
   cardPaymentDetail customerOrderDetail;
   String uid;
+  double deliveryFee;
 
-  RedirectToOzow({this.amount, this.customerOrderDetail});
+  RedirectToOzow({this.amount, this.customerOrderDetail, this.deliveryFee});
 
   @override
   _RedirectToOzowState createState() => _RedirectToOzowState();
@@ -290,7 +291,9 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
                 widget.customerOrderDetail.orders[j],
                 widget.customerOrderDetail.promoValue,
                 widget.customerOrderDetail.promoIndex,
-                widget.customerOrderDetail.promoApplied);
+                widget.customerOrderDetail.promoApplied,
+                widget.deliveryFee
+            );
           };
           count++;
           widget.customerOrderDetail.orders.forEach((element) {

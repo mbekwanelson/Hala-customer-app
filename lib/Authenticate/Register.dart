@@ -27,26 +27,24 @@ class _RegisterState extends State<Register> {
 
             body: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                height: MediaQuery.of(context).size.height,
+                padding : EdgeInsets.symmetric(vertical:20,horizontal: 50),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("Picture/hala_sign_in.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 child: Form(
                   key: registerState.formKey,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                        child: Container(
-                            child:Image(
-                              image:AssetImage(
-                                  "Picture/HalaLogo.jpeg"
-                              ),
-                            )
-                        ),
-                      ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height*0.01,
                       ),
                       TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: "Name"),
+                        decoration:textInputDecoration.copyWith(hintText: "Name",prefixIcon: Icon(Icons.account_circle_sharp)),
                         controller: registerState.name,
                         validator: (name){
                           return registerState.validateName(name);
@@ -56,7 +54,8 @@ class _RegisterState extends State<Register> {
                         height: MediaQuery.of(context).size.height*0.01,
                       ),
                       TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: "Surname"),
+                        //decoration: textInputDecoration.copyWith(hintText: "Surname"),
+                        decoration:textInputDecoration.copyWith(hintText: "Surname",prefixIcon: Icon(Icons.account_circle_sharp)),
                         controller: registerState.surname,
                         validator: (surname){
                           return registerState.validateSurname(surname);
@@ -66,7 +65,7 @@ class _RegisterState extends State<Register> {
                         height: MediaQuery.of(context).size.height*0.01,
                       ),
                       TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: "Email"),
+                        decoration:textInputDecoration.copyWith(hintText: "Email",prefixIcon: Icon(Icons.email_outlined)),
                         controller: registerState.emailValue,
                         validator: (val){
                           return registerState.validateEmail(val);
@@ -82,7 +81,7 @@ class _RegisterState extends State<Register> {
                         height: MediaQuery.of(context).size.height*0.01,
                       ),
                       TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: "Password"),
+                        decoration: textInputDecoration.copyWith(hintText: "Password",prefixIcon: Icon(Icons.vpn_key)),
                         controller: registerState.passwordOriginal,
                         validator: (password){
                           return registerState.validatePassword(password);
@@ -93,8 +92,7 @@ class _RegisterState extends State<Register> {
                       ),
 
                       TextFormField(
-                        decoration:
-                            textInputDecoration.copyWith(hintText: "Confirm Password"),
+                        decoration: textInputDecoration.copyWith(hintText: "Confirm Password",prefixIcon: Icon(Icons.vpn_key)),
                         controller: registerState.passwordConfirm,
                         validator: (val) {
                          return registerState.confirmPassword(val);
@@ -115,16 +113,25 @@ class _RegisterState extends State<Register> {
                           fontSize: 24
                         )
                       ),
-                      RaisedButton(
+                      TextButton(
                         onPressed: () async {
 
                           registerState.registerClicked();
                         },
-                        color: Colors.black,
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                side: BorderSide(color: Colors.black87)
+                            ),
+                          ),
+                          backgroundColor : MaterialStateProperty.all<Color>(HexColor("#393939")),
+                        ),
+                        //color: Colors.black,
                         child: Text(
                           "Register",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.amber,
                           ),
                         ),
                       ),

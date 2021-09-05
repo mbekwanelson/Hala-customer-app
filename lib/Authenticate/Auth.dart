@@ -60,7 +60,7 @@ class Auth {
 
 
   //CB and edit
-  Future checkOutApprovedCash(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied) async{
+  Future checkOutApprovedCash(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied,double deliveryFee) async{
     print("In here!");
     print(food.title);
 
@@ -89,8 +89,8 @@ class Auth {
         'date':DateTime.now(),
         'shopSeen':"No",
         'promo': promoApplied=="Yes" ? promo: 0,
-        'Payment Method':"Cash"
-
+        'Payment Method':"Cash",
+        "deliveryFee": deliveryFee
       }
 
 
@@ -109,8 +109,9 @@ class Auth {
         {
           "${food.title}.checkOut": "Yes",
           "${food.title}.promo":promoApplied=="Yes" ? promo: 0,
-        "${food.title}.Payment Method":"Cash",
-          "${food.title}.date": DateTime.now()
+          "${food.title}.Payment Method":"Cash",
+          "${food.title}.date": DateTime.now(),
+          "${food.title}.deliveryFee": deliveryFee
         });
 
 
@@ -118,7 +119,7 @@ class Auth {
   }
 
 
-  Future checkOutApprovedCard(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied) async{
+  Future checkOutApprovedCard(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied,double deliveryFee) async{
 
     String uid = await inputData();
     DateTime date = DateTime.now();
@@ -143,7 +144,8 @@ class Auth {
         'date':DateTime.now(),
         'shopSeen':"No",
         'promo': promoApplied=="Yes" ? promo: 0,
-        "Payment Method":"Card"
+        "Payment Method":"Card",
+        "deliveryFee": deliveryFee
       }
 
 
@@ -166,8 +168,8 @@ class Auth {
           "${food.title}.checkOut": "Yes",
           "${food.title}.promo":promoApplied=="Yes" ? promo: 0,
           "${food.title}.Payment Method":"Card",
-          "${food.title}.date": DateTime.now()
-
+          "${food.title}.date": DateTime.now(),
+          "${food.title}.deliveryFee": deliveryFee
         });
 
 

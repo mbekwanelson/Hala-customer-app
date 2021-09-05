@@ -162,9 +162,9 @@ class _MealDetailsState extends State<MealDetails> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context){
-
                                         return RedirectToOzow(
                                               amount: (widget.subtotal+cardFee+deliveryFee-promoValue).toStringAsFixed(2),
+                                              deliveryFee : deliveryFee,
                                               customerOrderDetail:
                                                   widget.cardPayment);
                                       }
@@ -182,7 +182,9 @@ class _MealDetailsState extends State<MealDetails> {
                                   widget.meals[i],
                                   widget.promo.promoValue,
                                   widget.promo.index,
-                                  widget.promoApplied);
+                                  widget.promoApplied,
+                                  deliveryFee
+                              );
                               //Navigator.pop(context);
                               Navigator.push(
                                   context,

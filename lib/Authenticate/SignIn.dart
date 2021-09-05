@@ -39,144 +39,118 @@ class _SignInState extends State<SignIn> {
         child: SingleChildScrollView(
           reverse: true,
           child: Container(
-            padding:EdgeInsets.symmetric(vertical:20,horizontal: 50),
+            height: MediaQuery.of(context).size.height,
+            padding : EdgeInsets.symmetric(vertical:20,horizontal: 50),
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("Picture/halaNopotyi.jpeg"),
+                image: AssetImage("Picture/hala_sign_in.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding : const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child : Container(
-                    height : MediaQuery.of(context).size.height*0.6,
-                    width: MediaQuery.of(context).size.width*0.6,
-
-
-                   child: CircleAvatar(
-                     radius: 50,
-                        child: Container(
-                           decoration: BoxDecoration(
-                             shape: BoxShape.circle,
-                              image: DecorationImage(
-                               image: AssetImage('Picture/HalaLogo.jpeg')
-                           )
-                         ),
-                       ),
-                   ),
-                  ),
-                ),
-
                 Form(
                   key:singInState.formKey,
                   child:Column(
                     children: <Widget>[
-                      SizedBox(
-                        height:20,
-                      ),
-                      TextFormField(
-                        decoration:textInputDecoration.copyWith(hintText: "Email",prefixIcon: Icon(Icons.email_outlined)),
-                        validator: (val){
-                         return singInState.validateEmail(val);
-                        },
-                        onChanged: (val){
-                          //returns a value each time the user types or deletes something
-                          setState(() {
-                            singInState.email = val;
-                          });
-                        },
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          decoration:textInputDecoration.copyWith(hintText: "Email",prefixIcon: Icon(Icons.email_outlined)),
+                          validator: (val){
+                           return singInState.validateEmail(val);
+                          },
+                          onChanged: (val){
+                            //returns a value each time the user types or deletes something
+                            setState(() {
+                              singInState.email = val;
+                            });
+                          },
 
-                      ),
-                      SizedBox(
-                          height:20
-                      ),
-                      TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: "Password",prefixIcon: Icon(Icons.vpn_key)),
-                        validator: (val) {
-                          return singInState.validatePassword(val);
-                        },
-                        obscureText: true,// encrypts password
-                        onChanged: (val){
-                          //returns a value each time the user types or deletes something
-                          setState(() {
-                            singInState.password = val;
-                          });
-                        },
-
-                      ),
-                      SizedBox(
-                          height:25,
-
-                      ),
-                      Text(
-                        singInState.error,
-                        style:TextStyle(
-                          color:Colors.red,
-                          fontSize: 14,
                         ),
                       ),
-                      SizedBox(
-                        height:25,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          decoration: textInputDecoration.copyWith(hintText: "Password",prefixIcon: Icon(Icons.vpn_key)),
+                          validator: (val) {
+                            return singInState.validatePassword(val);
+                          },
+                          obscureText: true,// encrypts password
+                          onChanged: (val){
+                            //returns a value each time the user types or deletes something
+                            setState(() {
+                              singInState.password = val;
+                            });
+                          },
 
+                        ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          OutlineButton(
-                            borderSide: BorderSide(
-                                color:Colors.grey
-                            ),
-
-                            shape:RoundedRectangleBorder(
-
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            onPressed:() async{
-
-                              singInState.signInClicked();
-                            },
-                            color:Colors.black,
-                            child:Text(
-                              "Sign in",
-                              style:TextStyle(
-                                color:Colors.white,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 25),
+                        child: Text(
+                          singInState.error,
+                          style:TextStyle(
+                            color:Colors.red,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      side: BorderSide(color: Colors.black87)
+                                  ),
+                                ),
+                                backgroundColor : MaterialStateProperty.all<Color>(HexColor("#393939")),
+                              ),
+                              onPressed:() async{
+                                singInState.signInClicked();
+                              },
+                              //color:Colors.black,
+                              child : Text(
+                                "Sign in",
+                                style : TextStyle(
+                                  color : Colors.amber,
+                                ),
                               ),
                             ),
-                          ),
 
-                          OutlineButton(
-                            borderSide: BorderSide(
-                                color:Colors.grey
-                            ),
-
-                            shape:RoundedRectangleBorder(
-
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            onPressed:() async{
-
-                              widget.toggleView();
-
-                            },
-                            color:Colors.black,
-                            child:Text(
-                              "Register",
-                              style:TextStyle(
-                                color:Colors.white,
+                            TextButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      side: BorderSide(color: Colors.black87)
+                                  ),
+                                ),
+                                backgroundColor : MaterialStateProperty.all<Color>(HexColor("#393939")),
+                                //backgroundColor: HexColor("#393939")
+                              ),
+                              onPressed:() async{
+                                widget.toggleView();
+                              },
+                              child : Text(
+                                "Register",
+                                style:TextStyle(
+                                  color:Colors.amber,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-
-
-
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: FlatButton(
@@ -186,66 +160,10 @@ class _SignInState extends State<SignIn> {
                       } , child: Text(
                       "Forgot Password",
                     style: TextStyle(
-                      color:Colors.amber
+                      color: Colors.amber
                     ),
                   )),
                 ),
-
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Container(
-                //       height:MediaQuery.of(context).size.height*0.03,
-                //       width:MediaQuery.of(context).size.height*0.03,
-                //       child: Image(
-                //         image: NetworkImage("https://www.duupdates.in/wp-content/uploads/2020/07/google.jpg"),
-                //       ),
-                //     ),
-                //     FlatButton(
-                //         height:MediaQuery.of(context).size.height*0.03,
-                //         //color: Colors.white,
-                //         onPressed: ()async{
-                //           await singInState.handleGoogleSignIn();
-                //         },
-                //         child:Text(
-                //           "Sign in with Google",
-                //           style: TextStyle(
-                //               color:Colors.white
-                //           ),
-                //         )
-                //     ),
-                //   ],
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(left:15.0),
-                //       child: Container(
-                //         height:MediaQuery.of(context).size.height*0.03,
-                //         width:MediaQuery.of(context).size.height*0.03,
-                //         child: Image(
-                //           image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Facebook_logo_36x36.svg/600px-Facebook_logo_36x36.svg.png"),
-                //         ),
-                //       ),
-                //     ),
-                //     FlatButton(
-                //       height:MediaQuery.of(context).size.height*0.03,
-                //       //color: Colors.white,
-                //         onPressed: ()async{
-                //           await singInState.signInFB();
-                //         },
-                //         child:Text(
-                //           "Sign in with facebook",
-                //           style: TextStyle(
-                //               color:Colors.blue[800]
-                //           ),
-                //         )
-                //     ),
-                //   ],
-                // ),
-
-
               ],
             ),
           ),

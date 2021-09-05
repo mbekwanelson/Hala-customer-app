@@ -12,8 +12,6 @@ import 'package:provider/provider.dart';
 class Description extends StatefulWidget {
 
   final FoodItem food;
-
-
   Description({this.food});
 
 
@@ -40,34 +38,48 @@ class _DescriptionState extends State<Description> {
   }
   @override
   Widget build(BuildContext context) {
-    final descriptionState = Provider.of<DescriptionState>(context);
-    widget.food.quantity = descriptionState.count;
-    return orderSameShop !=true ? Container(
+      final descriptionState = Provider.of<DescriptionState>(context);
+      widget.food.quantity = descriptionState.count;
+     if(orderSameShop !=true){
+        return Container(
 
-      child:Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-              "You cannot order from more than 1 shop at a time",
-            style:TextStyle(
-              color:Colors.red[900],
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              letterSpacing: 2
-            )
-          ),
-          Text(
-              "Please check out your previous order first!",
-              style:TextStyle(
-                  color:Colors.red[900],
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2,
-                  fontSize: 20
-              )
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text("You cannot order from more than 1 shop at a time",
+                  style : TextStyle( color:Colors.red[900],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      letterSpacing: 2)),
+              Text("Please check out your previous order first!",
+                  style : TextStyle( color : Colors.red[900],
+                      fontWeight : FontWeight.bold,
+                      letterSpacing : 2,
+                      fontSize : 20))
+            ],
           )
-        ],
-      )
-    ) : Container(
+      );
+     }
+     else if(!widget.food.inStock){
+       //if out of stock
+       return Container(
+
+           child:Column(
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             children: [
+               Text(
+                   "This item is out of stock",
+                   style : TextStyle( color : Colors.red[900],
+                       fontWeight : FontWeight.bold,
+                       fontSize : 20,
+                       letterSpacing : 2
+                   )
+               ),
+             ],
+           )
+       );
+     }
+     return Container(
       child:Column(
         children: <Widget>[
           Text(
@@ -179,7 +191,6 @@ class _DescriptionState extends State<Description> {
             color:Colors.black,
           )
         ],
-      ),
-    );
+      ),) ;
   }
 }

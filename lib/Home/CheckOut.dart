@@ -140,7 +140,7 @@ class _CheckOutState extends State<CheckOut> {
             }
           }
           return Container(
-            color: HexColor("#393939"),
+            color: Colors.white,
             child: SafeArea(
               child: Column(
                 children: <Widget>[
@@ -174,10 +174,13 @@ class _CheckOutState extends State<CheckOut> {
                               Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: Colors.black,width:7)
+                                  ),
                                   child: Card(
-                                      color: Colors.grey[400],
-                                      // color:Colors.white,
-
+                                      color: Colors.white,
+                                      /*
                                       child: ListTile(
                                         onTap: () {},
                                         //leading:Image.network(orders[index].image),
@@ -224,10 +227,60 @@ class _CheckOutState extends State<CheckOut> {
                                               "${snapshot.data[index].quantity} X R${snapshot.data[index].price}",
                                               style: TextStyle(
                                                   fontSize: 15,
-                                                  color: Colors.amber[800]),
+                                                  color: Colors.black87),
                                             ),
                                           ),
                                         ),
+                                      ),
+                                      */
+                                      child: Column(
+                                        children: <Widget>[
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: <Widget>[
+                                              Text(
+                                                snapshot.data[index].title ??
+                                                    "No title",
+                                                style: TextStyle(
+                                                  fontSize: 25,
+                                                  //color:Colors.black,
+                                                  //decoration: TextDecoration.underline,
+                                                ),
+                                              ),
+                                              Text(
+                                                "X ${snapshot.data[index].quantity} ",
+                                                style: TextStyle(
+                                                    fontSize: 25,
+                                                    color: Colors.black87),
+                                              ),
+                                              Text(
+                                                "R${snapshot.data[index].price}",
+                                                style: TextStyle(
+                                                    fontSize: 25,
+                                                    color: Colors.black87),
+                                              ),
+                                            ],
+
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 10),
+                                            child: OutlinedButton.icon(
+                                                onPressed: () async {
+                                                  await _auth.deleteFromDb(
+                                                      snapshot.data[index].title);
+                                                  setState(() {});
+                                                },
+                                                icon: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.black87,
+                                                ),
+                                                label: Text("Remove", style: TextStyle(
+                                                  color: Colors.black87
+                                                ),)
+                                            ),
+                                          )
+                                        ],
+
                                       ),
                                       elevation: 0),
                                 ),
@@ -239,21 +292,23 @@ class _CheckOutState extends State<CheckOut> {
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Card(
-                      color: Colors.amber,
+                      color: Colors.black87,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: DropdownButton<String>(
                           value: dropdownValue,
-                          icon: const Icon(Icons.arrow_drop_down),
+                          icon: const Icon(Icons.arrow_drop_down,color: Colors.white,),
                           iconSize: 20,
                           elevation: 16,
-                          style: const TextStyle(color: Colors.black),
-
+                          focusColor: Colors.black87,
+                          style: const TextStyle(color: Colors.white),
+                          dropdownColor: Colors.black87,
                           onChanged: (String newValue) {
                             setState(() {
                               dropdownValue = newValue;
                             });
                           },
+                          underline: SizedBox(),
                           items: <String>['Cash', 'Card']
                               .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
@@ -263,7 +318,7 @@ class _CheckOutState extends State<CheckOut> {
                                 children: [
                                   Text(value),
                                   SizedBox(width: 5,),
-                                  Icon(Icons.attach_money_rounded,)
+                                  Icon(Icons.attach_money_rounded,color: Colors.white,)
                                 ],
                               ) :
                               Wrap(
@@ -271,7 +326,7 @@ class _CheckOutState extends State<CheckOut> {
                                 children: [
                                   Text(value),
                                   SizedBox(width: 5,),
-                                  Icon(Icons.credit_card),
+                                  Icon(Icons.credit_card,color: Colors.white,),
                                 ],
                               ),
                             );
@@ -306,10 +361,7 @@ class _CheckOutState extends State<CheckOut> {
                                         orders: orders,
                                         promoValue: promo.promoValue);
 
-
                                 bool card;
-                                print("Checkout: ${widget.shop}");
-
                                 if(dropdownValue=="Card"){
                                   card = true;
                                 }
@@ -327,66 +379,6 @@ class _CheckOutState extends State<CheckOut> {
                                                     uid: uid),
                                                 child: MealDetails(meals: snapshot.data,shop: widget.shop,subtotal: subtotal, card:card,promo:promo,user:user,cardPayment:cardPayment,promoApplied:isPromoApplied,)))
                                 );
-
-                                //return _showDetailsPanel(snapshot.data,card,widget.shop,subtotal,promo,user,cardPayment,isPromoApplied);
-
-
-                                // if (dropdownValue == "Cash") {
-                                //   for (int i = 0;
-                                //       i < snapshot.data.length;
-                                //       i++) {
-                                //     await Auth().checkOutApprovedCash(
-                                //         snapshot.data[i],
-                                //         promo.promoValue,
-                                //         promoIndex,
-                                //         isPromoApplied);
-                                //   }
-                                //
-                                //   setState(() {
-                                //     Navigator.pop(context);
-                                //     Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //             builder: (context) =>
-                                //                 StreamProvider.value(
-                                //                     value: AfterCheckOutState()
-                                //                         .getShopProgress(
-                                //                             uid: uid),
-                                //                     child: AfterCheckOut())));
-                                //   });
-                                // } else {
-                                //
-                                //   infoDialog(
-                                //       context,
-                                //       "Please note you will be charged 4% extra",
-                                //       positiveAction: (){},
-                                //       positiveText: "                       ",
-                                //       negativeAction: (){},
-                                //       negativeText: "Cancel",
-                                //     neutralText: "Confirm"
-                                //   );
-                                //
-                                //   setState(() {
-
-
-
-//uncomment
-                                    // Navigator.pop(context);
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context){
-                                    //
-                                    //           return RedirectToOzow(
-                                    //                 amount: total,
-                                    //                 customerOrderDetail:
-                                    //                     cardPayment);
-                                    //         }
-                                    //     )
-                              //      );
-                                 // });
-
-                                //}
                               },
                               icon: Icon(
                                 Icons.add_shopping_cart,

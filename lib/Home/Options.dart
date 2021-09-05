@@ -16,23 +16,21 @@ class Options extends StatefulWidget {
   _OptionsState createState() => _OptionsState();
 }
 
-
-
 class _OptionsState extends State<Options> {
-
   Position currentUserPosition;
 
   @override
   void initState() {
     // TODO: implement initState
 
-    Geolocator().getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high).then((value){
-          setState(() {
-            currentUserPosition = value;
-        });
+    Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((value) {
+      setState(() {
+        currentUserPosition = value;
       });
-      super.initState();
+    });
+    super.initState();
   }
 
   @override
@@ -40,7 +38,7 @@ class _OptionsState extends State<Options> {
     final optionsState = Provider.of<OptionsState>(context);
     final optionCategories = Provider.of<List<Option>>(context);
 
-      return optionCategories == null && currentUserPosition == null
+    return optionCategories == null && currentUserPosition == null
         ? Loading()
         : Scaffold(
             resizeToAvoidBottomInset: true,
@@ -54,13 +52,22 @@ class _OptionsState extends State<Options> {
                 ),
                 centerTitle: true,
                 backgroundColor: Colors.grey[900],
+                actions: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(2, 3, 2, 5),
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage('Picture/HalaLogo.jpeg'),
+                      radius: 30,
+                    ),
+                  )
+                ],
               ),
             ),
             body: SingleChildScrollView(
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 //width: double.infinity,
-                color: Colors.black,
+                color: Colors.white,
                 child: Column(
                   children: [
                     Padding(
@@ -69,7 +76,7 @@ class _OptionsState extends State<Options> {
                         child: Text(
                           "What would you like?",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black87,
                             fontSize: 34,
                             letterSpacing: 3,
                           ),
@@ -92,13 +99,6 @@ class _OptionsState extends State<Options> {
                               child: Column(
                                   //mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      optionCategories[index].category,
-                                      style: TextStyle(
-                                          fontSize: 30,
-                                          color: Colors.amber,
-                                          letterSpacing: 2),
-                                    ),
                                     Expanded(
                                       child: GestureDetector(
                                         child: Container(
@@ -106,10 +106,20 @@ class _OptionsState extends State<Options> {
                                           //height:600,
                                           margin: EdgeInsets.all(20),
                                           child: CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                                optionCategories[index].url ??
-                                                    "https://www.bengi.nl/wp-content/uploads/2014/10/no-image-available1.png"),
-                                            radius: 55,
+                                            radius: 62,
+                                            backgroundColor: Colors.black87,
+                                            child: CircleAvatar(
+                                              backgroundImage: Image.network(
+                                                optionCategories[index].url,
+                                                loadingBuilder: (context,
+                                                    child, progress) {
+                                                  return progress == null
+                                                      ? child
+                                                      : CircularProgressIndicator();
+                                                },
+                                              ).image,
+                                              radius: 55,
+                                            ),
                                           ),
                                         ),
                                         onTap: () {
@@ -124,21 +134,35 @@ class _OptionsState extends State<Options> {
                                               return MultiProvider(
                                                   providers: [
                                                     StreamProvider.value(
-                                                        value: ShopsState().getShops(
-                                                            category: optionCategories[index].category,
-                                                            currentUserPosition: currentUserPosition),
+                                                      value: ShopsState().getShops(
+                                                          category:
+                                                              optionCategories[
+                                                                      index]
+                                                                  .category,
+                                                          currentUserPosition:
+                                                              currentUserPosition),
                                                     ),
                                                     ChangeNotifierProvider
-                                                        .value(value: ShopsState()),
+                                                        .value(
+                                                            value:
+                                                                ShopsState()),
                                                   ],
                                                   child: Shops(
-                                                    category: optionCategories[index].category,
+                                                    category:
+                                                        optionCategories[index]
+                                                            .category,
                                                   ));
                                             }));
-
                                           });
                                         },
                                       ),
+                                    ),
+                                    Text(
+                                      optionCategories[index].category,
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          color: Colors.black87,
+                                          letterSpacing: 2),
                                     ),
                                   ]),
                             );
@@ -151,5 +175,3 @@ class _OptionsState extends State<Options> {
           );
   }
 }
-
-

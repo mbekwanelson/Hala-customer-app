@@ -39,32 +39,16 @@ class ShopsState with ChangeNotifier{
           price: snapshot.documents[data]["price"],
           category: snapshot.documents[data]["category"],
           shop: snapshot.documents[data]["shop"] ?? "shop",
+          inStock: snapshot.documents[data]["inStock"] ?? true
         ));
       }
     }
-
-
-
-
-
-
-
-        // food.add(new FoodItem(
-        //   title: element,
-        //   price: snapshot[element]["price"],
-        //   category: snapshot[element]["category"],
-        //   restaurant: snapshot[element]["restaurant"] ??"not now",
-        //   image: snapshot[element]["image"],
-        //   id:snapshot[element]["id"] ??"not now",
-        //
-
 
     catch(e){
 
     }
 
     return food;
-
   }
 
   Stream<List<FoodItem>> shopChosen({String category,String shopChosen}){
@@ -112,12 +96,6 @@ class ShopsState with ChangeNotifier{
       for (int shop = 0; shop < snapshot.documents.length; shop++) {
         double lat = snapshot.documents[shop].data["latitude"];
         double long = snapshot.documents[shop].data["longitude"];
-        print(snapshot.documents[shop].data["name"]);
-        print(lat);
-        print(long);
-        print("VS");
-        print(currentUserPosition.latitude);
-        print(currentUserPosition.longitude);
 
         final l2.Distance distance = new l2.Distance();
 

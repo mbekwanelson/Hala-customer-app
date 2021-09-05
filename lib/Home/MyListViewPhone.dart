@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mymenu/Home/Description.dart';
@@ -40,7 +42,7 @@ class _MyListViewPhoneState extends State<MyListViewPhone> {
                 padding: EdgeInsets.fromLTRB(20, 20, 20,20),
                 child: Container(
                   //height: 220,
-                  height: screenSize.height*0.3,
+                  //height: screenSize.height*0.3,
 
                   // width:300,
                   width:screenSize.width*0.1,
@@ -49,55 +51,77 @@ class _MyListViewPhoneState extends State<MyListViewPhone> {
 
                       _showSettingsPanel(widget.foodAndConnect[index]);
                     },
-                    child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        color:Colors.black,
-                        //color:Colors.grey[200],
-                        child:Column(
-                          children: [
-                            Flexible(
-                              fit: FlexFit.loose,
-                              child: Container(
-                                  height:MediaQuery.of(context).size.height*0.2,
-                                  width:MediaQuery.of(context).size.width*0.9,
-                                  child:Image(
-                                      image: NetworkImage(widget.foodAndConnect[index].image),
-                                      fit:BoxFit.cover
-                                  )
+                    child: Container(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.fromLTRB(20, 20, 0,0),
+                            padding: const EdgeInsets.all(1.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black,width:7)
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image(
+                                  image: NetworkImage(widget.foodAndConnect[index].image),
+                                  fit:BoxFit.cover,
+                                  height: 200,
+                                  width: 200,
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                      widget.foodAndConnect[index].title,
-                                      style:TextStyle(
-                                          fontSize: 25,
-                                          color: Colors.white
-                                      )
-                                  ),
-                                  Text(
-                                      "R${widget.foodAndConnect[index].price.toStringAsFixed(2)}",
-                                      style:TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
+                            height: 100,
+                            width: MediaQuery.of(context).size.width * 0.30,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.fromLTRB(0, 20, 0,0),
+                            padding: const EdgeInsets.all(1.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black,width:7)
+                            ),
+                            height: 100,
+                            width: 180,
+                             child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(widget.foodAndConnect[index].title,style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        ),
+                                        Text(widget.foodAndConnect[index].price.toStringAsFixed(2)),
+                                        TextButton(
+                                          style: ButtonStyle(
+                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(18),
+                                                  side: BorderSide(color: Colors.red)
+                                              ),
+                                            ),
+                                            backgroundColor : MaterialStateProperty.all<Color>(Colors.black),
+                                          ),
+                                          onPressed: () {
+                                              print("Ouch you clicked me");
+                                          },
+                                          child: Text('Add',style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                          ),
+                                        )
 
-                                      )
-                                  ),
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
-                            ),
-
-                          ],
-                        ),
-
-
-
-                        elevation: 0),
+                           ),
+                        ],
+                      ),
+                    ) ,
                   ),
                 ),
 
