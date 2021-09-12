@@ -46,8 +46,9 @@ class RedirectToOzow extends StatefulWidget {
   cardPaymentDetail customerOrderDetail;
   String uid;
   double deliveryFee;
+  String category;
 
-  RedirectToOzow({this.amount, this.customerOrderDetail, this.deliveryFee});
+  RedirectToOzow({this.amount, this.customerOrderDetail, this.deliveryFee,this.category});
 
   @override
   _RedirectToOzowState createState() => _RedirectToOzowState();
@@ -284,15 +285,15 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
           Position position = await Geolocator().getCurrentPosition(
               desiredAccuracy: LocationAccuracy.high);
           await Database().loadLocation(position.latitude, position.longitude);
-
           for (int j= 0; j < widget.customerOrderDetail.orders.length; j++) {
             // updates customer order
-            await Auth().checkOutApprovedCard(
+            String isOperational = await Auth().checkOutApprovedCard(
                 widget.customerOrderDetail.orders[j],
                 widget.customerOrderDetail.promoValue,
                 widget.customerOrderDetail.promoIndex,
                 widget.customerOrderDetail.promoApplied,
-                widget.deliveryFee
+                widget.deliveryFee,
+                widget.category
             );
           };
           count++;

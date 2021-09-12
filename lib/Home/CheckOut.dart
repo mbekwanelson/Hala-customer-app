@@ -76,6 +76,7 @@ class _CheckOutState extends State<CheckOut> {
 
 
   Widget build(BuildContext context) {
+    print('${widget.category} Checkout Category');
 
     void _showDetailsPanel(List<ConfirmCheckOut> meals,bool card,Shop shop,double subtotal,promo,user,cardPaymentDetail,isPromoApplied) {
 
@@ -86,7 +87,7 @@ class _CheckOutState extends State<CheckOut> {
         return Container(
           //height:MediaQuery.of(context).size.height,
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-          child: MealDetails(meals: meals,card:card,shop: widget.shop,subtotal:subtotal,promo:promo,user:user,cardPayment: cardPaymentDetail,promoApplied:isPromoApplied,),
+          child: MealDetails(meals: meals,card:card,shop: widget.shop,subtotal:subtotal,promo:promo,user:user,cardPayment: cardPaymentDetail,promoApplied:isPromoApplied,category: widget.category),
         );
       });
     }
@@ -377,7 +378,7 @@ class _CheckOutState extends State<CheckOut> {
                                                 value: AfterCheckOutState()
                                                     .getShopProgress(
                                                     uid: uid),
-                                                child: MealDetails(meals: snapshot.data,shop: widget.shop,subtotal: subtotal, card:card,promo:promo,user:user,cardPayment:cardPayment,promoApplied:isPromoApplied,)))
+                                                child: MealDetails(meals: snapshot.data,shop: widget.shop,subtotal: subtotal, card:card,promo:promo,user:user,cardPayment:cardPayment,promoApplied:isPromoApplied,category: widget.category)))
                                 );
                               },
                               icon: Icon(

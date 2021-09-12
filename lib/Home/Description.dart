@@ -12,7 +12,9 @@ import 'package:provider/provider.dart';
 class Description extends StatefulWidget {
 
   final FoodItem food;
-  Description({this.food});
+  String category;
+
+  Description({this.food,this.category});
 
 
   @override
@@ -51,7 +53,7 @@ class _DescriptionState extends State<Description> {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       letterSpacing: 2)),
-              Text("Please check out your previous order first!",
+              Text("Please check out your previous orders",
                   style : TextStyle( color : Colors.red[900],
                       fontWeight : FontWeight.bold,
                       letterSpacing : 2,
@@ -67,8 +69,7 @@ class _DescriptionState extends State<Description> {
            child:Column(
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
              children: [
-               Text(
-                   "This item is out of stock",
+               Text("This item is out of stock",
                    style : TextStyle( color : Colors.red[900],
                        fontWeight : FontWeight.bold,
                        fontSize : 20,
@@ -161,7 +162,6 @@ class _DescriptionState extends State<Description> {
           FlatButton.icon(
 
             onPressed: ()async{
-
               setState(() {
                 //descriptionState.count = 0;
                 descriptionState.logOrderToCart(

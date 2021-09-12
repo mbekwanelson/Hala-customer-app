@@ -11,8 +11,9 @@ import 'package:provider/provider.dart';
 
 class MyListView extends StatefulWidget {
   List<FoodItem> foodAndConnect;
+  String category;
 
-  MyListView({this.foodAndConnect});
+  MyListView({this.foodAndConnect,this.category});
   @override
   _MyListViewState createState() => _MyListViewState();
 }
@@ -28,7 +29,7 @@ class _MyListViewState extends State<MyListView> {
     if(widget.foodAndConnect.length==0){
       return Expanded(child: Loading());}
     else{
-      return  MyListViewPhone(foodAndConnect: widget.foodAndConnect,);
+      return  MyListViewPhone(foodAndConnect: widget.foodAndConnect,category : widget.category);
       return isPortrait =="Yes" ? MyListViewPhone(foodAndConnect: widget.foodAndConnect,) :
           MyListViewDesktop(foodAndConnect:widget.foodAndConnect);
     }

@@ -11,6 +11,7 @@ class ConfirmCheckOut{
   int quantity;
   String shop;
   List<dynamic> mealOptions;
+  String category;
 
-  ConfirmCheckOut({this.title,this.price,this.quantity,this.time,this.shop,this.mealOptions});
+  ConfirmCheckOut({this.title,this.price,this.quantity,this.time,this.shop,this.mealOptions,this.category});
 }

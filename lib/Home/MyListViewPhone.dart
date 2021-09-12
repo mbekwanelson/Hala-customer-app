@@ -7,8 +7,8 @@ import 'package:mymenu/Models/FoodItem.dart';
 
 class MyListViewPhone extends StatefulWidget {
   List<FoodItem> foodAndConnect;
-
-  MyListViewPhone({this.foodAndConnect});
+  String category;
+  MyListViewPhone({this.foodAndConnect,this.category});
   @override
   _MyListViewPhoneState createState() => _MyListViewPhoneState();
 }
@@ -20,7 +20,7 @@ class _MyListViewPhoneState extends State<MyListViewPhone> {
       //builder shows widget tree to display in bottom sheet
       return Container(
         padding:EdgeInsets.symmetric(vertical: 20,horizontal: 60),
-        child:Description(food:food,),
+        child:Description(food:food, category : widget.category),
       );
     });
   }

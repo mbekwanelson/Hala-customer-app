@@ -1,7 +1,11 @@
 
+import 'dart:ui';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:commons/commons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mymenu/Models/Restuarant.dart';
 import 'package:mymenu/Models/Shop.dart';
@@ -68,7 +72,7 @@ class _ShopsState extends State<Shops> {
                       fontSize: 30,
                       letterSpacing: 2,
                       //fontStyle:FontStyle.italic,
-                      color: Colors.amber[700]
+                      color: Colors.black87
                     ),
                   ),
                 ),
@@ -88,13 +92,27 @@ class _ShopsState extends State<Shops> {
                       padding: const EdgeInsets.fromLTRB(20,0,20,20),
                       child: GestureDetector(
                         onTap:(){
-                          shopsState.logShopSelected(shops[index].shopName);
-                      setState(() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Director(shop: shops[index],category: widget.category,))
-                        );
-                      });
+                          if(shops[index].isShopOperating) {
+                            shopsState.logShopSelected(shops[index].shopName);
+                            setState(() {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>
+                                      Director(shop: shops[index],
+                                        category: widget.category,))
+                              );
+                            });
+                          }else{
+                            infoDialog(
+                                context,
+                                "${shops[index].shopName} is Closed, Trading hours ${shops[index].openingTime.substring(11,16)} - ${shops[index].closingTime.substring(11,16)}",
+                                positiveAction: (){},
+                                positiveText: "Close",
+                                neutralText: "  ",
+                                negativeAction: (){},
+                                negativeText: "     "
+                            );
+                          }
                       },
                         child: Column(
                           children:[
@@ -117,7 +135,17 @@ class _ShopsState extends State<Shops> {
                                       errorBuilder: (context,object,stacktrace){
                                           return LinearProgressIndicator();
                                       },
+                                      colorBlendMode: BlendMode.dstIn,
                                     ).image,
+                                     child: (shops[index].isShopOperating) ? null : RotationTransition(
+                                       turns: AlwaysStoppedAnimation(30/360),
+                                       child: Container(
+                                         child: Center(child: Text("Closed", style: TextStyle(color:Colors.white,),)),
+                                         color: Colors.black87,//Colors.red[900],
+                                         width: double.infinity,
+                                         height: 20,
+                                       ),
+                                     ),
                                     radius: 55,
                                   ),
                                 ),

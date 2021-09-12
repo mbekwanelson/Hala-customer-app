@@ -132,11 +132,11 @@ class RegisterState with ChangeNotifier {
         // loads user data to database every time new user registers
         String uid = await Auth().inputData();
         await Firestore.instance.collection("Users").document(uid).setData({
-          "name":name.text,
-          "surname":surname.text,
-          "email":email,
-          "user":"Customer",
-          "date":DateTime.now()
+          "name": name.text,
+          "surname": surname.text,
+          "email": email,
+          "user": "Customer",
+          "date": DateTime.now()
         });
         //await Future.delayed(const Duration(seconds: 1), () => "1");
       }

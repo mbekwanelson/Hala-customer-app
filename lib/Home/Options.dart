@@ -135,12 +135,8 @@ class _OptionsState extends State<Options> {
                                                   providers: [
                                                     StreamProvider.value(
                                                       value: ShopsState().getShops(
-                                                          category:
-                                                              optionCategories[
-                                                                      index]
-                                                                  .category,
-                                                          currentUserPosition:
-                                                              currentUserPosition),
+                                                          category: optionCategories[index].category,
+                                                          currentUserPosition: currentUserPosition),
                                                     ),
                                                     ChangeNotifierProvider
                                                         .value(

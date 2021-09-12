@@ -38,8 +38,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   @override
   Widget build(BuildContext context) {
+
+
+    print('${widget.category} Home State Category');
+
     List<String> words = [
       "one",
       "two",
@@ -125,7 +130,7 @@ class _HomeState extends State<Home> {
                                   homeState.tab = 0;
                                 });
 
-                                return MyListView(foodAndConnect: foodItems);
+                                return MyListView(foodAndConnect: foodItems, category : widget.category);
                               },
                               child: Text("All",
                                   style: TextStyle(

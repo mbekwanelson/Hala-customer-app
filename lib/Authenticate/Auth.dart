@@ -60,10 +60,9 @@ class Auth {
 
 
   //CB and edit
-  Future checkOutApprovedCash(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied,double deliveryFee) async{
+  Future checkOutApprovedCash(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied,double deliveryFee,String foodCategory) async{
     print("In here!");
     print(food.title);
-
 
     String uid = await inputData();
     DateTime date = DateTime.now();
@@ -92,9 +91,6 @@ class Auth {
         'Payment Method':"Cash",
         "deliveryFee": deliveryFee
       }
-
-
-
     },merge: true);
     await Future.delayed(const Duration(seconds: 1), () => "1");
     if(promoApplied=="Yes") {
@@ -119,8 +115,7 @@ class Auth {
   }
 
 
-  Future checkOutApprovedCard(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied,double deliveryFee) async{
-
+  Future checkOutApprovedCard(ConfirmCheckOut food, double promo,String indexPromo,String promoApplied,double deliveryFee,String category) async{
     String uid = await inputData();
     DateTime date = DateTime.now();
     String time = date.toString();
@@ -191,7 +186,8 @@ class Auth {
               quantity: snapshot[element]["quantity"],
               time: snapshot[element]["date"],
               shop:snapshot[element]["shop"],
-              mealOptions: snapshot[element]["selectedOptions"] ?? []
+              mealOptions: snapshot[element]["selectedOptions"] ?? [],
+              category: snapshot[element]["category"]
           ));
         }
       }
@@ -230,5 +226,31 @@ class Auth {
     final FirebaseUser user = await _auth.currentUser();
     return user.uid;
     // here you write the codes to input the data into firestore
+  }
+
+  Future<String> isShopOperational(String shopName,String category) async {
+    DocumentReference shopObject = await Firestore.instance.collection("Options").document(category).collection(category).document(shopName);
+    DocumentSnapshot doc = await shopObject.get();
+
+    DateTime currentTime = DateTime.now();
+    int Year = currentTime.year;
+    int Day = currentTime.day;
+    int Month = currentTime.month;
+
+
+    DateTime _CurrentTime = new DateTime(
+        Year, Month, Day, currentTime.hour, currentTime.minute);
+
+    DateTime openingTime = doc.data["OpeningTime"].toDate(); //["OpeningTime"];
+    DateTime _OpeningTime = new DateTime(
+        Year, Month, Day, openingTime.hour, openingTime.minute);
+
+    DateTime closingTime = doc.data["ClosingTime"].toDate();
+    DateTime _ClosingTime = new DateTime(
+        Year, Month, Day, closingTime.hour, closingTime.minute);
+    bool isShopOperating = _CurrentTime.isAfter(_OpeningTime) &&
+        _CurrentTime.isBefore(_ClosingTime);
+
+    return (!isShopOperating) ? "Closed":"Opened";
   }
 }
