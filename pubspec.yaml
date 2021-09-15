@@ -64,6 +64,8 @@ dependencies:
   webview_flutter: ^1.0.7
   flutter_webview_plugin: ^0.3.11
   sleek_circular_slider: ^1.2.0+web
+  flutter_linkify: ^3.1.2
+
 
 dev_dependencies:
   flutter_test:
