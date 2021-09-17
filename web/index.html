@@ -59,8 +59,13 @@
     appId: "1:499996947257:web:b0ff2f1b5c3be7d8942ee8",
     measurementId: "G-FJGKDJ87EJ"
   };
+
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+  if (!firebase.apps.length) {
+   firebase.initializeApp(firebaseConfig);
+  }else {
+   firebase.app(); // if already initialized, use that one
+}
   firebase.analytics();
 </script>
   <script>
