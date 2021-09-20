@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build/mymenu-6131e",
+    "public": "mymenu-6131e",
     "ignore": [
       "firebase.json",
       "**/.*",
