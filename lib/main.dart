@@ -1,75 +1,65 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mymenu/Authenticate/Auth.dart';
-import 'package:mymenu/Navigate/Wrapper.dart';
-import 'package:mymenu/Notifications/PushNotificationsManager.dart';
-import 'package:provider/provider.dart';
-
-//import 'package:here_sdk/core.dart';
-import 'Services/firebase_analytics.dart';
 
 void main() {
-  //SdkContext.init(IsolateOrigin.main);
-  WidgetsFlutterBinding.ensureInitialized(); //helps with multiprovider
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    navigatorObservers: [observer],
-    home: Main(analytics: analytics, observer: observer),
-  ));
+  runApp(MyApp());
 }
 
-class Main extends StatefulWidget {
-  final FirebaseAnalytics analytics;
-  final FirebaseAnalyticsObserver observer;
-  Main({this.analytics, this.observer});
+class MyApp extends StatelessWidget {
   @override
-  _MainState createState() => _MainState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
 }
 
-class _MainState extends State<Main> {
-  PushNotificationsManager pushNotificationsManager =
-      PushNotificationsManager();
-  Future _sendAnalytics() async {
-    await widget.analytics.logEvent(
-      name: 'test_event',
-      parameters: <String, dynamic>{
-        'string': 'string',
-        'int': 42,
-        'long': 12345678910,
-        'double': 42.0,
-        'bool': true,
-      },
-    );
+class MyHomePage extends StatefulWidget {
+  MyHomePage({String this.title});
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // _currentScreen();
-    _sendAnalytics();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    return StreamProvider<FirebaseUser>.value(
-      //providing stream to root widget
-      //actively listening to auth requests user sign in/out
-      value: Auth().user, // whether user signed in or not
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: SizedBox(
-          height: double.infinity,
-          width: 900,
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: Wrapper(),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
     );
-    ;
   }
 }

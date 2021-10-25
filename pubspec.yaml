@@ -19,7 +19,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core: ^0.4.4           #web supported
   firebase_auth: ^0.15.5+3        #web supported
+  firebase_messaging:             #web supported
+  firebase_storage: ^3.0.3        #web supported   
   #here_sdk:
   #  path: plugins/here_sdk
   #here_maps_webservice: 1.0.2
@@ -30,12 +33,10 @@ dependencies:
   google_maps_flutter: ^0.5.25+3  #not web supported
   location: ^2.3.5                #web supported
 
-  firebase_messaging:             #web supported
 
   image_picker: ^0.6.0+17         #web supported   
   image_cropper: ^1.2.1           #not web supported
 
-  firebase_storage: ^3.0.3        #web supported   
   fluttertoast: ^4.0.0            #web supported
 
   geoflutterfire: ^2.0.3+2        #web supported
@@ -44,7 +45,6 @@ dependencies:
   latlong2: ^0.8.0                #web supported
 
   flutter_google_places: ^0.2.3   #web supported
-  firebase_core: ^0.4.4           #web supported
   firebase_analytics: ^5.0.16     #web supported
   google_sign_in: ^4.5.4          #web supported
   flutter_facebook_login: ^3.0.0  #not web supported
