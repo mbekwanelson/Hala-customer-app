@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Shared/Constants.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/States/RegisterState.dart';
@@ -16,19 +15,17 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-
   @override
   Widget build(BuildContext context) {
-   final registerState = Provider.of<RegisterState>(context);
+    final registerState = Provider.of<RegisterState>(context);
     return registerState.loading
         ? Loading()
         : Scaffold(
             backgroundColor: HexColor("#393939"),
-
             body: SingleChildScrollView(
               child: Container(
                 height: MediaQuery.of(context).size.height,
-                padding : EdgeInsets.symmetric(vertical:20,horizontal: 50),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("Picture/hala_sign_in.jpg"),
@@ -41,33 +38,39 @@ class _RegisterState extends State<Register> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       SizedBox(
-                        height: MediaQuery.of(context).size.height*0.01,
+                        height: MediaQuery.of(context).size.height * 0.01,
                       ),
                       TextFormField(
-                        decoration:textInputDecoration.copyWith(hintText: "Name",prefixIcon: Icon(Icons.account_circle_sharp)),
+                        decoration: textInputDecoration.copyWith(
+                            hintText: "Name",
+                            prefixIcon: Icon(Icons.account_circle_sharp)),
                         controller: registerState.name,
-                        validator: (name){
+                        validator: (name) {
                           return registerState.validateName(name);
                         },
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height*0.01,
+                        height: MediaQuery.of(context).size.height * 0.01,
                       ),
                       TextFormField(
                         //decoration: textInputDecoration.copyWith(hintText: "Surname"),
-                        decoration:textInputDecoration.copyWith(hintText: "Surname",prefixIcon: Icon(Icons.account_circle_sharp)),
+                        decoration: textInputDecoration.copyWith(
+                            hintText: "Surname",
+                            prefixIcon: Icon(Icons.account_circle_sharp)),
                         controller: registerState.surname,
-                        validator: (surname){
+                        validator: (surname) {
                           return registerState.validateSurname(surname);
                         },
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height*0.01,
+                        height: MediaQuery.of(context).size.height * 0.01,
                       ),
                       TextFormField(
-                        decoration:textInputDecoration.copyWith(hintText: "Email",prefixIcon: Icon(Icons.email_outlined)),
+                        decoration: textInputDecoration.copyWith(
+                            hintText: "Email",
+                            prefixIcon: Icon(Icons.email_outlined)),
                         controller: registerState.emailValue,
-                        validator: (val){
+                        validator: (val) {
                           return registerState.validateEmail(val);
                         },
                         onChanged: (val) {
@@ -78,24 +81,27 @@ class _RegisterState extends State<Register> {
                         },
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height*0.01,
+                        height: MediaQuery.of(context).size.height * 0.01,
                       ),
                       TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: "Password",prefixIcon: Icon(Icons.vpn_key)),
+                        decoration: textInputDecoration.copyWith(
+                            hintText: "Password",
+                            prefixIcon: Icon(Icons.vpn_key)),
                         controller: registerState.passwordOriginal,
-                        validator: (password){
+                        validator: (password) {
                           return registerState.validatePassword(password);
                         },
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height*0.01,
+                        height: MediaQuery.of(context).size.height * 0.01,
                       ),
-
                       TextFormField(
-                        decoration: textInputDecoration.copyWith(hintText: "Confirm Password",prefixIcon: Icon(Icons.vpn_key)),
+                        decoration: textInputDecoration.copyWith(
+                            hintText: "Confirm Password",
+                            prefixIcon: Icon(Icons.vpn_key)),
                         controller: registerState.passwordConfirm,
                         validator: (val) {
-                         return registerState.confirmPassword(val);
+                          return registerState.confirmPassword(val);
                         },
                         obscureText: true, // encrypts password
                         onChanged: (val) {
@@ -105,27 +111,23 @@ class _RegisterState extends State<Register> {
                           });
                         },
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height*0.01),
-                      Text(
-                        registerState.emailConfirmation,
-                        style:TextStyle(
-                          color:Colors.amber,
-                          fontSize: 24
-                        )
-                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      Text(registerState.emailConfirmation,
+                          style: TextStyle(color: Colors.amber, fontSize: 24)),
                       TextButton(
                         onPressed: () async {
-
                           registerState.registerClicked();
                         },
                         style: ButtonStyle(
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18),
-                                side: BorderSide(color: Colors.black87)
-                            ),
+                                side: BorderSide(color: Colors.black87)),
                           ),
-                          backgroundColor : MaterialStateProperty.all<Color>(HexColor("#393939")),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              HexColor("#393939")),
                         ),
                         //color: Colors.black,
                         child: Text(

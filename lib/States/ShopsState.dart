@@ -1,40 +1,30 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:latlong2/latlong.dart' as l2;
-import 'package:location/location.dart' as l;
 import 'package:mymenu/Maps/Requests/GoogleMapsServices.dart';
 import 'package:mymenu/Models/FoodItem.dart';
-import 'package:mymenu/Models/Option.dart';
 import 'package:mymenu/Models/Restuarant.dart';
 import 'package:mymenu/Models/Shop.dart';
 
-
-
-
-class ShopsState with ChangeNotifier{
-
-  List<FoodItem> food =[];
+class ShopsState with ChangeNotifier {
+  List<FoodItem> food = [];
   final double CUTOFFDISTANCE = 400.00;
 
   //constructor
   ShopsState();
 
-
 // GETS Shop MENU
 
-  List<FoodItem> _shopChosenFromSnapshot(QuerySnapshot snapshot){
-
+  List<FoodItem> _shopChosenFromSnapshot(QuerySnapshot snapshot) {
     try {
       for (int data = 0; data < snapshot.documents.length; data++) {
-
         food.add(FoodItem(
-          id:snapshot.documents[data]["id"],
+          id: snapshot.documents[data]["id"],
           title: snapshot.documents[data]["title"],
           image: snapshot.documents[data]["image"],
           price: snapshot.documents[data]["price"],
@@ -44,36 +34,41 @@ class ShopsState with ChangeNotifier{
           //inStock : snapshot.documents[data]["inStock"] ?? true
         ));
       }
-    }
-    catch(e){
-    }
+    } catch (e) {}
     return food;
   }
 
-  Stream<List<FoodItem>> shopChosen({String category,String shopChosen}){
+  Stream<List<FoodItem>> shopChosen({String category, String shopChosen}) {
     //returns snapshot of database and tells us of any changes [provider]
-    return Firestore.instance.collection("Options").document(category).collection(category).document(shopChosen).collection("Items").snapshots().map(_shopChosenFromSnapshot);
+    return Firestore.instance
+        .collection("Options")
+        .document(category)
+        .collection(category)
+        .document(shopChosen)
+        .collection("Items")
+        .snapshots()
+        .map(_shopChosenFromSnapshot);
   }
-
 
   // RETURNS ALL RESTAURANTS IN DATABASE
 
-  List<Restaurant> _numRestaurants(QuerySnapshot snapshot){
-    return snapshot.documents.map((doc){
-
+  List<Restaurant> _numRestaurants(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
       print("categories______________________-${doc.data["categories"]}");
       // returning a brew object for each document
       return Restaurant(
           restaurantName: doc.documentID,
           restaurantBackground: doc.data["picture"],
-          categories: doc.data["categories"]
-      );
+          categories: doc.data["categories"]);
     }).toList();
   }
 
-  Stream<List<Restaurant>> numberRestaurants(){
+  Stream<List<Restaurant>> numberRestaurants() {
     //returns snapshot of database and tells us of any changes [provider]
-    return Firestore.instance.collection("Restaurants").snapshots().map( _numRestaurants);
+    return Firestore.instance
+        .collection("Restaurants")
+        .snapshots()
+        .map(_numRestaurants);
   }
 
   logShopSelected(String shop) {
@@ -82,12 +77,16 @@ class ShopsState with ChangeNotifier{
     });
   }
 
-  Stream<List<Shop>> getShops({String category,Position currentUserPosition}) async* {
+  Stream<List<Shop>> getShops(
+      {String category, Position currentUserPosition}) async* {
     List<Shop> shops = [];
-      CollectionReference collectionReference =  Firestore.instance.collection("Options").document(category).collection(category); //.//snapshots();
-       Future<QuerySnapshot> fquerySnapshot = collectionReference.getDocuments();
+    CollectionReference collectionReference = Firestore.instance
+        .collection("Options")
+        .document(category)
+        .collection(category); //.//snapshots();
+    Future<QuerySnapshot> fquerySnapshot = collectionReference.getDocuments();
 
-       QuerySnapshot snapshot = await fquerySnapshot; //.then((snapshot) async {
+    QuerySnapshot snapshot = await fquerySnapshot; //.then((snapshot) async {
     try {
       for (int shop = 0; shop < snapshot.documents.length; shop++) {
         double lat = snapshot.documents[shop].data["latitude"];
@@ -98,19 +97,26 @@ class ShopsState with ChangeNotifier{
         int Day = currentTime.day;
         int Month = currentTime.month;
 
-        DateTime _CurrentTime = new DateTime(Year,Month,Day, currentTime.hour,currentTime.minute);
-        DateTime openingTime = snapshot.documents[shop].data["OpeningTime"].toDate();
-        DateTime _OpeningTime = new DateTime(Year,Month,Day, openingTime.hour,openingTime.minute);
-        DateTime closingTime = snapshot.documents[shop].data["ClosingTime"].toDate();
-        DateTime _ClosingTime =  new DateTime(Year,Month,Day, closingTime.hour, closingTime.minute);
-        bool isShopOperating = _CurrentTime.isAfter(_OpeningTime)  && _CurrentTime.isBefore(_ClosingTime);
+        DateTime _CurrentTime = new DateTime(
+            Year, Month, Day, currentTime.hour, currentTime.minute);
+        DateTime openingTime =
+            snapshot.documents[shop].data["OpeningTime"].toDate();
+        DateTime _OpeningTime = new DateTime(
+            Year, Month, Day, openingTime.hour, openingTime.minute);
+        DateTime closingTime =
+            snapshot.documents[shop].data["ClosingTime"].toDate();
+        DateTime _ClosingTime = new DateTime(
+            Year, Month, Day, closingTime.hour, closingTime.minute);
+        bool isShopOperating = _CurrentTime.isAfter(_OpeningTime) &&
+            _CurrentTime.isBefore(_ClosingTime);
 
         final l2.Distance distance = new l2.Distance();
         double km = 0.00;
         String carRouteDistance = await GoogleMapsServices()
             .getRouteCoordinates(
-            LatLng(currentUserPosition.latitude, currentUserPosition.longitude),
-            LatLng(lat, long));
+                LatLng(currentUserPosition.latitude,
+                    currentUserPosition.longitude),
+                LatLng(lat, long));
 
         km = double.parse(carRouteDistance) / 1000;
         if (km <= CUTOFFDISTANCE) {
@@ -122,20 +128,18 @@ class ShopsState with ChangeNotifier{
             longitude: long,
             latitude: lat,
             isShopOperating: isShopOperating,
-            openingTime : _OpeningTime.toString(),
-            closingTime : _ClosingTime.toString(),
+            openingTime: _OpeningTime.toString(),
+            closingTime: _ClosingTime.toString(),
           ));
           print(shop);
         }
-
       }
       print(shops);
-    }
-    catch(a,e){
+    } catch (a, e) {
       print(e);
       print(a);
     }
 
-       yield shops;
-    }
+    yield shops;
+  }
 }

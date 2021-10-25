@@ -1,32 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mymenu/Authenticate/Auth.dart';
-import 'package:mymenu/Authenticate/Authenticate.dart';
-import 'package:mymenu/Authenticate/SignIn.dart';
-
 import 'package:mymenu/Home/CheckOut.dart';
 import 'package:mymenu/Home/MealDescription.dart';
-import 'package:mymenu/Maps/MyMap.dart';
+import 'package:mymenu/Home/MyListView.dart';
 import 'package:mymenu/Models/FoodItem.dart';
 import 'package:mymenu/Models/Meal.dart';
-import 'package:mymenu/Models/Restuarant.dart';
 import 'package:mymenu/Models/Shop.dart';
-import 'package:mymenu/Navigate/Wrapper.dart';
-
-import 'package:mymenu/Shared/Database.dart';
-
 import 'package:mymenu/Shared/Loading.dart';
-import 'package:mymenu/Home/MyListView.dart';
 import 'package:mymenu/Shared/UserDrawer.dart';
 import 'package:mymenu/States/HomeState.dart';
-
 import 'package:provider/provider.dart';
-import "package:mymenu/Services/firebase_analytics.dart";
-
-import 'package:mymenu/VoucherHome/VoucherHome.dart';
 
 class Home extends StatefulWidget {
   Shop shop;
@@ -38,11 +22,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   @override
   Widget build(BuildContext context) {
-
-
     print('${widget.category} Home State Category');
 
     List<String> words = [
@@ -94,9 +75,9 @@ class _HomeState extends State<Home> {
                     centerTitle: true,
                     actions: <Widget>[
                       Padding(
-                        padding: EdgeInsets.fromLTRB(2,2,2,5),
+                        padding: EdgeInsets.fromLTRB(2, 2, 2, 5),
                         child: CircleAvatar(
-                          backgroundImage: AssetImage('Picture/HalaLogo.jpeg') ,
+                          backgroundImage: AssetImage('Picture/HalaLogo.jpeg'),
                           radius: 30,
                         ),
                       )
@@ -130,7 +111,9 @@ class _HomeState extends State<Home> {
                                   homeState.tab = 0;
                                 });
 
-                                return MyListView(foodAndConnect: foodItems, category : widget.category);
+                                return MyListView(
+                                    foodAndConnect: foodItems,
+                                    category: widget.category);
                               },
                               child: Text("All",
                                   style: TextStyle(
@@ -151,7 +134,7 @@ class _HomeState extends State<Home> {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: widget.shop.categories.length,
                                 itemBuilder: (context, index) {
-                                  Map<String,IconData> map = {
+                                  Map<String, IconData> map = {
                                     "Pizza": Icons.local_pizza_outlined,
                                     "drinks": Icons.wine_bar_sharp,
                                     "Meals": Icons.fastfood,
@@ -162,11 +145,14 @@ class _HomeState extends State<Home> {
                                     child: GestureDetector(
                                       child: OutlineButton.icon(
                                         textColor: Colors.black26,
-                                        icon: Icon(map[widget.shop.categories[index]]),
+                                        icon: Icon(
+                                            map[widget.shop.categories[index]]),
                                         color: Colors.black,
-                                        borderSide: BorderSide(color: Colors.black),
+                                        borderSide:
+                                            BorderSide(color: Colors.black),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                         ),
                                         onPressed: () async {
                                           if (widget.shop.categories[index] ==
@@ -195,7 +181,8 @@ class _HomeState extends State<Home> {
                                             //     .selectedCategory);
                                           }
                                         },
-                                        label: Text(widget.shop.categories[index],
+                                        label:
+                                            Text(widget.shop.categories[index],
                                                 style: TextStyle(
                                                   letterSpacing: 2,
                                                 )),

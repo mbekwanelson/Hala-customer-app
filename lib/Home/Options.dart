@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mymenu/Models/Option.dart';
-import 'package:mymenu/Models/Restuarant.dart';
-import 'package:mymenu/Navigate/Director.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/Shared/UserDrawer.dart';
 import 'package:mymenu/States/OptionsState.dart';
@@ -111,8 +109,8 @@ class _OptionsState extends State<Options> {
                                             child: CircleAvatar(
                                               backgroundImage: Image.network(
                                                 optionCategories[index].url,
-                                                loadingBuilder: (context,
-                                                    child, progress) {
+                                                loadingBuilder:
+                                                    (context, child, progress) {
                                                   return progress == null
                                                       ? child
                                                       : CircularProgressIndicator();
@@ -135,8 +133,12 @@ class _OptionsState extends State<Options> {
                                                   providers: [
                                                     StreamProvider.value(
                                                       value: ShopsState().getShops(
-                                                          category: optionCategories[index].category,
-                                                          currentUserPosition: currentUserPosition),
+                                                          category:
+                                                              optionCategories[
+                                                                      index]
+                                                                  .category,
+                                                          currentUserPosition:
+                                                              currentUserPosition),
                                                     ),
                                                     ChangeNotifierProvider
                                                         .value(

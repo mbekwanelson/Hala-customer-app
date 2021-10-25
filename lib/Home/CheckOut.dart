@@ -1,44 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:mymenu/Home/AfterCheckOut.dart';
-import 'package:mymenu/Home/MealDetails.dart';
-import 'package:mymenu/Home/OrderPlaced.dart';
-import 'package:mymenu/Home/messageDriver.dart';
-import 'package:mymenu/Maps/MyMap.dart';
-import 'package:mymenu/Models/ConfirmCheckOut.dart';
-import 'package:mymenu/Models/Order.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
+import 'package:mymenu/Home/MealDetails.dart';
+import 'package:mymenu/Models/ConfirmCheckOut.dart';
 import 'package:mymenu/Models/PromoCheckOut.dart';
-import 'package:mymenu/Models/Promotion.dart';
 import 'package:mymenu/Models/Shop.dart';
 import 'package:mymenu/Models/cardPaymentDetail.dart';
-import 'package:mymenu/OzowPayment/OzowPayment.dart';
-import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/Shared/Price.dart';
 import 'package:mymenu/States/AfterCheckOutState.dart';
 import 'package:mymenu/States/CheckOutState.dart';
-import 'package:mymenu/States/MealDetailsState.dart';
 import 'package:provider/provider.dart';
-import 'package:commons/commons.dart';
 
 class CheckOut extends StatefulWidget {
   @override
   _CheckOutState createState() => _CheckOutState();
   Shop shop;
   String category;
-  CheckOut({this.shop,this.category});
+  CheckOut({this.shop, this.category});
 }
 
-
-
-
-
 class _CheckOutState extends State<CheckOut> {
-
   @override
   Auth _auth = Auth();
   var user;
@@ -73,42 +56,50 @@ class _CheckOutState extends State<CheckOut> {
     });
   }
 
-
-
   Widget build(BuildContext context) {
     print('${widget.category} Checkout Category');
 
-    void _showDetailsPanel(List<ConfirmCheckOut> meals,bool card,Shop shop,double subtotal,promo,user,cardPaymentDetail,isPromoApplied) {
-
-
-      showModalBottomSheet(isScrollControlled:true, context: context, builder: (context) {
-
-        //builder shows widget tree to display in bottom sheet
-        return Container(
-          //height:MediaQuery.of(context).size.height,
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-          child: MealDetails(meals: meals,card:card,shop: widget.shop,subtotal:subtotal,promo:promo,user:user,cardPayment: cardPaymentDetail,promoApplied:isPromoApplied,category: widget.category),
-        );
-      });
+    void _showDetailsPanel(List<ConfirmCheckOut> meals, bool card, Shop shop,
+        double subtotal, promo, user, cardPaymentDetail, isPromoApplied) {
+      showModalBottomSheet(
+          isScrollControlled: true,
+          context: context,
+          builder: (context) {
+            //builder shows widget tree to display in bottom sheet
+            return Container(
+              //height:MediaQuery.of(context).size.height,
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+              child: MealDetails(
+                  meals: meals,
+                  card: card,
+                  shop: widget.shop,
+                  subtotal: subtotal,
+                  promo: promo,
+                  user: user,
+                  cardPayment: cardPaymentDetail,
+                  promoApplied: isPromoApplied,
+                  category: widget.category),
+            );
+          });
     }
+
     Price price = Price();
     Auth _auth = Auth();
 
-    double calculateTotal(List<ConfirmCheckOut> confirmCheckOut,String paymentMethod) {
-      if (price.calculatePrice(confirmCheckOut,paymentMethod) > promo.price) {
+    double calculateTotal(
+        List<ConfirmCheckOut> confirmCheckOut, String paymentMethod) {
+      if (price.calculatePrice(confirmCheckOut, paymentMethod) > promo.price) {
         if (promoStop == 0) {
           promoApplied = "Yes";
         }
 
-
-
-        return price.calculatePrice(confirmCheckOut,paymentMethod);
+        return price.calculatePrice(confirmCheckOut, paymentMethod);
       } else {
         if (promoStop == 0) {
           promoApplied = "Yes";
         }
 
-        return price.calculatePrice(confirmCheckOut,paymentMethod);
+        return price.calculatePrice(confirmCheckOut, paymentMethod);
       }
     }
 
@@ -145,7 +136,6 @@ class _CheckOutState extends State<CheckOut> {
             child: SafeArea(
               child: Column(
                 children: <Widget>[
-
                   Container(
                     width: MediaQuery.of(context).size.width,
                     child: Card(
@@ -177,8 +167,8 @@ class _CheckOutState extends State<CheckOut> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                       color: Colors.white,
-                                      border: Border.all(color: Colors.black,width:7)
-                                  ),
+                                      border: Border.all(
+                                          color: Colors.black, width: 7)),
                                   child: Card(
                                       color: Colors.white,
                                       /*
@@ -237,7 +227,8 @@ class _CheckOutState extends State<CheckOut> {
                                       child: Column(
                                         children: <Widget>[
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
                                             children: <Widget>[
                                               Text(
                                                 snapshot.data[index].title ??
@@ -261,27 +252,28 @@ class _CheckOutState extends State<CheckOut> {
                                                     color: Colors.black87),
                                               ),
                                             ],
-
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 10),
+                                            padding:
+                                                const EdgeInsets.only(top: 10),
                                             child: OutlinedButton.icon(
                                                 onPressed: () async {
                                                   await _auth.deleteFromDb(
-                                                      snapshot.data[index].title);
+                                                      snapshot
+                                                          .data[index].title);
                                                   setState(() {});
                                                 },
                                                 icon: Icon(
                                                   Icons.delete,
                                                   color: Colors.black87,
                                                 ),
-                                                label: Text("Remove", style: TextStyle(
-                                                  color: Colors.black87
-                                                ),)
-                                            ),
+                                                label: Text(
+                                                  "Remove",
+                                                  style: TextStyle(
+                                                      color: Colors.black87),
+                                                )),
                                           )
                                         ],
-
                                       ),
                                       elevation: 0),
                                 ),
@@ -298,7 +290,10 @@ class _CheckOutState extends State<CheckOut> {
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: DropdownButton<String>(
                           value: dropdownValue,
-                          icon: const Icon(Icons.arrow_drop_down,color: Colors.white,),
+                          icon: const Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.white,
+                          ),
                           iconSize: 20,
                           elevation: 16,
                           focusColor: Colors.black87,
@@ -314,29 +309,41 @@ class _CheckOutState extends State<CheckOut> {
                               .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
-                              child: value == "Cash" ? Wrap(
-                                crossAxisAlignment: WrapCrossAlignment.center,
-                                children: [
-                                  Text(value),
-                                  SizedBox(width: 5,),
-                                  Icon(Icons.attach_money_rounded,color: Colors.white,)
-                                ],
-                              ) :
-                              Wrap(
-                                crossAxisAlignment: WrapCrossAlignment.center,
-                                children: [
-                                  Text(value),
-                                  SizedBox(width: 5,),
-                                  Icon(Icons.credit_card,color: Colors.white,),
-                                ],
-                              ),
+                              child: value == "Cash"
+                                  ? Wrap(
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      children: [
+                                        Text(value),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Icon(
+                                          Icons.attach_money_rounded,
+                                          color: Colors.white,
+                                        )
+                                      ],
+                                    )
+                                  : Wrap(
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      children: [
+                                        Text(value),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Icon(
+                                          Icons.credit_card,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
                   ),
-
                   Container(
                     height: 50,
                     color: Colors.red[900],
@@ -352,9 +359,9 @@ class _CheckOutState extends State<CheckOut> {
                                 final orders = snapshot.data;
                                 final promoIndex = promo.index;
                                 final isPromoApplied = promoApplied;
-                                final String total =
-                                    (calculateTotal(snapshot.data,dropdownValue))
-                                        .toStringAsFixed(2);
+                                final String total = (calculateTotal(
+                                        snapshot.data, dropdownValue))
+                                    .toStringAsFixed(2);
                                 cardPaymentDetail cardPayment =
                                     cardPaymentDetail(
                                         promoApplied: isPromoApplied,
@@ -363,23 +370,34 @@ class _CheckOutState extends State<CheckOut> {
                                         promoValue: promo.promoValue);
 
                                 bool card;
-                                if(dropdownValue=="Card"){
+                                if (dropdownValue == "Card") {
                                   card = true;
-                                }
-                                else{
+                                } else {
                                   card = false;
                                 }
-                                double subtotal = price.calculatePrice(snapshot.data,"Cash");
+                                double subtotal =
+                                    price.calculatePrice(snapshot.data, "Cash");
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             StreamProvider.value(
                                                 value: AfterCheckOutState()
-                                                    .getShopProgress(
-                                                    uid: uid),
-                                                child: MealDetails(meals: snapshot.data,shop: widget.shop,subtotal: subtotal, card:card,promo:promo,user:user,cardPayment:cardPayment,promoApplied:isPromoApplied,category: widget.category)))
-                                );
+                                                    .getShopProgress(uid: uid),
+                                                child:
+                                                    MealDetails(
+                                                        meals: snapshot.data,
+                                                        shop: widget.shop,
+                                                        subtotal: subtotal,
+                                                        card: card,
+                                                        promo: promo,
+                                                        user: user,
+                                                        cardPayment:
+                                                            cardPayment,
+                                                        promoApplied:
+                                                            isPromoApplied,
+                                                        category:
+                                                            widget.category))));
                               },
                               icon: Icon(
                                 Icons.add_shopping_cart,
@@ -396,7 +414,8 @@ class _CheckOutState extends State<CheckOut> {
                         ),
                       ],
                     ),
-                  ), Card(
+                  ),
+                  Card(
                     child: Container(
                       color: Colors.black,
                       //color:HexColor("#393939"),
@@ -405,7 +424,7 @@ class _CheckOutState extends State<CheckOut> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 0),
                           child: Text(
-                            "Sub-total = R ${(calculateTotal(snapshot.data,dropdownValue)).toStringAsFixed(2)} ",
+                            "Sub-total = R ${(calculateTotal(snapshot.data, dropdownValue)).toStringAsFixed(2)} ",
                             style: TextStyle(
                               fontSize: 35,
                               color: Colors.white,
