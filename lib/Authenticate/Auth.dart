@@ -91,7 +91,7 @@ class Auth {
           : await FirebaseFirestore.instance
               .collection("Users")
               .doc(uid)
-              .updateData({
+              .update({
               "promotions.$indexPromo.used": "Yes",
             });
     }
@@ -99,7 +99,7 @@ class Auth {
     return await FirebaseFirestore.instance
         .collection("OrdersRefined")
         .doc(uid)
-        .updateData({
+        .update({
       "${food.title}.checkOut": "Yes",
       "${food.title}.promo": promoApplied == "Yes" ? promo : 0,
       "${food.title}.Payment Method": "Cash",
@@ -154,7 +154,7 @@ class Auth {
           : await FirebaseFirestore.instance
               .collection("Users")
               .doc(uid)
-              .updateData({
+              .update({
               "promotions.$indexPromo.used": "Yes",
             });
     }
@@ -162,7 +162,7 @@ class Auth {
     return await FirebaseFirestore.instance
         .collection("OrdersRefined")
         .doc(uid)
-        .updateData({
+        .update({
       "${food.title}.checkOut": "Yes",
       "${food.title}.promo": promoApplied == "Yes" ? promo : 0,
       "${food.title}.Payment Method": "Card",
@@ -208,7 +208,7 @@ class Auth {
     try {
       DocumentReference doc =
           FirebaseFirestore.instance.collection("OrdersRefined").doc(uid);
-      doc.updateData({id: FieldValue.delete()});
+      doc.update({id: FieldValue.delete()});
     } catch (e) {
       print(e);
       return null;
