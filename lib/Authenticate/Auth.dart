@@ -83,7 +83,7 @@ class Auth {
         'Payment Method': "Cash",
         "deliveryFee": deliveryFee
       }
-    }, merge: true);
+    }, SetOptions(merge: true));
     await Future.delayed(const Duration(seconds: 1), () => "1");
     if (promoApplied == "Yes") {
       indexPromo.isEmpty
@@ -145,7 +145,7 @@ class Auth {
         "Payment Method": "Card",
         "deliveryFee": deliveryFee
       }
-    }, merge: true);
+    }, SetOptions(merge: true));
 
     await Future.delayed(const Duration(seconds: 1), () => "1");
     if (promoApplied == "Yes") {

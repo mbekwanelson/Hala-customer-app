@@ -32,7 +32,7 @@ class PersonalizeMealState {
     return await FirebaseFirestore.instance
         .collection("OrdersRefined")
         .doc(uid)
-        .set(docData, merge: true);
+        .set(docData, SetOptions(merge: true));
   }
 
   Future checkIfSameShop(String shop) async {

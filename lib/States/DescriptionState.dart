@@ -55,7 +55,7 @@ class DescriptionState with ChangeNotifier {
     return await FirebaseFirestore.instance
         .collection("OrdersRefined")
         .doc(uid)
-        .set(docData, merge: true);
+        .set(docData, SetOptions(merge: true));
   }
 
   logOrderToCart({String title, int quantity, String shop, double price}) {
