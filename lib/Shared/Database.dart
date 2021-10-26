@@ -31,19 +31,19 @@ class Database {
     foodAndConnectCollection
         .where("category", isEqualTo: "Burger")
         .get()
-        .then((QuerySnapshot docs) {
-      if (docs.documents.isNotEmpty) {
+        .then((QuerySnapshot snapshot) {
+      if (snapshot.docs.isNotEmpty) {
         List<FoodItem> foods = [];
 
-        for (int i = 0; i < docs.documents.length; i++) {
+        for (int i = 0; i < snapshot.docs.length; i++) {
           foods.add(FoodItem(
-              title: docs.documents[i].data["title"] ?? "no",
-              image: docs.documents[i].data["image"] ??
+              title: snapshot.docs[i].data["title"] ?? "no",
+              image: snapshot.docs[i].data["image"] ??
                   "https://cdn.pixabay.com/photo/2018/03/04/20/08/burger-3199088__340.jpg",
-              price: docs.documents[i].data["price"] ?? 0,
-              id: docs.documents[i].data["id"] ?? "ai",
-              category: docs.documents[i].data["category"] ?? "nja",
-              shop: docs.documents[i].data["restaurant"] ?? "nja"));
+              price: snapshot.docs[i].data["price"] ?? 0,
+              id: snapshot.docs[i].data["id"] ?? "ai",
+              category: snapshot.docs[i].data["category"] ?? "nja",
+              shop: snapshot.docs[i].data["restaurant"] ?? "nja"));
         }
         return foods;
         burgers = foods;
@@ -59,7 +59,7 @@ class Database {
         .collection('Food And Connect')
         .where("category", isEqualTo: "Burger")
         .snapshots()
-        .listen((data) => data.documents.forEach((doc) => print("title")));
+        .listen((data) => data.docs.forEach((doc) => print("title")));
   }
 
   LocationN _locationFromSnapshot(DocumentSnapshot snapshot) {

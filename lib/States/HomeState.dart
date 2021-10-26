@@ -28,16 +28,16 @@ class HomeState with ChangeNotifier {
         .get()
         .then((QuerySnapshot categoryItems) {
       selectedCategory = [];
-      for (int item = 0; item < categoryItems.documents.length; item++) {
+      for (int item = 0; item < categoryItems.docs.length; item++) {
         selectedCategory.add(FoodItem(
-            title: categoryItems.documents[item].data["title"] ?? "no",
-            image: categoryItems.documents[item].data["image"] ??
+            title: categoryItems.docs[item].data["title"] ?? "no",
+            image: categoryItems.docs[item].data["image"] ??
                 "https://cdn.pixabay.com/photo/2018/03/04/20/08/burger-3199088__340.jpg",
-            price: categoryItems.documents[item].data["price"] ?? 0,
-            id: categoryItems.documents[item].data["id"] ?? "ai",
-            category: categoryItems.documents[item].data["category"] ?? "nja",
+            price: categoryItems.docs[item].data["price"] ?? 0,
+            id: categoryItems.docs[item].data["id"] ?? "ai",
+            category: categoryItems.docs[item].data["category"] ?? "nja",
             shop: shop.shopName,
-            inStock: categoryItems.documents[item].data["inStock"] ?? true));
+            inStock: categoryItems.docs[item].data["inStock"] ?? true));
       }
       notifyListeners();
     });
@@ -62,7 +62,7 @@ class HomeState with ChangeNotifier {
         .collection("Meals")
         .get()
         .then((value) {
-      value.documents.forEach((doc) {
+      value.docs.forEach((doc) {
         doc.data.forEach((key, value) {
           if (key == 'compulsoryOptions') {
             compulsoryOptions = value.toList();

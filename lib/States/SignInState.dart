@@ -145,7 +145,7 @@ class SignInState with ChangeNotifier {
           .snapshots()
           .forEach((element) {
         // checks if user is already on database
-        element.documents.forEach((document) {
+        element.docs.forEach((document) {
           if (uid == document.documentID) {
             new_user = false;
           }
@@ -191,7 +191,7 @@ class SignInState with ChangeNotifier {
             .snapshots()
             .forEach((element) {
           // checks if user is already on database
-          element.documents.forEach((document) {
+          element.docs.forEach((document) {
             if (uid == document.documentID) {
               new_facebook_user = false;
             }

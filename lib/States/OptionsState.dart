@@ -14,10 +14,10 @@ class OptionsState with ChangeNotifier {
 
   List<Option> _optionsFromDb(QuerySnapshot snapshot) {
     List<Option> options = [];
-    for (int cat = 0; cat < snapshot.documents.length; cat++) {
+    for (int cat = 0; cat < snapshot.docs.length; cat++) {
       options.add(Option(
-          category: snapshot.documents[cat].data["name"],
-          url: snapshot.documents[cat].data["url"]));
+          category: snapshot.docs[cat].data["name"],
+          url: snapshot.docs[cat].data["url"]));
     }
     return options;
   }

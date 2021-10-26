@@ -24,15 +24,14 @@ class UserDrawerState with ChangeNotifier {
         .get()
         .then((document) {
       for (int elementIndex = 0;
-          elementIndex < document.documents.length;
+          elementIndex < document.docs.length;
           elementIndex++) {
-        // print("${document.documents[elementIndex].data["promoCode"]} VS ${promoCode.text}");
-        if (promoCode.text ==
-            document.documents[elementIndex].data["promoCode"]) {
+        // print("${document.docs[elementIndex].data["promoCode"]} VS ${promoCode.text}");
+        if (promoCode.text == document.docs[elementIndex].data["promoCode"]) {
           Promotion promo = Promotion(
-            promoCode: document.documents[elementIndex].data["promoCode"],
-            promoValue: document.documents[elementIndex].data["promoValue"],
-            shop: document.documents[elementIndex].documentID,
+            promoCode: document.docs[elementIndex].data["promoCode"],
+            promoValue: document.docs[elementIndex].data["promoValue"],
+            shop: document.docs[elementIndex].documentID,
           );
 
           return promo;

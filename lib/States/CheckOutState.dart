@@ -102,7 +102,7 @@ class CheckOutState with ChangeNotifier {
     Map<String, dynamic> userPromos = await _getPromosFromUser();
     QuerySnapshot promoQuery =
         await FirebaseFirestore.instance.collection("Promotions").get();
-    List<DocumentSnapshot> promos = promoQuery.documents;
+    List<DocumentSnapshot> promos = promoQuery.docs;
     PromoCheckOut promoCheckOut;
     List<String> userPromoKey = userPromos.keys.toList();
     if (userPromoKey.isNotEmpty) {
