@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:commons/commons.dart';
-import 'package:crypto/crypto.dart';
+import 'package:commons/commons.dart'; //! TODO sya : find alternative to commons plugin
+import 'package:crypto/crypto.dart'; //! TODO sya : find alternative to commons plugin
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart'; //! TODO sya : find alternative to commons plugin
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:mymenu/Authenticate/Auth.dart';
@@ -155,7 +155,7 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
           widget.privateKey),
     };
     var posta = '';
-    var resp = await http.post(Uri.encodeFull('https://pay.ozow.com/'),
+    var resp = await http.post(Uri.parse('https://pay.ozow.com/'),
         headers: {
           "ApiKey": 'ZUXVOvt39xaavip2M1BZygU4CjDpD930',
           "Content-Type": 'application/x-www-form-urlencoded',
@@ -245,7 +245,7 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
           };
           var posta = '';
           var resp = await http
-              .post(Uri.encodeFull('https://api.ozow.com/PostPaymentRequest'),
+              .post(Uri.parse('https://api.ozow.com/PostPaymentRequest'),
                   headers: {
                     "ApiKey": 'ZUXVOvt39xaavip2M1BZygU4CjDpD930',
                     "Content-Type": 'application/json',
