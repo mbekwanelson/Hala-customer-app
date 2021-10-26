@@ -143,7 +143,11 @@ class UserDrawerState with ChangeNotifier {
   bool _hasOrdered(DocumentSnapshot snapshot) {
     List<String> all = [];
     bool placedOrder = false;
-    snapshot.data.keys.forEach((element) {
+    //! TODO sya : needs testing : deprecated data and keys loop
+    // Getting a snapshots' data via the data getter is now done via the data() method.
+    Map<String, dynamic> data = snapshot.data();
+    // snapshot.data.keys.forEach((element) {
+    data.keys.forEach((element) {
       try {
         if (snapshot[element]["active"] == 1) {
           placedOrder = true;

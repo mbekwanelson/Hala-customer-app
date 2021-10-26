@@ -25,7 +25,10 @@ class messageDriverState with ChangeNotifier {
 
   List<Message> _messageFromSnapshot(DocumentSnapshot snapshot) {
     messages = [];
-    snapshot.data.keys.forEach((element) {
+    //! TODO sya : needs testing : deprecated data and keys loop
+    // Getting a snapshots' data via the data getter is now done via the data() method.
+    Map<String, dynamic> data = snapshot.data();
+    data.keys.forEach((element) {
       messages.add(Message(
           message: snapshot[element]["message"],
           time: snapshot[element]["time"],

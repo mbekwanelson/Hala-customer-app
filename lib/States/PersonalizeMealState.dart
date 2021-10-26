@@ -50,10 +50,16 @@ class PersonalizeMealState {
     // checks for items that were not checked out
 
     if (snapshot.data != null) {
-      List<dynamic> keys = snapshot.data.keys.toList();
+      //! TODO sya : needs testing : deprecated data and keys loop
+      // Getting a snapshots' data via the data getter is now done via the data() method.
+      Map<String, dynamic> data = snapshot.data();
+      // List<dynamic> keys = snapshot.data.keys.toList();
+      List<dynamic> keys = data.keys.toList();
       try {
-        for (int i = 0; i < snapshot.data.length; i++) {
-          if (snapshot.data[keys[i]]['checkOut'] == "No") {
+        // for (int i = 0; i < snapshot.data.length; i++) {
+        for (int i = 0; i < data.length; i++) {
+          // if (snapshot.data[keys[i]]['checkOut'] == "No") {
+          if (data[keys[i]]['checkOut'] == "No") {
             numberOptions++;
           }
         }
@@ -63,9 +69,11 @@ class PersonalizeMealState {
       }
 
       try {
-        for (int i = 0; i < snapshot.data.length; i++) {
-          if (snapshot.data[keys[i]]['shop'] == shop &&
-              snapshot.data[keys[i]]['checkOut'] == "No") {
+        // for (int i = 0; i < snapshot.data.length; i++) {
+        for (int i = 0; i < data.length; i++) {
+          // if (snapshot.data[keys[i]]['shop'] == shop && snapshot.data[keys[i]]['checkOut'] == "No") {
+          if (data[keys[i]]['shop'] == shop &&
+              data[keys[i]]['checkOut'] == "No") {
             count++;
           }
         }
@@ -74,7 +82,8 @@ class PersonalizeMealState {
         print("null index final");
       }
 
-      if (count == numberOptions || snapshot.data.length == 0) {
+      // if (count == numberOptions || snapshot.data.length == 0) {
+      if (count == numberOptions || data.length == 0) {
         return true;
       } else {
         return false;

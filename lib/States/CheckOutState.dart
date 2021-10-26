@@ -17,7 +17,11 @@ class CheckOutState with ChangeNotifier {
 
   CheckOutState() {}
   List<ConfirmCheckOut> _ordersFromSnapshot(DocumentSnapshot snapshot) {
-    snapshot.data.keys.forEach((element) {
+//! TODO sya : needs testing : deprecated data and keys loop
+    // Getting a snapshots' data via the data getter is now done via the data() method.
+    Map<String, dynamic> data = snapshot.data();
+    // snapshot.data.keys.forEach((element) {
+    data.keys.forEach((element) {
       try {
         if (snapshot[element]["inActive"] == 1 &&
             snapshot[element]["checkOut"] != "Yes") {

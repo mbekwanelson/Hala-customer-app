@@ -173,7 +173,11 @@ class Auth {
 
   List<ConfirmCheckOut> _ordersFromSnapshot(DocumentSnapshot snapshot) {
     orders = [];
-    snapshot.data.keys.forEach((element) {
+    //! TODO sya : needs testing : deprecated data and keys loop
+    // Getting a snapshots' data via the data getter is now done via the data() method.
+    Map<String, dynamic> data = snapshot.data();
+    // snapshot.data.keys.forEach((element) {
+    data.keys.forEach((element) {
       try {
         if (snapshot[element]["active"] == 1 &&
             snapshot[element]["checkOut"] != "Yes") {
@@ -237,11 +241,11 @@ class Auth {
     DateTime _CurrentTime =
         new DateTime(Year, Month, Day, currentTime.hour, currentTime.minute);
 
-    DateTime openingTime = doc.data["OpeningTime"].toDate(); //["OpeningTime"];
+    DateTime openingTime = doc.get("OpeningTime").toDate(); //["OpeningTime"];
     DateTime _OpeningTime =
         new DateTime(Year, Month, Day, openingTime.hour, openingTime.minute);
 
-    DateTime closingTime = doc.data["ClosingTime"].toDate();
+    DateTime closingTime = doc.get("ClosingTime").toDate();
     DateTime _ClosingTime =
         new DateTime(Year, Month, Day, closingTime.hour, closingTime.minute);
     bool isShopOperating = _CurrentTime.isAfter(_OpeningTime) &&

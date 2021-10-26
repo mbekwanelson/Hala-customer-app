@@ -7,8 +7,11 @@ class AfterCheckOutState with ChangeNotifier {
 
   List<String> _progressFromShop(DocumentSnapshot snapshot) {
     List<String> all = [];
-
-    snapshot.data.keys.forEach((element) {
+//! TODO sya : needs testing : deprecated data and keys loop
+    // Getting a snapshots' data via the data getter is now done via the data() method.
+    Map<String, dynamic> data = snapshot.data();
+    // snapshot.data.keys.forEach((element) {
+    data.keys.forEach((element) {
       try {
         if (snapshot[element]["active"] == 1 &&
             snapshot[element]["shopSeen"] == "Yes") {

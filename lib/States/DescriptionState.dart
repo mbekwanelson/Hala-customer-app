@@ -83,10 +83,15 @@ class DescriptionState with ChangeNotifier {
     // checks for items that were not checked out
 
     if (snapshot.data != null) {
-      List<dynamic> keys = snapshot.data.keys.toList();
+      //! TODO sya : needs testing : deprecated data and keys loop
+      // Getting a snapshots' data via the data getter is now done via the data() method.
+      Map<String, dynamic> data = snapshot.data();
+      List<dynamic> keys = data.keys.toList();
       try {
-        for (int i = 0; i < snapshot.data.length; i++) {
-          if (snapshot.data[keys[i]]['checkOut'] == "No") {
+        // for (int i = 0; i < snapshot.data.length; i++) {
+        for (int i = 0; i < data.length; i++) {
+          // if (snapshot.data[keys[i]]['checkOut'] == "No") {
+          if (data[keys[i]]['checkOut'] == "No") {
             numberOptions++;
           }
         }
@@ -96,9 +101,11 @@ class DescriptionState with ChangeNotifier {
       }
 
       try {
-        for (int i = 0; i < snapshot.data.length; i++) {
-          if (snapshot.data[keys[i]]['shop'] == shop &&
-              snapshot.data[keys[i]]['checkOut'] == "No") {
+        // for (int i = 0; i < snapshot.data.length; i++) {
+        for (int i = 0; i < data.length; i++) {
+          // if (snapshot.data[keys[i]]['shop'] == shop && snapshot.data[keys[i]]['checkOut'] == "No") {
+          if (data[keys[i]]['shop'] == shop &&
+              data[keys[i]]['checkOut'] == "No") {
             count++;
           }
         }
@@ -107,15 +114,18 @@ class DescriptionState with ChangeNotifier {
         print("null index final");
       }
 
-      if (count == numberOptions || snapshot.data.length == 0) {
+      // if (count == numberOptions || snapshot.data.length == 0) {
+      if (count == numberOptions || data.length == 0) {
         return true;
       } else {
         return false;
       }
 
-      snapshot.data.keys.forEach((element) {
-        if (snapshot.data[element]['shop'] == shop &&
-            snapshot.data[element]['checkOut'] == "No") {
+      // snapshot.data.keys.forEach((element) {
+      data.keys.forEach((element) {
+        // if (snapshot.data[element]['shop'] == shop && snapshot.data[element]['checkOut'] == "No") {
+        if (data[element]['shop'] == shop &&
+            data[element]['checkOut'] == "No") {
           print("Same Shop");
           shop = 'Same shop';
           return true;

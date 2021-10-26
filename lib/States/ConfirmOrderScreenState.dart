@@ -4,8 +4,12 @@ import 'package:mymenu/Models/ConfirmOrder.dart';
 
 class ConfirmOrderScreenState {
   List<ConfirmOrder> _ordersPlaced(DocumentSnapshot snapshot) {
+    //! TODO sya : needs testing : deprecated data and keys loop
+    // Getting a snapshots' data via the data getter is now done via the data() method.
+    Map<String, dynamic> data = snapshot.data();
     print("There");
-    print("You have ordered ${snapshot.data.length} Items");
+    // print("You have ordered ${snapshot.data.length} Items");
+    print("You have ordered ${data.length} Items");
     return null;
   }
 
@@ -19,7 +23,11 @@ class ConfirmOrderScreenState {
         .doc(uid)
         .snapshots()
         .forEach((element) {
-      element.data.forEach((key, value) {
+      //! TODO sya : needs testing : deprecated data and keys loop
+      // Getting a snapshots' data via the data getter is now done via the data() method.
+      Map<String, dynamic> data = element.data();
+      // element.data.forEach((key, value) {
+      data.forEach((key, value) {
         //print(" key = $key : value = ${value["title"]}");
         confirmOrders.add(ConfirmOrder(
             orderName: value['title'],
@@ -29,7 +37,7 @@ class ConfirmOrderScreenState {
             shopName: "Food and Connect"));
       });
 
-      print(element.data.length);
+      print(data.length);
     });
     await Future.delayed(const Duration(seconds: 1), () => "1");
     return confirmOrders;
