@@ -7,14 +7,14 @@ class Database {
   List<FoodItem> burgers;
   //collection reference allows us to access a firestore collection [database]
   final CollectionReference foodAndConnectCollection =
-      Firestore.instance.collection("Food and Connect");
+      FirebaseFirestore.instance.collection("Food and Connect");
 
 // can read documents in the collection using that reference
 
 // Sends users location to driver
   Future loadLocation(double latitude, double longitude) async {
     String uid = await Auth().inputData();
-    return await Firestore.instance
+    return await FirebaseFirestore.instance
         .collection("Location")
         .document(uid)
         .setData({
@@ -55,7 +55,7 @@ class Database {
   }
 
   void tired() {
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection('Food And Connect')
         .where("category", isEqualTo: "Burger")
         .snapshots()
@@ -71,7 +71,7 @@ class Database {
   }
 
   Stream<LocationN> DriverLocation({String uid}) {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("Location")
         .document(uid)
         .snapshots()

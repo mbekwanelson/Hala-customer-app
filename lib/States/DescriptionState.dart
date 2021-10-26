@@ -52,7 +52,7 @@ class DescriptionState with ChangeNotifier {
       }
     };
 
-    return await Firestore.instance
+    return await FirebaseFirestore.instance
         .collection("OrdersRefined")
         .document(uid)
         .setData(docData, merge: true);
@@ -75,7 +75,7 @@ class DescriptionState with ChangeNotifier {
     int count = 0;
     int numberOptions = 0;
 
-    snapshot = await Firestore.instance
+    snapshot = await FirebaseFirestore.instance
         .collection('OrdersRefined')
         .document(uid)
         .get();

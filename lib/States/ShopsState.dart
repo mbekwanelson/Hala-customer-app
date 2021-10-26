@@ -40,7 +40,7 @@ class ShopsState with ChangeNotifier {
 
   Stream<List<FoodItem>> shopChosen({String category, String shopChosen}) {
     //returns snapshot of database and tells us of any changes [provider]
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("Options")
         .document(category)
         .collection(category)
@@ -65,7 +65,7 @@ class ShopsState with ChangeNotifier {
 
   Stream<List<Restaurant>> numberRestaurants() {
     //returns snapshot of database and tells us of any changes [provider]
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("Restaurants")
         .snapshots()
         .map(_numRestaurants);
@@ -80,7 +80,7 @@ class ShopsState with ChangeNotifier {
   Stream<List<Shop>> getShops(
       {String category, Position currentUserPosition}) async* {
     List<Shop> shops = [];
-    CollectionReference collectionReference = Firestore.instance
+    CollectionReference collectionReference = FirebaseFirestore.instance
         .collection("Options")
         .document(category)
         .collection(category); //.//snapshots();

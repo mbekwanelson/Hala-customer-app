@@ -40,7 +40,7 @@ class Auth {
 
   //users connecting to database
   final CollectionReference orderCollection =
-      Firestore.instance.collection("Orders");
+      FirebaseFirestore.instance.collection("Orders");
 
   //CB and edit
   Future checkOutApprovedCash(
@@ -64,7 +64,7 @@ class Auth {
       mealOption += option + ",";
     }
 
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection("OrdersShops")
         .document("OrdersShops")
         .collection(food.shop)
@@ -88,7 +88,7 @@ class Auth {
     if (promoApplied == "Yes") {
       indexPromo.isEmpty
           ? print(indexPromo)
-          : await Firestore.instance
+          : await FirebaseFirestore.instance
               .collection("Users")
               .document(uid)
               .updateData({
@@ -96,7 +96,7 @@ class Auth {
             });
     }
 
-    return await Firestore.instance
+    return await FirebaseFirestore.instance
         .collection("OrdersRefined")
         .document(uid)
         .updateData({
@@ -126,7 +126,7 @@ class Auth {
       mealOption += option + ",";
     }
 
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection("OrdersShops")
         .document("OrdersShops")
         .collection(food.shop)
@@ -151,7 +151,7 @@ class Auth {
     if (promoApplied == "Yes") {
       indexPromo.isEmpty
           ? print(indexPromo)
-          : await Firestore.instance
+          : await FirebaseFirestore.instance
               .collection("Users")
               .document(uid)
               .updateData({
@@ -159,7 +159,7 @@ class Auth {
             });
     }
 
-    return await Firestore.instance
+    return await FirebaseFirestore.instance
         .collection("OrdersRefined")
         .document(uid)
         .updateData({
@@ -196,7 +196,7 @@ class Auth {
   Stream<List<ConfirmCheckOut>> myOrders(String user) {
     //returns snapshot of database and tells us of any changes [provider]
 
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("OrdersRefined")
         .document(user)
         .snapshots()
@@ -207,7 +207,7 @@ class Auth {
     String uid = await inputData();
     try {
       DocumentReference doc =
-          Firestore.instance.collection("OrdersRefined").document(uid);
+          FirebaseFirestore.instance.collection("OrdersRefined").document(uid);
       doc.updateData({id: FieldValue.delete()});
     } catch (e) {
       print(e);
@@ -222,7 +222,7 @@ class Auth {
   }
 
   Future<String> isShopOperational(String shopName, String category) async {
-    DocumentReference shopObject = await Firestore.instance
+    DocumentReference shopObject = await FirebaseFirestore.instance
         .collection("Options")
         .document(category)
         .collection(category)

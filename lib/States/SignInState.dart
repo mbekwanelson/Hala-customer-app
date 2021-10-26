@@ -140,7 +140,10 @@ class SignInState with ChangeNotifier {
 
     if (user != null) {
       dynamic uid = await Auth().inputData();
-      Firestore.instance.collection("Users").snapshots().forEach((element) {
+      FirebaseFirestore.instance
+          .collection("Users")
+          .snapshots()
+          .forEach((element) {
         // checks if user is already on database
         element.documents.forEach((document) {
           if (uid == document.documentID) {
@@ -151,7 +154,10 @@ class SignInState with ChangeNotifier {
 
       await Future.delayed(const Duration(seconds: 1), () => "1");
       if (new_user) {
-        await Firestore.instance.collection("Users").document(uid).setData({
+        await FirebaseFirestore.instance
+            .collection("Users")
+            .document(uid)
+            .setData({
           "name": user.displayName,
           "email": user.email,
           "user": "Customer",
@@ -183,7 +189,10 @@ class SignInState with ChangeNotifier {
         final FacebookAccessToken facebookAccessToken = result.accessToken;
         await firebaseAuthWithFacebook(token: facebookAccessToken);
         dynamic uid = await Auth().inputData();
-        Firestore.instance.collection("Users").snapshots().forEach((element) {
+        FirebaseFirestore.instance
+            .collection("Users")
+            .snapshots()
+            .forEach((element) {
           // checks if user is already on database
           element.documents.forEach((document) {
             if (uid == document.documentID) {
@@ -194,7 +203,10 @@ class SignInState with ChangeNotifier {
 
         await Future.delayed(const Duration(seconds: 1), () => "1");
         if (new_facebook_user) {
-          await Firestore.instance.collection("Users").document(uid).setData({
+          await FirebaseFirestore.instance
+              .collection("Users")
+              .document(uid)
+              .setData({
             "name": profile["name"],
             "email": profile["email"],
             "user": "Customer",

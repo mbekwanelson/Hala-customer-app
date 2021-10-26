@@ -18,7 +18,7 @@ class HomeState with ChangeNotifier {
     //selectedCategory = [];
     tab = 1;
 
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection("Options")
         .document(shop.category)
         .collection(shop.category)
@@ -54,7 +54,7 @@ class HomeState with ChangeNotifier {
     Map<dynamic, dynamic> numberPerOption = {};
     meals = [];
 
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection("Options")
         .document(shop.category)
         .collection(shop.category)
