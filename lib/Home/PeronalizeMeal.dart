@@ -163,7 +163,7 @@ class _PersonalizeMealState extends State<PersonalizeMeal> {
                             ),
                           );
                         }),
-                    FlatButton.icon(
+                    TextButton.icon(
                       onPressed: () async {
                         await PersonalizeMealState()
                             .updateUserData(widget.meal);
@@ -184,7 +184,7 @@ class _PersonalizeMealState extends State<PersonalizeMeal> {
                           ),
                         ),
                       ),
-                      color: Colors.black,
+                      // color: Colors.black,
                     ),
                   ],
                 ),

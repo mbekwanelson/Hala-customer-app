@@ -134,7 +134,7 @@ class _DescriptionState extends State<Description> {
           SizedBox(
             height: 20,
           ),
-          FlatButton.icon(
+          TextButton.icon(
             onPressed: () async {
               setState(() {
                 //descriptionState.count = 0;
@@ -162,7 +162,6 @@ class _DescriptionState extends State<Description> {
                 ),
               ),
             ),
-            color: Colors.black,
           )
         ],
       ),

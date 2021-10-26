@@ -87,14 +87,14 @@ class _UserDrawerState extends State<UserDrawer> {
               style: TextStyle(color: Colors.amber, fontSize: 15),
             ),
           ),
-          FlatButton(
+          TextButton(
             onPressed: () async {
               //userDrawerState.findPromos();
               userDrawerState.verifyPromo();
             },
             child: Text("Submit"),
           ),
-          // FlatButton(
+          // TextButton(
           //   child:Text("Order Progress"),
           //   onPressed: ()async{
           //
@@ -105,7 +105,7 @@ class _UserDrawerState extends State<UserDrawer> {
           //   },
           // ),
 
-          FlatButton(
+          TextButton(
               child: Text("Order Progress"),
               onPressed: () {
                 print(uid);

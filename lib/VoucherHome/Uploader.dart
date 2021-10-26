@@ -49,13 +49,13 @@ class _UploaderState extends State<Uploader> {
                 // if (_uploadTask.isComplete)
                 //   Text('Upload completed succesfully'),
                 // if (_uploadTask.isPaused)
-                //   FlatButton(
+                //   TextButton(
                 //     child: Icon(Icons.play_arrow),
                 //     onPressed: _uploadTask.resume,
                 //   ),
 
                 // if (_uploadTask.isInProgress)
-                //   FlatButton(
+                //   TextButton(
                 //     child: Icon(Icons.pause),
                 //     onPressed: _uploadTask.pause,
                 //   ),
@@ -71,7 +71,7 @@ class _UploaderState extends State<Uploader> {
           });
     } else {
       // Allows user to decide when to start the upload
-      return FlatButton.icon(
+      return TextButton.icon(
         label: Text('Upload to Firebase'),
         icon: Icon(Icons.cloud_upload),
         onPressed: _startUpload,

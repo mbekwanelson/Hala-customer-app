@@ -176,7 +176,7 @@ class _CheckOutState extends State<CheckOut> {
                                         onTap: () {},
                                         //leading:Image.network(orders[index].image),
                                         //contentPadding: EdgeInsets.all(30),
-                                        trailing: FlatButton.icon(
+                                        trailing: TextButton.icon(
                                             onPressed: () async {
                                               await _auth.deleteFromDb(
                                                   snapshot.data[index].title);
@@ -350,9 +350,12 @@ class _CheckOutState extends State<CheckOut> {
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          child: FlatButton.icon(
+                          child: TextButton.icon(
                               //color: Colors.green,
-                              color: Colors.red[900],
+                              style: TextButton.styleFrom(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.primary),
+                              // color: Colors.red[900],
                               onPressed: () async {
                                 dynamic uid = await Auth().inputData();
                                 shop = snapshot.data[0].shop;

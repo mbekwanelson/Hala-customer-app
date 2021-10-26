@@ -49,8 +49,8 @@ class _VerificationEmailState extends State<VerificationEmail> {
             ),
             Padding(
               padding: const EdgeInsets.all(20),
-              child: FlatButton(
-                  color: Colors.white,
+              child: TextButton(
+                  // color: Colors.white,
                   onPressed: () {
                     Auth().signOut();
                   },

@@ -92,11 +92,11 @@ class _ImageCaptureState extends State<ImageCapture> {
                     Image.file(_imageFile),
                     Row(
                       children: <Widget>[
-                        FlatButton(
+                        TextButton(
                           onPressed: _cropImage,
                           child: Icon(Icons.crop),
                         ),
-                        FlatButton(
+                        TextButton(
                           child: Icon(Icons.refresh),
                           onPressed: _clear,
                         ),

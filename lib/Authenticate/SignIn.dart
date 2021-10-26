@@ -156,8 +156,8 @@ class _SignInState extends State<SignIn> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20),
-                        child: FlatButton(
-                            color: HexColor("#393939"),
+                        child: TextButton(
+                            // color: HexColor("#393939"),
                             onPressed: () {
                               Navigator.push(
                                   context,

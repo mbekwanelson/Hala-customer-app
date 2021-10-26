@@ -216,7 +216,7 @@ class _HomeState extends State<Home> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(bottom: 1),
-                          child: FlatButton(
+                          child: TextButton(
                             onPressed: () {
                               setState(() {
                                 Navigator.push(
@@ -234,7 +234,7 @@ class _HomeState extends State<Home> {
                                   letterSpacing: 2,
                                   color: Colors.white),
                             ),
-                            color: Colors.black87,
+                            // color: Colors.black87,
                           ),
                         ),
                       ],

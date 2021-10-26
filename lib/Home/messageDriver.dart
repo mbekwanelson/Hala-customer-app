@@ -59,12 +59,12 @@ class _messageDriverState extends State<messageDriver> {
                         Center(
                           child: Center(
                             child: Center(
-                              child: FlatButton(
+                              child: TextButton(
                                 child: Text(
                                   "Send",
                                   style: TextStyle(color: Colors.white),
                                 ),
-                                color: Colors.black,
+                                // color: Colors.black,
                                 onPressed: () async {
                                   await messageDriverState()
                                       .sendDriverMessage(message.text);
@@ -157,12 +157,12 @@ class _messageDriverState extends State<messageDriver> {
                         decoration: textInputDecoration,
                       ),
                     ),
-                    FlatButton(
+                    TextButton(
                       child: Text(
                         "Send",
                         style: TextStyle(color: Colors.white),
                       ),
-                      color: Colors.black,
+                      // color: Colors.black,
                       onPressed: () async {
                         await messageDriverState()
                             .sendDriverMessage(message.text);
