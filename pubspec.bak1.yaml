@@ -19,46 +19,48 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^1.8.0           #^0.4.4     #web supported
-  firebase_auth: ^3.1.4           #^0.15.5+3  #web supported
-  firebase_messaging: ^10.0.9                 #web supported
-  firebase_storage: ^10.0.6       #^3.0.3     #web supported
-  cloud_firestore: ^2.5.4         #^0.13.4+2  #web supported
-  google_sign_in: ^5.2.0          #^4.5.4     #web supported
-  firebase_analytics: ^8.3.4      #^5.0.16    #web supported
-  flutter_google_places: ^0.3.0   #^0.2.3     #web supported
-  fluttertoast: ^8.0.8            #^4.0.0     #web supported
-  provider: ^6.0.1                #^4.0.4     #web supported
-  flutter_spinkit: ^5.1.0         #"^4.1.2"   #web supported
-  location: ^4.3.0                #^2.3.5     #web supported
-  google_maps_flutter: ^2.0.11    #^0.5.25+3  #not web supported
+  firebase_core: ^0.4.4 #web supported
+  firebase_auth: ^0.15.5+3 #web supported
+  firebase_messaging: #web supported
+  firebase_storage: ^3.0.3 #web supported
+  #here_sdk:
+  #  path: plugins/here_sdk
+  #here_maps_webservice: 1.0.2
+  cloud_firestore: ^0.13.4+2 #web supported
+  progress_dialog: ^1.2.4 #discontinued
+  provider: ^4.0.4 #web supported
+  flutter_spinkit: "^4.1.2" #web supported
+  google_maps_flutter: ^0.5.25+3 #not web supported
+  location: ^2.3.5 #web supported
 
-  image_picker: ^0.8.4+3          #^0.6.0+17  #web supported
-  image_cropper: ^1.4.1           #^1.2.1     #not web supported
+  image_picker: ^0.6.0+17 #web supported
+  image_cropper: ^1.2.1 #not web supported
 
-  geolocator: ^7.7.1              #^5.3.1     #web supported
-  http: ^0.13.4                   #0.12.1     #web supported
-  latlong2: ^0.8.1                #^0.8.0     #web supported
+  fluttertoast: ^4.0.0 #web supported
 
-  carousel_slider: ^4.0.0         #^2.2.1     #web supported
-  hexcolor: ^2.0.5                #^1.0.6     #web supported
+  geoflutterfire: ^2.0.3+2 #web supported
+  geolocator: ^5.3.1 #web supported
+  http: 0.12.1 #web supported
+  latlong2: ^0.8.0 #web supported
 
-  # progress_dialog: ^1.2.4                   #discontinued
-  # geoflutterfire: ^3.0.1        #^2.0.3+2   #web supported        #conflicts with flutter_google_places
-  # commons: ^0.7.8+3                         #not web supported    #conflicts with http
-  # flutter_facebook_login: ^3.0.0            #not web supported    #uses a deprecated version of the Android embedding.
+  flutter_google_places: ^0.2.3 #web supported
+  firebase_analytics: ^5.0.16 #web supported
+  google_sign_in: ^4.5.4 #web supported
+  flutter_facebook_login: ^3.0.0 #not web supported
+  carousel_slider: ^2.2.1 #web supported
+  hexcolor: ^1.0.6 #web supported
+  commons: ^0.7.8+3 #not web supported
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.3         #^0.1.2     #web supported
-  flutter_polyline_points: ^1.0.0 #^0.2.2     #web supported 
-  sleek_circular_slider: ^2.0.1   #^1.2.0+web #web supported
-  flutter_linkify: ^5.0.2         #^3.1.2     #web supported
-  flutter_inappwebview: ^5.3.2    #^4.0.0+4   #not web supported
-  webview_flutter: ^2.1.2         #^1.0.7     #not web supported
-  # flutter_webview_plugin: ^0.4.0 #^0.3.11   #not web supported    #uses a deprecated version of the Android embedding.
-  # permission: ^0.1.7                        #not web supported    #uses deprecated version of the Android embedding
-
+  cupertino_icons: ^0.1.2 #web supported
+  permission: ^0.1.7 #not web supported
+  flutter_polyline_points: ^0.2.2 #web supported
+  flutter_inappwebview: ^4.0.0+4 #not web supported
+  webview_flutter: ^1.0.7 #not web supported
+  flutter_webview_plugin: ^0.3.11 #not web supported
+  sleek_circular_slider: ^1.2.0+web #web supported
+  flutter_linkify: ^3.1.2 #web supported
 
 dev_dependencies:
   flutter_test:
