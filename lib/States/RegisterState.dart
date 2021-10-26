@@ -117,7 +117,7 @@ class RegisterState with ChangeNotifier {
   // registers new user
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       //grab user from that result
       User fb_user = result.user;

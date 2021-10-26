@@ -68,7 +68,7 @@ class SignInState with ChangeNotifier {
 
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
+      UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User fb_user = result.user;
 
