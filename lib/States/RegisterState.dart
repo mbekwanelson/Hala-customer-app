@@ -14,24 +14,21 @@ class RegisterState with ChangeNotifier {
   //Auth _auth; //will change later
   String email = "";
   String password = "";
-  bool isEmailVerified =false;
+  bool isEmailVerified = false;
   String emailConfirmation = "";
-  final FirebaseAuth _auth= FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   TextEditingController name = TextEditingController();
   TextEditingController surname = TextEditingController();
   TextEditingController passwordOriginal = TextEditingController();
   TextEditingController passwordConfirm = TextEditingController();
   TextEditingController emailValue = TextEditingController();
 
-
   //GETTERS
   GlobalKey<FormState> get formKey => _formKey;
 
   //Auth get auth => _auth;
 
-  RegisterState() {
-
-  }
+  RegisterState() {}
 
   // Ensures that user types in correct email
   String validateEmail(String email) {
@@ -112,23 +109,21 @@ class RegisterState with ChangeNotifier {
     notifyListeners();
   }
 
-
-
   // Returns user object which contains firebaseID
-  User _userFromFireBaseUser(FirebaseUser user){
-    return user!=null ? User(userId: user.uid) : null;
+  User _userFromFireBaseUser(User user) {
+    return user != null ? User(userId: user.uid) : null;
   }
 
   // registers new user
-  Future registerWithEmailAndPassword(String email,String password) async{
-    try{
-      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+  Future registerWithEmailAndPassword(String email, String password) async {
+    try {
+      AuthResult result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       //grab user from that result
-      FirebaseUser fb_user  = result.user;
+      User fb_user = result.user;
 
-      if(fb_user !=null){
-        await fb_user.sendEmailVerification().then((value){
-        });
+      if (fb_user != null) {
+        await fb_user.sendEmailVerification().then((value) {});
         // loads user data to database every time new user registers
         String uid = await Auth().inputData();
         await Firestore.instance.collection("Users").document(uid).setData({
@@ -142,13 +137,11 @@ class RegisterState with ChangeNotifier {
       }
 
       //create a new document for user with uid
-      return fb_user.isEmailVerified ? _userFromFireBaseUser(fb_user): null;
+      return fb_user.isEmailVerified ? _userFromFireBaseUser(fb_user) : null;
       // will only work if it was succesful ie can sign in with email and password
-    }
-    catch(e){
+    } catch (e) {
       print(e);
       switch (e.code) {
-
         case "ERROR_EMAIL_ALREADY_IN_USE":
           error = "Email already registered, sign in.";
           break;
@@ -160,7 +153,7 @@ class RegisterState with ChangeNotifier {
           error = "Your password is wrong.";
           break;
         case "ERROR_USER_NOT_FOUND":
-          error= "User with this email doesn't exist.";
+          error = "User with this email doesn't exist.";
           break;
         case "ERROR_USER_DISABLED":
           error = "User with this email has been disabled.";

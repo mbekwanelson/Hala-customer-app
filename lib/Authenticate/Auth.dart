@@ -14,16 +14,16 @@ class Auth {
   //List<Order> orders = [Order(image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg",price: 0,food_id: "placeholder")];
   //create user object based on Firebase user
   List<ConfirmCheckOut> orders = [];
-  // User _userFromFireBaseUser(FirebaseUser user){
+  // User _userFromFireBaseUser(User user){
   //   return user!=null ? User(userId: user.uid) : null;
   // }
   // auth change user stream
 
   bool showSignIn = true;
 
-  Stream<FirebaseUser> get user {
+  Stream<User> get user {
     //tells us each time user signs in / out
-    return _auth.onAuthStateChanged;
+    return _auth.authStateChanges();
   }
 
   //sign in with email and password
@@ -216,7 +216,7 @@ class Auth {
   }
 
   Future inputData() async {
-    final FirebaseUser user = await _auth.currentUser();
+    final User user = await _auth.currentUser();
     return user.uid;
     // here you write the codes to input the data into firestore
   }

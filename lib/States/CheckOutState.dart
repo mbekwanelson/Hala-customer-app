@@ -43,7 +43,7 @@ class CheckOutState with ChangeNotifier {
   }
 
   Future userID() async {
-    final FirebaseUser user = await _auth.currentUser();
+    final User user = await _auth.currentUser();
     return user.uid;
   }
 

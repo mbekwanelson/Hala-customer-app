@@ -16,8 +16,7 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
-    dynamic user =
-        Provider.of<FirebaseUser>(context); // acessing user data from
+    dynamic user = Provider.of<User>(context); // acessing user data from
     Auth().user;
 
     // if it returns a user that means that that user is signed in (registered)
