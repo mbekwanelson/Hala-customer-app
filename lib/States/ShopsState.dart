@@ -59,7 +59,7 @@ class ShopsState with ChangeNotifier {
       print("categories______________________-${doc["categories"]}");
       // returning a brew object for each document
       return Restaurant(
-          restaurantName: doc.documentID,
+          restaurantName: doc.id,
           restaurantBackground: doc["picture"],
           categories: doc["categories"]);
     }).toList();

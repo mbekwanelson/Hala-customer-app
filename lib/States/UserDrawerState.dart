@@ -32,7 +32,7 @@ class UserDrawerState with ChangeNotifier {
           Promotion promo = Promotion(
             promoCode: document.docs[elementIndex]["promoCode"],
             promoValue: document.docs[elementIndex]["promoValue"],
-            shop: document.docs[elementIndex].documentID,
+            shop: document.docs[elementIndex].id,
           );
 
           return promo;

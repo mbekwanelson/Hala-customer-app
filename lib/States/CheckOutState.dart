@@ -113,7 +113,7 @@ class CheckOutState with ChangeNotifier {
           if (promos[j]['promoCode'] ==
                   userPromos[userPromoKey[i]]["promoCode"] &&
               userPromos[userPromoKey[i]]["used"] == "No" &&
-              promos[j].documentID == shop) {
+              promos[j].id == shop) {
             promoCheckOut = PromoCheckOut(
                 //! TODO sya : needs testing : removed .data
                 // promoValue: promos[j].data['promoValue'],
