@@ -1,6 +1,5 @@
-
-class User{
+class CustomUser {
   final String userId;
 
-  User({this.userId});
+  CustomUser({this.userId});
 }

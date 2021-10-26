@@ -22,8 +22,8 @@ class DescriptionState with ChangeNotifier {
   }
 
   // Returns user object which contains firebaseID
-  User _userFromFireBaseUser(User user) {
-    return user != null ? User(userId: user.uid) : null;
+  CustomUser _userFromFireBaseUser(User user) {
+    return user != null ? CustomUser(userId: user.uid) : null;
   }
 
   Future userId() async {
