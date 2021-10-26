@@ -21,7 +21,7 @@ class UserDrawerState with ChangeNotifier {
     // ignore: missing_return
     Promotion promotion = await FirebaseFirestore.instance
         .collection("Promotions")
-        .getDocuments()
+        .get()
         .then((document) {
       for (int elementIndex = 0;
           elementIndex < document.documents.length;

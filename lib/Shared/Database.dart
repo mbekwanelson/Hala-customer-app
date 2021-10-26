@@ -30,7 +30,7 @@ class Database {
   Future test() async {
     foodAndConnectCollection
         .where("category", isEqualTo: "Burger")
-        .getDocuments()
+        .get()
         .then((QuerySnapshot docs) {
       if (docs.documents.isNotEmpty) {
         List<FoodItem> foods = [];

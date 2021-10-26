@@ -25,7 +25,7 @@ class HomeState with ChangeNotifier {
         .doc(shop.shopName)
         .collection("Items")
         .where("category", isEqualTo: category)
-        .getDocuments()
+        .get()
         .then((QuerySnapshot categoryItems) {
       selectedCategory = [];
       for (int item = 0; item < categoryItems.documents.length; item++) {
@@ -60,7 +60,7 @@ class HomeState with ChangeNotifier {
         .collection(shop.category)
         .doc(shop.shopName)
         .collection("Meals")
-        .getDocuments()
+        .get()
         .then((value) {
       value.documents.forEach((doc) {
         doc.data.forEach((key, value) {

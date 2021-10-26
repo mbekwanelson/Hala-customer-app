@@ -84,7 +84,7 @@ class ShopsState with ChangeNotifier {
         .collection("Options")
         .doc(category)
         .collection(category); //.//snapshots();
-    Future<QuerySnapshot> fquerySnapshot = collectionReference.getDocuments();
+    Future<QuerySnapshot> fquerySnapshot = collectionReference.get();
 
     QuerySnapshot snapshot = await fquerySnapshot; //.then((snapshot) async {
     try {

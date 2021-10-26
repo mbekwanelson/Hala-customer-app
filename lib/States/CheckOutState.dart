@@ -100,9 +100,8 @@ class CheckOutState with ChangeNotifier {
 
   Future<PromoCheckOut> shopPromo(String shop) async {
     Map<String, dynamic> userPromos = await _getPromosFromUser();
-    QuerySnapshot promoQuery = await FirebaseFirestore.instance
-        .collection("Promotions")
-        .getDocuments();
+    QuerySnapshot promoQuery =
+        await FirebaseFirestore.instance.collection("Promotions").get();
     List<DocumentSnapshot> promos = promoQuery.documents;
     PromoCheckOut promoCheckOut;
     List<String> userPromoKey = userPromos.keys.toList();
