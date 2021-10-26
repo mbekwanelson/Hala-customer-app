@@ -50,7 +50,7 @@ class CheckOutState with ChangeNotifier {
   Stream<List<ConfirmCheckOut>> myOrders(String uid) {
     return FirebaseFirestore.instance
         .collection("OrdersRefined")
-        .document(uid)
+        .doc(uid)
         .snapshots()
         .map(_ordersFromSnapshot);
   }
@@ -89,10 +89,8 @@ class CheckOutState with ChangeNotifier {
 
   Future<Map<String, dynamic>> _getPromosFromUser() async {
     dynamic uid = await Auth().inputData();
-    DocumentSnapshot user = await FirebaseFirestore.instance
-        .collection("Users")
-        .document(uid)
-        .get();
+    DocumentSnapshot user =
+        await FirebaseFirestore.instance.collection("Users").doc(uid).get();
     return user['promotions'];
   }
 

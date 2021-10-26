@@ -61,7 +61,7 @@ class AfterCheckOutState with ChangeNotifier {
   Stream<List<String>> getShopProgress({String uid}) {
     return FirebaseFirestore.instance
         .collection('OrdersRefined')
-        .document(uid)
+        .doc(uid)
         .snapshots()
         .map(_progressFromShop);
   }

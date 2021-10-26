@@ -16,7 +16,7 @@ class Database {
     String uid = await Auth().inputData();
     return await FirebaseFirestore.instance
         .collection("Location")
-        .document(uid)
+        .doc(uid)
         .setData({
       "Customerlatitude": latitude,
       "Customerlongitude": longitude,
@@ -73,7 +73,7 @@ class Database {
   Stream<LocationN> DriverLocation({String uid}) {
     return FirebaseFirestore.instance
         .collection("Location")
-        .document(uid)
+        .doc(uid)
         .snapshots()
         .map(_locationFromSnapshot);
   }

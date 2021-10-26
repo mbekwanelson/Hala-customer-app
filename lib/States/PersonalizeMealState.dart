@@ -31,7 +31,7 @@ class PersonalizeMealState {
 
     return await FirebaseFirestore.instance
         .collection("OrdersRefined")
-        .document(uid)
+        .doc(uid)
         .setData(docData, merge: true);
   }
 
@@ -44,7 +44,7 @@ class PersonalizeMealState {
     int numberOptions = 0;
     snapshot = await FirebaseFirestore.instance
         .collection('OrdersRefined')
-        .document(uid)
+        .doc(uid)
         .get();
     // gets all order items in database
     // checks for items that were not checked out

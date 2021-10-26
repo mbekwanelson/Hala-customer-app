@@ -14,9 +14,9 @@ class ConfirmOrderScreenState {
     dynamic uid = await Auth().inputData();
     await FirebaseFirestore.instance
         .collection("OrdersShops")
-        .document("OrdersShops")
+        .doc("OrdersShops")
         .collection("Food and Connect")
-        .document(uid)
+        .doc(uid)
         .snapshots()
         .forEach((element) {
       element.data.forEach((key, value) {

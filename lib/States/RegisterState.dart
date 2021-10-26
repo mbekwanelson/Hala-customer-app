@@ -126,10 +126,7 @@ class RegisterState with ChangeNotifier {
         await fb_user.sendEmailVerification().then((value) {});
         // loads user data to database every time new user registers
         String uid = await Auth().inputData();
-        await FirebaseFirestore.instance
-            .collection("Users")
-            .document(uid)
-            .setData({
+        await FirebaseFirestore.instance.collection("Users").doc(uid).setData({
           "name": name.text,
           "surname": surname.text,
           "email": email,

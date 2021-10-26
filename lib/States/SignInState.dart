@@ -154,10 +154,7 @@ class SignInState with ChangeNotifier {
 
       await Future.delayed(const Duration(seconds: 1), () => "1");
       if (new_user) {
-        await FirebaseFirestore.instance
-            .collection("Users")
-            .document(uid)
-            .setData({
+        await FirebaseFirestore.instance.collection("Users").doc(uid).setData({
           "name": user.displayName,
           "email": user.email,
           "user": "Customer",
@@ -205,7 +202,7 @@ class SignInState with ChangeNotifier {
         if (new_facebook_user) {
           await FirebaseFirestore.instance
               .collection("Users")
-              .document(uid)
+              .doc(uid)
               .setData({
             "name": profile["name"],
             "email": profile["email"],

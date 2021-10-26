@@ -45,10 +45,7 @@ class UserDrawerState with ChangeNotifier {
   Future checkIfPromoUsed() async {
     DocumentSnapshot user;
     String uid = await Auth().inputData();
-    user = await FirebaseFirestore.instance
-        .collection("Users")
-        .document(uid)
-        .get();
+    user = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
     await Future.delayed(const Duration(seconds: 1), () => "1");
     Map<String, dynamic> promos = user["promotions"];
 
@@ -73,10 +70,8 @@ class UserDrawerState with ChangeNotifier {
     await Future.delayed(const Duration(seconds: 1), () => "1");
 
     if (validPromoCheck != null && promoUsed == false) {
-      DocumentSnapshot user = await FirebaseFirestore.instance
-          .collection("Users")
-          .document(uid)
-          .get();
+      DocumentSnapshot user =
+          await FirebaseFirestore.instance.collection("Users").doc(uid).get();
       dynamic promos = user['promotions'];
 
       if (promos == null) {
@@ -90,7 +85,7 @@ class UserDrawerState with ChangeNotifier {
         };
         await FirebaseFirestore.instance
             .collection("Users")
-            .document(uid)
+            .doc(uid)
             .setData(data, merge: true);
       } else {
         Map<String, dynamic> data = {
@@ -103,7 +98,7 @@ class UserDrawerState with ChangeNotifier {
         };
         await FirebaseFirestore.instance
             .collection("Users")
-            .document(uid)
+            .doc(uid)
             .setData(data, merge: true);
       }
       validPromo = "Successfully added Promo!";
@@ -133,7 +128,7 @@ class UserDrawerState with ChangeNotifier {
     String uid = await Auth().inputData();
     return await FirebaseFirestore.instance
         .collection("Users")
-        .document(uid)
+        .doc(uid)
         .snapshots()
         .forEach((element) {
       //print(element.data["email"]);
@@ -164,7 +159,7 @@ class UserDrawerState with ChangeNotifier {
     dynamic uid = Auth().inputData();
     return FirebaseFirestore.instance
         .collection('OrdersRefined')
-        .document(uid)
+        .doc(uid)
         .snapshots()
         .map(_hasOrdered);
   }

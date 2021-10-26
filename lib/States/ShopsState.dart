@@ -42,9 +42,9 @@ class ShopsState with ChangeNotifier {
     //returns snapshot of database and tells us of any changes [provider]
     return FirebaseFirestore.instance
         .collection("Options")
-        .document(category)
+        .doc(category)
         .collection(category)
-        .document(shopChosen)
+        .doc(shopChosen)
         .collection("Items")
         .snapshots()
         .map(_shopChosenFromSnapshot);
@@ -82,7 +82,7 @@ class ShopsState with ChangeNotifier {
     List<Shop> shops = [];
     CollectionReference collectionReference = FirebaseFirestore.instance
         .collection("Options")
-        .document(category)
+        .doc(category)
         .collection(category); //.//snapshots();
     Future<QuerySnapshot> fquerySnapshot = collectionReference.getDocuments();
 

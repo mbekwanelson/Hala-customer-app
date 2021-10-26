@@ -20,9 +20,9 @@ class HomeState with ChangeNotifier {
 
     await FirebaseFirestore.instance
         .collection("Options")
-        .document(shop.category)
+        .doc(shop.category)
         .collection(shop.category)
-        .document(shop.shopName)
+        .doc(shop.shopName)
         .collection("Items")
         .where("category", isEqualTo: category)
         .getDocuments()
@@ -56,9 +56,9 @@ class HomeState with ChangeNotifier {
 
     await FirebaseFirestore.instance
         .collection("Options")
-        .document(shop.category)
+        .doc(shop.category)
         .collection(shop.category)
-        .document(shop.shopName)
+        .doc(shop.shopName)
         .collection("Meals")
         .getDocuments()
         .then((value) {

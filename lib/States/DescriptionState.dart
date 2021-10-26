@@ -54,7 +54,7 @@ class DescriptionState with ChangeNotifier {
 
     return await FirebaseFirestore.instance
         .collection("OrdersRefined")
-        .document(uid)
+        .doc(uid)
         .setData(docData, merge: true);
   }
 
@@ -77,7 +77,7 @@ class DescriptionState with ChangeNotifier {
 
     snapshot = await FirebaseFirestore.instance
         .collection('OrdersRefined')
-        .document(uid)
+        .doc(uid)
         .get();
     // gets all order items in database
     // checks for items that were not checked out

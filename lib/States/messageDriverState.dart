@@ -19,7 +19,7 @@ class messageDriverState with ChangeNotifier {
     };
     await FirebaseFirestore.instance
         .collection("Messages")
-        .document(uid)
+        .doc(uid)
         .setData(data, merge: true);
   }
 
@@ -42,7 +42,7 @@ class messageDriverState with ChangeNotifier {
   Stream<List<Message>> Messages(dynamic uid) {
     return FirebaseFirestore.instance
         .collection("Messages")
-        .document(uid)
+        .doc(uid)
         .snapshots()
         .map(_messageFromSnapshot);
   }

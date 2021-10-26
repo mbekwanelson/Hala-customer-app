@@ -66,9 +66,9 @@ class Auth {
 
     await FirebaseFirestore.instance
         .collection("OrdersShops")
-        .document("OrdersShops")
+        .doc("OrdersShops")
         .collection(food.shop)
-        .document(uid)
+        .doc(uid)
         .setData({
       "$timeUsed": {
         'title': food.title,
@@ -90,7 +90,7 @@ class Auth {
           ? print(indexPromo)
           : await FirebaseFirestore.instance
               .collection("Users")
-              .document(uid)
+              .doc(uid)
               .updateData({
               "promotions.$indexPromo.used": "Yes",
             });
@@ -98,7 +98,7 @@ class Auth {
 
     return await FirebaseFirestore.instance
         .collection("OrdersRefined")
-        .document(uid)
+        .doc(uid)
         .updateData({
       "${food.title}.checkOut": "Yes",
       "${food.title}.promo": promoApplied == "Yes" ? promo : 0,
@@ -128,9 +128,9 @@ class Auth {
 
     await FirebaseFirestore.instance
         .collection("OrdersShops")
-        .document("OrdersShops")
+        .doc("OrdersShops")
         .collection(food.shop)
-        .document(uid)
+        .doc(uid)
         .setData({
       "$timeUsed": {
         'title': food.title,
@@ -153,7 +153,7 @@ class Auth {
           ? print(indexPromo)
           : await FirebaseFirestore.instance
               .collection("Users")
-              .document(uid)
+              .doc(uid)
               .updateData({
               "promotions.$indexPromo.used": "Yes",
             });
@@ -161,7 +161,7 @@ class Auth {
 
     return await FirebaseFirestore.instance
         .collection("OrdersRefined")
-        .document(uid)
+        .doc(uid)
         .updateData({
       "${food.title}.checkOut": "Yes",
       "${food.title}.promo": promoApplied == "Yes" ? promo : 0,
@@ -198,7 +198,7 @@ class Auth {
 
     return FirebaseFirestore.instance
         .collection("OrdersRefined")
-        .document(user)
+        .doc(user)
         .snapshots()
         .map(_ordersFromSnapshot);
   }
@@ -207,7 +207,7 @@ class Auth {
     String uid = await inputData();
     try {
       DocumentReference doc =
-          FirebaseFirestore.instance.collection("OrdersRefined").document(uid);
+          FirebaseFirestore.instance.collection("OrdersRefined").doc(uid);
       doc.updateData({id: FieldValue.delete()});
     } catch (e) {
       print(e);
@@ -224,9 +224,9 @@ class Auth {
   Future<String> isShopOperational(String shopName, String category) async {
     DocumentReference shopObject = await FirebaseFirestore.instance
         .collection("Options")
-        .document(category)
+        .doc(category)
         .collection(category)
-        .document(shopName);
+        .doc(shopName);
     DocumentSnapshot doc = await shopObject.get();
 
     DateTime currentTime = DateTime.now();
