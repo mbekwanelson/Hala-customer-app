@@ -178,11 +178,12 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
                                   const EdgeInsets.symmetric(horizontal: 20),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        colors: viewModel02.pageColors,
-                                        begin: Alignment.bottomLeft,
-                                        end: Alignment.topRight,
-                                        tileMode: TileMode.clamp)),
+                                  gradient: LinearGradient(
+                                      colors: viewModel02.pageColors,
+                                      begin: Alignment.bottomLeft,
+                                      end: Alignment.topRight,
+                                      tileMode: TileMode.clamp),
+                                ),
                                 child: Center(
                                     child: SleekCircularSlider(
                                   onChangeStart: (double value) {},
@@ -229,7 +230,7 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
                               ),
                             ),
                           ),
-                          SpinKitPouringHourglass(
+                          SpinKitPouringHourGlass(
                             color: Colors.white,
                             size: 60.0,
                           ),
