@@ -124,7 +124,7 @@ class SignInState with ChangeNotifier {
     bool isSignedIn = await _googleSignIn.isSignedIn();
     if (isSignedIn) {
       // if so, return the current user
-      user = await _auth.currentUser();
+      user = await _auth.currentUser;
       await _googleSignIn.signOut();
     } else {
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();

@@ -27,7 +27,7 @@ class DescriptionState with ChangeNotifier {
   }
 
   Future userId() async {
-    final User user = await _auth.currentUser();
+    final User user = await _auth.currentUser;
 
     return user.uid;
     // here you write the codes to input the data into firestore
