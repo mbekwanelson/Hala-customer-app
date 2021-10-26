@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:commons/commons.dart'; //! TODO sya : find alternative to commons plugin
+// import 'package:commons/commons.dart'; //! TODO sya : find alternative to commons plugin
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mymenu/Models/Shop.dart';
@@ -96,13 +96,14 @@ class _ShopsState extends State<Shops> {
                                                     )));
                                       });
                                     } else {
-                                      infoDialog(context,
-                                          "${shops[index].shopName} is Closed, Trading hours ${shops[index].openingTime.substring(11, 16)} - ${shops[index].closingTime.substring(11, 16)}",
-                                          positiveAction: () {},
-                                          positiveText: "Close",
-                                          neutralText: "  ",
-                                          negativeAction: () {},
-                                          negativeText: "     ");
+                                      //! TODO Commons widget
+                                      // infoDialog(context,
+                                      //     "${shops[index].shopName} is Closed, Trading hours ${shops[index].openingTime.substring(11, 16)} - ${shops[index].closingTime.substring(11, 16)}",
+                                      //     positiveAction: () {},
+                                      //     positiveText: "Close",
+                                      //     neutralText: "  ",
+                                      //     negativeAction: () {},
+                                      //     negativeText: "     ");
                                     }
                                   },
                                   child: Column(children: [

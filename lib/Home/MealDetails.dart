@@ -1,4 +1,4 @@
-import 'package:commons/commons.dart'; //! TODO sya : find alternative to commons plugin
+// import 'package:commons/commons.dart'; //! TODO sya : find alternative to commons plugin
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
@@ -171,13 +171,14 @@ class _MealDetailsState extends State<MealDetails> {
                                       widget.shop.shopName, widget.category);
 
                               if (isOperational == "Closed") {
-                                infoDialog(context,
-                                    "${widget.shop.shopName} is Closed, Trading hours ${widget.shop.openingTime.substring(11, 16)} - ${widget.shop.closingTime.substring(11, 16)}",
-                                    positiveAction: () {},
-                                    positiveText: "Close",
-                                    neutralText: "  ",
-                                    negativeAction: () {},
-                                    negativeText: "     ");
+                                //! TODO Commons widget
+                                // infoDialog(context,
+                                //     "${widget.shop.shopName} is Closed, Trading hours ${widget.shop.openingTime.substring(11, 16)} - ${widget.shop.closingTime.substring(11, 16)}",
+                                //     positiveAction: () {},
+                                //     positiveText: "Close",
+                                //     neutralText: "  ",
+                                //     negativeAction: () {},
+                                //     negativeText: "     ");
                                 Navigator.pop(context);
                                 Navigator.push(
                                     context,
@@ -213,13 +214,14 @@ class _MealDetailsState extends State<MealDetails> {
                                     .isShopOperational(
                                         widget.shop.shopName, widget.category);
                                 if (isOperational == "Closed") {
-                                  infoDialog(context,
-                                      "${widget.shop.shopName} is Closed, Trading hours ${widget.shop.openingTime.substring(11, 16)} - ${widget.shop.closingTime.substring(11, 16)}",
-                                      positiveAction: () {},
-                                      positiveText: "Close",
-                                      neutralText: "  ",
-                                      negativeAction: () {},
-                                      negativeText: "     ");
+                                  //! TODO Commons widget
+                                  // infoDialog(context,
+                                  //     "${widget.shop.shopName} is Closed, Trading hours ${widget.shop.openingTime.substring(11, 16)} - ${widget.shop.closingTime.substring(11, 16)}",
+                                  //     positiveAction: () {},
+                                  //     positiveText: "Close",
+                                  //     neutralText: "  ",
+                                  //     negativeAction: () {},
+                                  //     negativeText: "     ");
                                   Navigator.pop(context);
                                   Navigator.push(
                                       context,

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:commons/commons.dart'; //! TODO sya : find alternative to commons plugin
+// import 'package:commons/commons.dart'; //! TODO sya : find alternative to commons plugin
 import 'package:crypto/crypto.dart'; //! TODO sya : find alternative to commons plugin
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -271,11 +271,12 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
               await getTransactionStatus(widget.transactionReference);
 
           if (transationStatus == "Complete" && count == 0) {
-            successDialog(context, "Your payment has been successfully made!",
-                positiveAction: () {},
-                positiveText: "Confirm",
-                negativeAction: () {},
-                negativeText: "Cancel");
+            //! TODO Commons widget
+            // successDialog(context, "Your payment has been successfully made!",
+            //     positiveAction: () {},
+            //     positiveText: "Confirm",
+            //     negativeAction: () {},
+            //     negativeText: "Cancel");
             // sends user coordinates to database
             Position position = await Geolocator.getCurrentPosition(
                 desiredAccuracy: LocationAccuracy.high);
@@ -306,11 +307,12 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
                         child: AfterCheckOut())));
           } else if (transationStatus == "Cancelled" ||
               transationStatus == "Abandoned") {
-            errorDialog(context, "Transaction failed!",
-                positiveAction: () {},
-                positiveText: "Confirm",
-                negativeAction: () {},
-                negativeText: "Cancel");
+            //! TODO Commons widget
+            // errorDialog(context, "Transaction failed!",
+            //     positiveAction: () {},
+            //     positiveText: "Confirm",
+            //     negativeAction: () {},
+            //     negativeText: "Cancel");
             Navigator.pop(context);
 
             Navigator.push(
