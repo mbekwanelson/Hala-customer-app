@@ -20,7 +20,7 @@ class messageDriverState with ChangeNotifier {
     await FirebaseFirestore.instance
         .collection("Messages")
         .doc(uid)
-        .setData(data, merge: true);
+        .set(data, merge: true);
   }
 
   List<Message> _messageFromSnapshot(DocumentSnapshot snapshot) {

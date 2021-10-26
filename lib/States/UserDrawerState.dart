@@ -86,7 +86,7 @@ class UserDrawerState with ChangeNotifier {
         await FirebaseFirestore.instance
             .collection("Users")
             .doc(uid)
-            .setData(data, merge: true);
+            .set(data, merge: true);
       } else {
         Map<String, dynamic> data = {
           "promotions": {
@@ -99,7 +99,7 @@ class UserDrawerState with ChangeNotifier {
         await FirebaseFirestore.instance
             .collection("Users")
             .doc(uid)
-            .setData(data, merge: true);
+            .set(data, merge: true);
       }
       validPromo = "Successfully added Promo!";
       promoCode.clear();

@@ -17,7 +17,7 @@ class Database {
     return await FirebaseFirestore.instance
         .collection("Location")
         .doc(uid)
-        .setData({
+        .set({
       "Customerlatitude": latitude,
       "Customerlongitude": longitude,
     });

@@ -69,7 +69,7 @@ class Auth {
         .doc("OrdersShops")
         .collection(food.shop)
         .doc(uid)
-        .setData({
+        .set({
       "$timeUsed": {
         'title': food.title,
         'mealOptions': mealOption,
@@ -131,7 +131,7 @@ class Auth {
         .doc("OrdersShops")
         .collection(food.shop)
         .doc(uid)
-        .setData({
+        .set({
       "$timeUsed": {
         'title': food.title,
         'mealOptions': mealOption,
