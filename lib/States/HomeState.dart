@@ -65,7 +65,7 @@ class HomeState with ChangeNotifier {
         .get()
         .then((value) {
       value.docs.forEach((doc) {
-        doc.data.forEach((key, value) {
+        doc.data().forEach((key, value) {
           if (key == 'compulsoryOptions') {
             compulsoryOptions = value.toList();
           }
@@ -79,7 +79,7 @@ class HomeState with ChangeNotifier {
             initialPrice: doc['initial Price'].toDouble(),
             image: doc['image']);
 
-        doc.data.forEach((key, value) {
+        doc.data().forEach((key, value) {
           if (key == 'Options') {
             // Different options
             for (int optionName = 0;

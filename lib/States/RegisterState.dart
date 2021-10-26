@@ -137,7 +137,7 @@ class RegisterState with ChangeNotifier {
       }
 
       //create a new document for user with uid
-      return fb_user.isEmailVerified ? _userFromFireBaseUser(fb_user) : null;
+      return fb_user.emailVerified ? _userFromFireBaseUser(fb_user) : null;
       // will only work if it was succesful ie can sign in with email and password
     } catch (e) {
       print(e);
