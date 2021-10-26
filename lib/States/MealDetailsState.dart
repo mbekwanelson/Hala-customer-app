@@ -8,8 +8,8 @@ class MealDetailState {
     print("SHOP Here : $shop");
     dynamic latitude = shop.latitude;
     dynamic longitude = shop.longitude;
-    Position customerLocation = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position customerLocation = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     double km = 0.00;
     String carRouteDistance = await GoogleMapsServices().getRouteCoordinates(
         LatLng(latitude, longitude),

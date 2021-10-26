@@ -277,8 +277,8 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
                 negativeAction: () {},
                 negativeText: "Cancel");
             // sends user coordinates to database
-            Position position = await Geolocator()
-                .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+            Position position = await Geolocator.getCurrentPosition(
+                desiredAccuracy: LocationAccuracy.high);
             await Database()
                 .loadLocation(position.latitude, position.longitude);
             for (int j = 0; j < widget.customerOrderDetail.orders.length; j++) {

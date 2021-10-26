@@ -1,4 +1,4 @@
-import 'package:commons/commons.dart';
+import 'package:commons/commons.dart'; //! TODO sya : find alternative to commons plugin
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
@@ -201,8 +201,8 @@ class _MealDetailsState extends State<MealDetails> {
                                 }));
                               }
                             } else {
-                              Position position = await Geolocator()
-                                  .getCurrentPosition(
+                              Position position =
+                                  await Geolocator.getCurrentPosition(
                                       desiredAccuracy: LocationAccuracy.high);
                               await Database().loadLocation(
                                   position.latitude, position.longitude);

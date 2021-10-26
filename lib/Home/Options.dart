@@ -21,8 +21,7 @@ class _OptionsState extends State<Options> {
   void initState() {
     // TODO: implement initState
 
-    Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((value) {
       setState(() {
         currentUserPosition = value;

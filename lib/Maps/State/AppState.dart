@@ -60,13 +60,13 @@
 //   }
 //   // TO GET USER'S LOCATION
 //   void _getUserLocation() async {
-//     Position position = await Geolocator().getCurrentPosition(
+//     Position position = await Geolocator.getCurrentPosition(
 //         desiredAccuracy: LocationAccuracy.high);
 //     await Database().loadLocation(position.latitude, position.longitude);
 //
 //     _initialPosition = LatLng(position.latitude, position.longitude);
 //     try {
-//       List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(
+//       List<Placemark> placemark = await Geolocator.placemarkFromCoordinates(
 //           position.latitude, position.longitude);
 //
 //       locationController.text =
@@ -178,7 +178,7 @@
 //   // SEND REQUEST
 //   // When user types something in destination filed
 //   void sendRequest(double latitude,double longitude)async{
-// //    List<Placemark> placemark = await Geolocator().placemarkFromAddress(intendedLocation);
+// //    List<Placemark> placemark = await Geolocator.placemarkFromAddress(intendedLocation);
 // //    double latitude = placemark[0].position.latitude;
 // //    double longitude = placemark[0].position.longitude;
 //     LatLng destination = LatLng(latitude,longitude);

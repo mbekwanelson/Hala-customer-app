@@ -73,8 +73,8 @@ class CheckOutState with ChangeNotifier {
   }
 
   sendLocation() async {
-    Position position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     await Database().loadLocation(position.latitude, position.longitude);
   }
 
