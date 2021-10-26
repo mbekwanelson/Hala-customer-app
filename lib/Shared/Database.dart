@@ -37,13 +37,15 @@ class Database {
 
         for (int i = 0; i < snapshot.docs.length; i++) {
           foods.add(FoodItem(
-              title: snapshot.docs[i].data["title"] ?? "no",
-              image: snapshot.docs[i].data["image"] ??
+              //! TODO sya : needs testing : removed .data
+              // title: snapshot.docs[i].data["title"] ?? "no",
+              title: snapshot.docs[i]["title"] ?? "no",
+              image: snapshot.docs[i]["image"] ??
                   "https://cdn.pixabay.com/photo/2018/03/04/20/08/burger-3199088__340.jpg",
-              price: snapshot.docs[i].data["price"] ?? 0,
-              id: snapshot.docs[i].data["id"] ?? "ai",
-              category: snapshot.docs[i].data["category"] ?? "nja",
-              shop: snapshot.docs[i].data["restaurant"] ?? "nja"));
+              price: snapshot.docs[i]["price"] ?? 0,
+              id: snapshot.docs[i]["id"] ?? "ai",
+              category: snapshot.docs[i]["category"] ?? "nja",
+              shop: snapshot.docs[i]["restaurant"] ?? "nja"));
         }
         return foods;
         burgers = foods;

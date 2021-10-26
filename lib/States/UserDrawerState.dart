@@ -27,10 +27,11 @@ class UserDrawerState with ChangeNotifier {
           elementIndex < document.docs.length;
           elementIndex++) {
         // print("${document.docs[elementIndex].data["promoCode"]} VS ${promoCode.text}");
-        if (promoCode.text == document.docs[elementIndex].data["promoCode"]) {
+        // if (promoCode.text == document.docs[elementIndex].data["promoCode"]) {
+        if (promoCode.text == document.docs[elementIndex]["promoCode"]) {
           Promotion promo = Promotion(
-            promoCode: document.docs[elementIndex].data["promoCode"],
-            promoValue: document.docs[elementIndex].data["promoValue"],
+            promoCode: document.docs[elementIndex]["promoCode"],
+            promoValue: document.docs[elementIndex]["promoValue"],
             shop: document.docs[elementIndex].documentID,
           );
 
@@ -132,9 +133,11 @@ class UserDrawerState with ChangeNotifier {
         .forEach((element) {
       //print(element.data["email"]);
       Customer customer =
-          Customer(name: element.data["name"], email: element.data["email"]);
-      name = element.data["name"];
-      email = element.data["email"];
+          //! TODO sya : needs testing : removed .data
+          // Customer(name: element.data["name"], email: element.data["email"]);
+          Customer(name: element["name"], email: element["email"]);
+      name = element["name"];
+      email = element["email"];
       return customer;
     });
   }

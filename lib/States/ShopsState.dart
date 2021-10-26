@@ -54,12 +54,14 @@ class ShopsState with ChangeNotifier {
 
   List<Restaurant> _numRestaurants(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      print("categories______________________-${doc.data["categories"]}");
+      //! TODO sya : needs testing : removed .data
+      // print("categories______________________-${doc.data["categories"]}");
+      print("categories______________________-${doc["categories"]}");
       // returning a brew object for each document
       return Restaurant(
           restaurantName: doc.documentID,
-          restaurantBackground: doc.data["picture"],
-          categories: doc.data["categories"]);
+          restaurantBackground: doc["picture"],
+          categories: doc["categories"]);
     }).toList();
   }
 
@@ -89,8 +91,9 @@ class ShopsState with ChangeNotifier {
     QuerySnapshot snapshot = await fquerySnapshot; //.then((snapshot) async {
     try {
       for (int shop = 0; shop < snapshot.docs.length; shop++) {
-        double lat = snapshot.docs[shop].data["latitude"];
-        double long = snapshot.docs[shop].data["longitude"];
+        // double lat = snapshot.docs[shop].data["latitude"];
+        double lat = snapshot.docs[shop]["latitude"];
+        double long = snapshot.docs[shop]["longitude"];
 
         DateTime currentTime = DateTime.now();
         int Year = currentTime.year;
@@ -99,10 +102,10 @@ class ShopsState with ChangeNotifier {
 
         DateTime _CurrentTime = new DateTime(
             Year, Month, Day, currentTime.hour, currentTime.minute);
-        DateTime openingTime = snapshot.docs[shop].data["OpeningTime"].toDate();
+        DateTime openingTime = snapshot.docs[shop]["OpeningTime"].toDate();
         DateTime _OpeningTime = new DateTime(
             Year, Month, Day, openingTime.hour, openingTime.minute);
-        DateTime closingTime = snapshot.docs[shop].data["ClosingTime"].toDate();
+        DateTime closingTime = snapshot.docs[shop]["ClosingTime"].toDate();
         DateTime _ClosingTime = new DateTime(
             Year, Month, Day, closingTime.hour, closingTime.minute);
         bool isShopOperating = _CurrentTime.isAfter(_OpeningTime) &&
@@ -119,10 +122,12 @@ class ShopsState with ChangeNotifier {
         km = double.parse(carRouteDistance) / 1000;
         if (km <= CUTOFFDISTANCE) {
           shops.add(Shop(
-            shopName: snapshot.docs[shop].data["name"],
-            shopBackground: snapshot.docs[shop].data["background"],
-            categories: snapshot.docs[shop].data["categories"],
-            category: snapshot.docs[shop].data["category"],
+            //! TODO sya : needs testing : removed .data
+            // shopName: snapshot.docs[shop].data["name"],
+            shopName: snapshot.docs[shop]["name"],
+            shopBackground: snapshot.docs[shop]["background"],
+            categories: snapshot.docs[shop]["categories"],
+            category: snapshot.docs[shop]["category"],
             longitude: long,
             latitude: lat,
             isShopOperating: isShopOperating,

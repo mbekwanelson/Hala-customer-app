@@ -16,8 +16,10 @@ class OptionsState with ChangeNotifier {
     List<Option> options = [];
     for (int cat = 0; cat < snapshot.docs.length; cat++) {
       options.add(Option(
-          category: snapshot.docs[cat].data["name"],
-          url: snapshot.docs[cat].data["url"]));
+          //! TODO sya : needs testing : removed .data
+          // category: snapshot.docs[cat].data["name"],
+          category: snapshot.docs[cat]["name"],
+          url: snapshot.docs[cat]["url"]));
     }
     return options;
   }

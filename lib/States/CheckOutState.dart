@@ -108,14 +108,20 @@ class CheckOutState with ChangeNotifier {
     if (userPromoKey.isNotEmpty) {
       for (int i = 0; i < userPromoKey.length; i++) {
         for (int j = 0; j < promos.length; j++) {
-          if (promos[j].data['promoCode'] ==
+          //! TODO sya : needs testing : removed .data
+          // if (promos[j].data['promoCode'] ==
+          if (promos[j]['promoCode'] ==
                   userPromos[userPromoKey[i]]["promoCode"] &&
               userPromos[userPromoKey[i]]["used"] == "No" &&
               promos[j].documentID == shop) {
             promoCheckOut = PromoCheckOut(
-                promoValue: promos[j].data['promoValue'],
+                //! TODO sya : needs testing : removed .data
+                // promoValue: promos[j].data['promoValue'],
+                promoValue: promos[j]['promoValue'],
                 index: userPromoKey[i],
-                price: promos[j].data['price'].toDouble() ?? 0);
+                //! TODO sya : needs testing : removed .data
+                // price: promos[j].data['price'].toDouble() ?? 0);
+                price: promos[j]['price'].toDouble() ?? 0);
             return promoCheckOut;
           }
         }

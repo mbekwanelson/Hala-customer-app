@@ -30,14 +30,16 @@ class HomeState with ChangeNotifier {
       selectedCategory = [];
       for (int item = 0; item < categoryItems.docs.length; item++) {
         selectedCategory.add(FoodItem(
-            title: categoryItems.docs[item].data["title"] ?? "no",
-            image: categoryItems.docs[item].data["image"] ??
+            //! TODO sya : needs testing : removed .data
+            // title: categoryItems.docs[item].data["title"] ?? "no",
+            title: categoryItems.docs[item]["title"] ?? "no",
+            image: categoryItems.docs[item]["image"] ??
                 "https://cdn.pixabay.com/photo/2018/03/04/20/08/burger-3199088__340.jpg",
-            price: categoryItems.docs[item].data["price"] ?? 0,
-            id: categoryItems.docs[item].data["id"] ?? "ai",
-            category: categoryItems.docs[item].data["category"] ?? "nja",
+            price: categoryItems.docs[item]["price"] ?? 0,
+            id: categoryItems.docs[item]["id"] ?? "ai",
+            category: categoryItems.docs[item]["category"] ?? "nja",
             shop: shop.shopName,
-            inStock: categoryItems.docs[item].data["inStock"] ?? true));
+            inStock: categoryItems.docs[item]["inStock"] ?? true));
       }
       notifyListeners();
     });
@@ -71,9 +73,11 @@ class HomeState with ChangeNotifier {
 
         meal = Meal(
             shop: shop.shopName,
-            title: doc.data['title'],
-            initialPrice: doc.data['initial Price'].toDouble(),
-            image: doc.data['image']);
+            //! TODO sya : needs testing : removed .data
+            // title: doc.data['title'],
+            title: doc['title'],
+            initialPrice: doc['initial Price'].toDouble(),
+            image: doc['image']);
 
         doc.data.forEach((key, value) {
           if (key == 'Options') {
@@ -86,9 +90,10 @@ class HomeState with ChangeNotifier {
                   optionValue < numberPerOption.length + 1;
                   optionValue++) {
                 options.add(MealOption(
-                    title: doc.data['Options'][compulsoryOptions[optionName]]
+                    //! TODO sya : needs testing : removed .data
+                    title: doc['Options'][compulsoryOptions[optionName]]
                         ['Item $optionValue']['title'],
-                    price: doc.data['Options'][compulsoryOptions[optionName]]
+                    price: doc['Options'][compulsoryOptions[optionName]]
                             ['Item $optionValue']['price']
                         .toDouble(),
                     category: compulsoryOptions[optionName]));
