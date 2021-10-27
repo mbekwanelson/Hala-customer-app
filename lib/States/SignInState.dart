@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+// import 'package:flutter_facebook_login/flutter_facebook_login.dart'; //! TODO sya : find alternative
 import 'package:http/http.dart' as http;
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -71,10 +71,10 @@ class SignInState with ChangeNotifier {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User fb_user = result.user;
-
-      if (fb_user.isEmailVerified) {
-        return _userFromFireBaseUser(fb_user);
-      }
+      //! TODO sya : facebook login code
+      // if (fb_user.isEmailVerified) {
+      //   return _userFromFireBaseUser(fb_user);
+      // }
       error = "Verify Email!";
       notifyListeners();
       return null;
@@ -133,7 +133,7 @@ class SignInState with ChangeNotifier {
 
       // get the credentials to (access / id token)
       // to sign in via Firebase Authentication
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
+      final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
       user = (await _auth.signInWithCredential(credential)).user;
     }
@@ -165,54 +165,57 @@ class SignInState with ChangeNotifier {
     return user;
   }
 
+  //! TODO sya : facebook login code
   /// This mehtod makes the real auth
-  Future firebaseAuthWithFacebook({@required FacebookAccessToken token}) async {
-    AuthCredential credential =
-        FacebookAuthProvider.getCredential(accessToken: token.token);
-    dynamic user = await _auth.signInWithCredential(credential);
-    return user;
-  }
+  // Future firebaseAuthWithFacebook({@required FacebookAccessToken token}) async {
+  //   AuthCredential credential =
+  //       FacebookAuthProvider.credential(accessToken: token.token);
+  //   dynamic user = await _auth.signInWithCredential(credential);
+  //   return user;
+  // }
 
+  //! TODO sya : facebook login code
   Future signInFB() async {
-    bool new_facebook_user = true;
-    final fbLogin = new FacebookLogin();
-    FacebookLoginResult result = await fbLogin.logIn(["email"]);
-    final String token = result.accessToken.token;
-    final response = await http.get(
-        'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
-    final profile = jsonDecode(response.body);
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final FacebookAccessToken facebookAccessToken = result.accessToken;
-        await firebaseAuthWithFacebook(token: facebookAccessToken);
-        dynamic uid = await Auth().inputData();
-        FirebaseFirestore.instance
-            .collection("Users")
-            .snapshots()
-            .forEach((element) {
-          // checks if user is already on database
-          element.docs.forEach((document) {
-            if (uid == document.id) {
-              new_facebook_user = false;
-            }
-          });
-        });
+    // bool new_facebook_user = true;
+    // final fbLogin = new FacebookLogin();
+    // FacebookLoginResult result = await fbLogin.logIn(["email"]);
+    // final String token = result.accessToken.token;
+    // final response = await http.get(
+    //     'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
+    // final profile = jsonDecode(response.body);
+    // switch (result.status) {
+    //   case FacebookLoginStatus.loggedIn:
+    //     final FacebookAccessToken facebookAccessToken = result.accessToken;
+    //     await firebaseAuthWithFacebook(token: facebookAccessToken);
+    //     dynamic uid = await Auth().inputData();
+    //     FirebaseFirestore.instance
+    //         .collection("Users")
+    //         .snapshots()
+    //         .forEach((element) {
+    //       // checks if user is already on database
+    //       element.docs.forEach((document) {
+    //         if (uid == document.id) {
+    //           new_facebook_user = false;
+    //         }
+    //       });
+    //     });
 
-        await Future.delayed(const Duration(seconds: 1), () => "1");
-        if (new_facebook_user) {
-          await FirebaseFirestore.instance.collection("Users").doc(uid).set({
-            "name": profile["name"],
-            "email": profile["email"],
-            "user": "Customer",
-            "date": DateTime.now()
-          });
-        }
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-        break;
-      case FacebookLoginStatus.error:
-        break;
-    }
-    return profile;
+    //     await Future.delayed(const Duration(seconds: 1), () => "1");
+    //     if (new_facebook_user) {
+    //       await FirebaseFirestore.instance.collection("Users").doc(uid).set({
+    //         "name": profile["name"],
+    //         "email": profile["email"],
+    //         "user": "Customer",
+    //         "date": DateTime.now()
+    //       });
+    //     }
+    //     break;
+    //   case FacebookLoginStatus.cancelledByUser:
+    //     break;
+    //   case FacebookLoginStatus.error:
+    //     break;
+    // }
+    // return profile;
+    return false;
   }
 }

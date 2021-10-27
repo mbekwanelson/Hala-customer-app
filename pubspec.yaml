@@ -57,7 +57,7 @@ dependencies:
   flutter_linkify: ^5.0.2         #^3.1.2     #web supported
   flutter_inappwebview: ^5.3.2    #^4.0.0+4   #not web supported
   webview_flutter: ^2.1.2         #^1.0.7     #not web supported
-  flutter_webview_plugin: ^0.4.0 #^0.3.11   #not web supported    #uses a deprecated version of the Android embedding.
+  # flutter_webview_plugin: ^0.4.0 #^0.3.11   #not web supported    #uses a deprecated version of the Android embedding.
   # permission: ^0.1.7                        #not web supported    #uses deprecated version of the Android embedding
 
 
