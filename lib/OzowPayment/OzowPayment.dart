@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:core';
 
 // import 'package:commons/commons.dart'; //! TODO sya : find alternative to commons plugin
-import 'package:crypto/crypto.dart'; //! TODO sya : find alternative to commons plugin
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart'; //! TODO sya : find alternative to commons plugin
