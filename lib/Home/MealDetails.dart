@@ -17,16 +17,16 @@ import 'package:provider/provider.dart';
 import 'CheckOut.dart';
 
 class MealDetails extends StatefulWidget {
-  List<ConfirmCheckOut> meals;
+  final List<ConfirmCheckOut> meals;
   //MealDetail Object
-  bool card;
-  Shop shop;
-  double subtotal;
-  PromoCheckOut promo;
-  dynamic user;
-  cardPaymentDetail cardPayment;
-  String promoApplied;
-  String category;
+  final bool card;
+  final Shop shop;
+  final double subtotal;
+  final PromoCheckOut promo;
+  final dynamic user;
+  final CardPaymentDetail cardPayment;
+  final String promoApplied;
+  final String category;
 
   MealDetails(
       {this.card,
@@ -236,7 +236,7 @@ class _MealDetailsState extends State<MealDetails> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               StreamProvider.value(
-                                                initialData: [],
+                                                  initialData: [],
                                                   value: AfterCheckOutState()
                                                       .getShopProgress(
                                                           uid: widget.user),

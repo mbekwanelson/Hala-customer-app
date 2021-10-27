@@ -12,7 +12,7 @@ import 'package:mymenu/States/UserDrawerState.dart';
 import 'package:provider/provider.dart';
 
 class Shops extends StatefulWidget {
-  String category;
+  final String category;
 
   Shops({this.category});
   @override

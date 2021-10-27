@@ -5,7 +5,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:latlong2/latlong.dart' as l2;
+// import 'package:latlong2/latlong.dart' as l2;
 import 'package:mymenu/Maps/Requests/GoogleMapsServices.dart';
 import 'package:mymenu/Models/FoodItem.dart';
 import 'package:mymenu/Models/Restuarant.dart';
@@ -96,22 +96,22 @@ class ShopsState with ChangeNotifier {
         double long = snapshot.docs[shop]["longitude"];
 
         DateTime currentTime = DateTime.now();
-        int Year = currentTime.year;
-        int Day = currentTime.day;
-        int Month = currentTime.month;
+        int year = currentTime.year;
+        int day = currentTime.day;
+        int month = currentTime.month;
 
-        DateTime _CurrentTime = new DateTime(
-            Year, Month, Day, currentTime.hour, currentTime.minute);
+        DateTime _currentTime = new DateTime(
+            year, month, day, currentTime.hour, currentTime.minute);
         DateTime openingTime = snapshot.docs[shop]["OpeningTime"].toDate();
-        DateTime _OpeningTime = new DateTime(
-            Year, Month, Day, openingTime.hour, openingTime.minute);
+        DateTime _openingTime = new DateTime(
+            year, month, day, openingTime.hour, openingTime.minute);
         DateTime closingTime = snapshot.docs[shop]["ClosingTime"].toDate();
-        DateTime _ClosingTime = new DateTime(
-            Year, Month, Day, closingTime.hour, closingTime.minute);
-        bool isShopOperating = _CurrentTime.isAfter(_OpeningTime) &&
-            _CurrentTime.isBefore(_ClosingTime);
+        DateTime _closingTime = new DateTime(
+            year, month, day, closingTime.hour, closingTime.minute);
+        bool isShopOperating = _currentTime.isAfter(_openingTime) &&
+            _currentTime.isBefore(_closingTime);
 
-        final l2.Distance distance = new l2.Distance();
+        // final l2.Distance distance = new l2.Distance();
         double km = 0.00;
         String carRouteDistance = await GoogleMapsServices()
             .getRouteCoordinates(
@@ -131,8 +131,8 @@ class ShopsState with ChangeNotifier {
             longitude: long,
             latitude: lat,
             isShopOperating: isShopOperating,
-            openingTime: _OpeningTime.toString(),
-            closingTime: _ClosingTime.toString(),
+            openingTime: _openingTime.toString(),
+            closingTime: _closingTime.toString(),
           ));
           print(shop);
         }

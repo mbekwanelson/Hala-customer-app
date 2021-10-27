@@ -6,17 +6,17 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 // import 'package:flutter_webview_plugin/flutter_webview_plugin.dart'; //! TODO sya : find alternative to flutter_webview_plugin plugin
-import 'package:geolocator/geolocator.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:mymenu/Authenticate/Auth.dart';
-import 'package:mymenu/Home/AfterCheckOut.dart';
-import 'package:mymenu/Home/CheckOut.dart';
+// import 'package:mymenu/Home/AfterCheckOut.dart';
+// import 'package:mymenu/Home/CheckOut.dart';
 import 'package:mymenu/Models/PaymentRequest.dart';
 import 'package:mymenu/Models/Transaction.dart';
 import 'package:mymenu/Models/cardPaymentDetail.dart';
-import 'package:mymenu/Shared/Database.dart';
-import 'package:mymenu/States/AfterCheckOutState.dart';
-import 'package:provider/provider.dart';
+// import 'package:mymenu/Shared/Database.dart';
+// import 'package:mymenu/States/AfterCheckOutState.dart';
+// import 'package:provider/provider.dart';
 
 class OzowPayment extends StatefulWidget {
   @override
@@ -41,7 +41,7 @@ class RedirectToOzow extends StatefulWidget {
   String hashCheck;
   String privateKey = 'pi4ZwRMzMvqVZ0dpNylAaYdmIWTKDrfl';
   Transaction transaction;
-  cardPaymentDetail customerOrderDetail;
+  CardPaymentDetail customerOrderDetail;
   String uid;
   double deliveryFee;
   String category;
@@ -54,9 +54,9 @@ class RedirectToOzow extends StatefulWidget {
 }
 
 class _RedirectToOzowState extends State<RedirectToOzow> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  static const kAndroidUserAgent =
-      "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36";
+  // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  // static const kAndroidUserAgent =
+  //     "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36";
   InAppWebViewController _controller;
   int count = 0;
 
@@ -87,12 +87,12 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
   }
 
   dynamic getApiTransaction(String transactionReference) async {
-    Map<String, dynamic> transactionQueryParameters = {
-      "SiteCode": widget.siteCode,
-      "TransactionReference": widget.transactionReference
-    };
-    String seeFormat =
-        "https://api.ozow.com/GetTransactionByReference?siteCode=${widget.siteCode}&transactionReference=${widget.transactionReference}";
+    // Map<String, dynamic> transactionQueryParameters = {
+    //   "SiteCode": widget.siteCode,
+    //   "TransactionReference": widget.transactionReference
+    // };
+    // String seeFormat =
+    //     "https://api.ozow.com/GetTransactionByReference?siteCode=${widget.siteCode}&transactionReference=${widget.transactionReference}";
 
     dynamic uri = Uri.encodeFull(
         'https://api.ozow.com/GetTransactionByReference?siteCode=${widget.siteCode}&transactionReference=${widget.transactionReference}');
@@ -106,10 +106,10 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
       },
     );
     if (transactionStatusResponse.statusCode == 200) {
-      List<Transaction> transactionslist;
-      transactionslist = (json.decode(transactionStatusResponse.body) as List)
-          .map((i) => Transaction.fromJson(i))
-          .toList();
+      // List<Transaction> transactionslist;
+      // transactionslist = (json.decode(transactionStatusResponse.body) as List)
+      //     .map((i) => Transaction.fromJson(i))
+      //     .toList();
       return json.decode(transactionStatusResponse.body)[0];
     } else {
       throw (transactionStatusResponse.statusCode);
@@ -154,7 +154,7 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
           /* widget.customerName,*/ widget.isTest,
           widget.privateKey),
     };
-    var posta = '';
+    // var posta = '';
     var resp = await http.post(Uri.parse('https://pay.ozow.com/'),
         headers: {
           "ApiKey": 'ZUXVOvt39xaavip2M1BZygU4CjDpD930',
@@ -182,9 +182,9 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
     //         .toString());
 
     if (json.decode(resp.body)['success'] == true) {
-      String selectedUrl =
-          json.decode(resp.body)["payment_request"]['longurl'].toString() +
-              "?embed=form";
+      // String selectedUrl =
+      //     json.decode(resp.body)["payment_request"]['longurl'].toString() +
+      //         "?embed=form";
       //! TODO sya :  flutter webview plugin code
       // FlutterWebviewPlugin().close();
       // FlutterWebviewPlugin().launch(selectedUrl,
@@ -195,8 +195,15 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
       //         MediaQuery.of(context).size.height / 7),
       //     userAgent: kAndroidUserAgent);
     } else {
-      _scaffoldKey.currentState.showSnackBar(new SnackBar(
-          content: Text(json.decode(resp.body)['message'].toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            json.decode(resp.body)['message'].toString(),
+          ),
+        ),
+      );
+      // _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      //     content: Text(json.decode(resp.body)['message'].toString())));
     }
   }
 
@@ -252,8 +259,9 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
             /*"GenerateShortUrl":true,*/
             "HashCheck": widget.hashCheck,
           };
-          var posta = '';
-          var resp = await http
+          // var posta = '';
+          // var resp = await http
+          await http
               .post(Uri.parse('https://api.ozow.com/PostPaymentRequest'),
                   headers: {
                     "ApiKey": 'ZUXVOvt39xaavip2M1BZygU4CjDpD930',

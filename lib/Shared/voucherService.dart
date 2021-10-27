@@ -1,6 +1,6 @@
 import 'package:image_picker/image_picker.dart';
 
-class voucherService {
+class VoucherService {
   dynamic chooseFile() async {
     return await ImagePicker()
         .pickImage(source: ImageSource.gallery)

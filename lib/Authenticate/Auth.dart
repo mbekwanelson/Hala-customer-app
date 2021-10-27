@@ -220,13 +220,13 @@ class Auth {
   }
 
   Future inputData() async {
-    final User user = await _auth.currentUser;
+    final User user = _auth.currentUser;
     return user.uid;
     // here you write the codes to input the data into firestore
   }
 
   Future<String> isShopOperational(String shopName, String category) async {
-    DocumentReference shopObject = await FirebaseFirestore.instance
+    DocumentReference shopObject = FirebaseFirestore.instance
         .collection("Options")
         .doc(category)
         .collection(category)
@@ -234,22 +234,22 @@ class Auth {
     DocumentSnapshot doc = await shopObject.get();
 
     DateTime currentTime = DateTime.now();
-    int Year = currentTime.year;
-    int Day = currentTime.day;
-    int Month = currentTime.month;
+    int year = currentTime.year;
+    int day = currentTime.day;
+    int month = currentTime.month;
 
-    DateTime _CurrentTime =
-        new DateTime(Year, Month, Day, currentTime.hour, currentTime.minute);
+    DateTime _currentTime =
+        new DateTime(year, month, day, currentTime.hour, currentTime.minute);
 
     DateTime openingTime = doc.get("OpeningTime").toDate(); //["OpeningTime"];
-    DateTime _OpeningTime =
-        new DateTime(Year, Month, Day, openingTime.hour, openingTime.minute);
+    DateTime _openingTime =
+        new DateTime(year, month, day, openingTime.hour, openingTime.minute);
 
     DateTime closingTime = doc.get("ClosingTime").toDate();
-    DateTime _ClosingTime =
-        new DateTime(Year, Month, Day, closingTime.hour, closingTime.minute);
-    bool isShopOperating = _CurrentTime.isAfter(_OpeningTime) &&
-        _CurrentTime.isBefore(_ClosingTime);
+    DateTime _closingTime =
+        new DateTime(year, month, day, closingTime.hour, closingTime.minute);
+    bool isShopOperating = _currentTime.isAfter(_openingTime) &&
+        _currentTime.isBefore(_closingTime);
 
     return (!isShopOperating) ? "Closed" : "Opened";
   }

@@ -15,7 +15,7 @@ class CheckOutState with ChangeNotifier {
   final price = Price();
   double promo = 0;
 
-  CheckOutState() {}
+  CheckOutState();
   List<ConfirmCheckOut> _ordersFromSnapshot(DocumentSnapshot snapshot) {
 //! TODO sya : needs testing : deprecated data and keys loop
     // Getting a snapshots' data via the data getter is now done via the data() method.
@@ -46,8 +46,8 @@ class CheckOutState with ChangeNotifier {
     return orders;
   }
 
-  Future userID() async {
-    final User user = await _auth.currentUser;
+  String userID() {
+    final User user = _auth.currentUser;
     return user.uid;
   }
 
@@ -88,7 +88,10 @@ class CheckOutState with ChangeNotifier {
     try {
       return double.parse((price.calculatePrice(ordersSelected, paymentMethod))
           .toStringAsFixed(2));
-    } catch (e) {}
+    } catch (e) {
+      // ! TODO catch exception
+      return 0.0;
+    }
   }
 
   Future<Map<String, dynamic>> _getPromosFromUser() async {

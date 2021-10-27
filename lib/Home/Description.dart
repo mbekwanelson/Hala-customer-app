@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 import 'package:mymenu/Models/FoodItem.dart';
 import 'package:mymenu/States/DescriptionState.dart';
 import 'package:provider/provider.dart';
 
 class Description extends StatefulWidget {
   final FoodItem food;
-  String category;
+  final String category;
 
   Description({this.food, this.category});
 

@@ -5,12 +5,12 @@ import 'package:mymenu/Shared/Constants.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/States/messageDriverState.dart';
 
-class messageDriver extends StatefulWidget {
+class MessageDriver extends StatefulWidget {
   @override
-  _messageDriverState createState() => _messageDriverState();
+  _MessageDriverState createState() => _MessageDriverState();
 }
 
-class _messageDriverState extends State<messageDriver> {
+class _MessageDriverState extends State<MessageDriver> {
   TextEditingController message = TextEditingController();
   dynamic uid;
 

@@ -5,7 +5,7 @@ import 'package:mymenu/Home/CheckOut.dart';
 import 'package:mymenu/Home/MealDescription.dart';
 import 'package:mymenu/Home/MyListView.dart';
 import 'package:mymenu/Models/FoodItem.dart';
-import 'package:mymenu/Models/Meal.dart';
+// import 'package:mymenu/Models/Meal.dart';
 import 'package:mymenu/Models/Shop.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/Shared/UserDrawer.dart';
@@ -13,8 +13,8 @@ import 'package:mymenu/States/HomeState.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
-  Shop shop;
-  String category;
+  final Shop shop;
+  final String category;
 
   Home({this.shop, this.category});
   @override
@@ -26,23 +26,23 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     print('${widget.category} Home State Category');
 
-    List<String> words = [
-      "one",
-      "two",
-      "three",
-      "four",
-      "five",
-      "one",
-      "two",
-      "three",
-      "four",
-      "five",
-      "one",
-      "two",
-      "three",
-      "four",
-      "five"
-    ];
+    // List<String> words = [
+    //   "one",
+    //   "two",
+    //   "three",
+    //   "four",
+    //   "five",
+    //   "one",
+    //   "two",
+    //   "three",
+    //   "four",
+    //   "five",
+    //   "one",
+    //   "two",
+    //   "three",
+    //   "four",
+    //   "five"
+    // ];
 
     final foodItems = Provider.of<List<FoodItem>>(context);
     final homeState = Provider.of<HomeState>(context);
@@ -101,11 +101,11 @@ class _HomeState extends State<Home> {
                         Padding(
                           padding: const EdgeInsets.all(12),
                           child: GestureDetector(
-                            child: OutlineButton(
-                              borderSide: BorderSide(color: Colors.grey),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
+                            child: OutlinedButton(
+                              // borderSide: BorderSide(color: Colors.grey),
+                              // shape: RoundedRectangleBorder(
+                              //   borderRadius: BorderRadius.circular(30),
+                              // ),
                               onPressed: () async {
                                 setState(() {
                                   homeState.tab = 0;
@@ -143,25 +143,25 @@ class _HomeState extends State<Home> {
                                   return Padding(
                                     padding: const EdgeInsets.all(6),
                                     child: GestureDetector(
-                                      child: OutlineButton.icon(
-                                        textColor: Colors.black26,
+                                      child: OutlinedButton.icon(
+                                        // textColor: Colors.black26,
                                         icon: Icon(
                                             map[widget.shop.categories[index]]),
-                                        color: Colors.black,
-                                        borderSide:
-                                            BorderSide(color: Colors.black),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
+                                        // color: Colors.black,
+                                        // borderSide:
+                                        //     BorderSide(color: Colors.black),
+                                        // shape: RoundedRectangleBorder(
+                                        //   borderRadius:
+                                        //       BorderRadius.circular(30),
+                                        // ),
                                         onPressed: () async {
                                           if (widget.shop.categories[index] ==
                                               "Meals") {
-                                            List<Meal> meals =
-                                                await homeState.allMeals(
-                                                    widget.shop,
-                                                    widget.shop
-                                                        .categories[index]);
+                                            // List<Meal> meals =
+                                            //     await homeState.allMeals(
+                                            //         widget.shop,
+                                            //         widget.shop
+                                            //             .categories[index]);
 
                                             return Container(
                                               child: Text("hello"),

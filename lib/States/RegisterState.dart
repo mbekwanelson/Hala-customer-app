@@ -28,7 +28,7 @@ class RegisterState with ChangeNotifier {
 
   //Auth get auth => _auth;
 
-  RegisterState() {}
+  RegisterState();
 
   // Ensures that user types in correct email
   String validateEmail(String email) {
@@ -120,10 +120,10 @@ class RegisterState with ChangeNotifier {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       //grab user from that result
-      User fb_user = result.user;
+      User fbUser = result.user;
 
-      if (fb_user != null) {
-        await fb_user.sendEmailVerification().then((value) {});
+      if (fbUser != null) {
+        await fbUser.sendEmailVerification().then((value) {});
         // loads user data to database every time new user registers
         String uid = await Auth().inputData();
         await FirebaseFirestore.instance.collection("Users").doc(uid).set({
@@ -137,7 +137,7 @@ class RegisterState with ChangeNotifier {
       }
 
       //create a new document for user with uid
-      return fb_user.emailVerified ? _userFromFireBaseUser(fb_user) : null;
+      return fbUser.emailVerified ? _userFromFireBaseUser(fbUser) : null;
       // will only work if it was succesful ie can sign in with email and password
     } catch (e) {
       print(e);

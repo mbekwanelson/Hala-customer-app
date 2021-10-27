@@ -1,7 +1,7 @@
 class Order {
   String title;
   double price;
-  String food_id;
+  String foodId;
   String image;
   int quantity;
   int numOrders;
@@ -10,7 +10,7 @@ class Order {
       {this.title,
       this.image,
       this.price,
-      this.food_id,
+      this.foodId,
       this.quantity = 1,
       this.numOrders});
 }

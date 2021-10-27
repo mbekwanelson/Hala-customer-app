@@ -36,10 +36,10 @@ class PersonalizeMealState {
   }
 
   Future checkIfSameShop(String shop) async {
-    String shopName;
+    // String shopName;
     var uid = await Auth().inputData();
     DocumentSnapshot snapshot;
-    DocumentSnapshot currentOrders;
+    // DocumentSnapshot currentOrders;
     int count = 0;
     int numberOptions = 0;
     snapshot = await FirebaseFirestore.instance
@@ -65,7 +65,7 @@ class PersonalizeMealState {
         }
       } on Exception catch (e) {
         // TODO
-        print('index null');
+        print('index null ' + e.toString());
       }
 
       try {
@@ -79,7 +79,7 @@ class PersonalizeMealState {
         }
       } on Exception catch (e) {
         // TODO
-        print("null index final");
+        print("null index final " + e.toString());
       }
 
       // if (count == numberOptions || snapshot.data.length == 0) {

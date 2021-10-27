@@ -48,7 +48,7 @@ class Database {
               shop: snapshot.docs[i]["restaurant"] ?? "nja"));
         }
         return foods;
-        burgers = foods;
+        // burgers = foods;
       } else {
         return null;
       }
@@ -72,7 +72,7 @@ class Database {
     );
   }
 
-  Stream<LocationN> DriverLocation({String uid}) {
+  Stream<LocationN> driverLocation({String uid}) {
     return FirebaseFirestore.instance
         .collection("Location")
         .doc(uid)

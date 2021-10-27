@@ -5,7 +5,7 @@ import 'package:mymenu/Models/MealOption.dart';
 import 'package:mymenu/States/PersonalizeMealState.dart';
 
 class PersonalizeMeal extends StatefulWidget {
-  Meal meal;
+  final Meal meal;
 
   PersonalizeMeal({this.meal});
   @override

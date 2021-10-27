@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mymenu/Models/Option.dart';
 
 class OptionsState with ChangeNotifier {
-  OptionsState() {}
+  OptionsState();
 
   logOptionScreen(String category) {
     FirebaseAnalytics().logEvent(name: "SelectedCategory", parameters: {

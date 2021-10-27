@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Models/Message.dart';
 
-class messageDriverState with ChangeNotifier {
+class MessageDriverState with ChangeNotifier {
   List<Message> messages = [];
 
-  messageDriverState();
+  MessageDriverState();
 
   sendDriverMessage(String msg) async {
     dynamic uid = await Auth().inputData();
@@ -42,7 +42,7 @@ class messageDriverState with ChangeNotifier {
     return messages;
   }
 
-  Stream<List<Message>> Messages(dynamic uid) {
+  Stream<List<Message>> messagesList(dynamic uid) {
     return FirebaseFirestore.instance
         .collection("Messages")
         .doc(uid)

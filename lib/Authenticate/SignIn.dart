@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
+
 import 'package:mymenu/Authenticate/ResetPassword.dart';
 import 'package:mymenu/Shared/Constants.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/States/SignInState.dart';
-import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
-  Function toggleView;
-  SignIn({this.toggleView});
+  final Function toggleView;
+  const SignIn({
+    @required this.toggleView,
+  });
 
   @override
   _SignInState createState() => _SignInState();

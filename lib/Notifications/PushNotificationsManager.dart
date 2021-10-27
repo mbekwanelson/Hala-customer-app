@@ -19,7 +19,7 @@ class PushNotificationsManager {
       // _firebaseMessaging.configure(); //removed or deprecated
 
       // For testing purposes print the Firebase Messaging token
-      String token = await _firebaseMessaging.getToken();
+      // String token = await _firebaseMessaging.getToken();
 
       _initialized = true;
     }

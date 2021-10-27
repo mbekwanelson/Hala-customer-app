@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
+
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Home/MealDetails.dart';
 import 'package:mymenu/Models/ConfirmCheckOut.dart';
@@ -11,18 +13,19 @@ import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/Shared/Price.dart';
 import 'package:mymenu/States/AfterCheckOutState.dart';
 import 'package:mymenu/States/CheckOutState.dart';
-import 'package:provider/provider.dart';
 
 class CheckOut extends StatefulWidget {
   @override
   _CheckOutState createState() => _CheckOutState();
-  Shop shop;
-  String category;
-  CheckOut({this.shop, this.category});
+  final Shop shop;
+  final String category;
+  CheckOut({
+    @required this.shop,
+    @required this.category,
+  });
 }
 
 class _CheckOutState extends State<CheckOut> {
-  @override
   Auth _auth = Auth();
   var user;
   String shop;
@@ -56,32 +59,32 @@ class _CheckOutState extends State<CheckOut> {
     });
   }
 
+  // void _showDetailsPanel(List<ConfirmCheckOut> meals, bool card, Shop shop,
+  //     double subtotal, promo, user, cardPaymentDetail, isPromoApplied) {
+  //   showModalBottomSheet(
+  //       isScrollControlled: true,
+  //       context: context,
+  //       builder: (context) {
+  //         //builder shows widget tree to display in bottom sheet
+  //         return Container(
+  //           //height:MediaQuery.of(context).size.height,
+  //           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+  //           child: MealDetails(
+  //               meals: meals,
+  //               card: card,
+  //               shop: widget.shop,
+  //               subtotal: subtotal,
+  //               promo: promo,
+  //               user: user,
+  //               cardPayment: cardPaymentDetail,
+  //               promoApplied: isPromoApplied,
+  //               category: widget.category),
+  //         );
+  //       });
+  // }
+
   Widget build(BuildContext context) {
     print('${widget.category} Checkout Category');
-
-    void _showDetailsPanel(List<ConfirmCheckOut> meals, bool card, Shop shop,
-        double subtotal, promo, user, cardPaymentDetail, isPromoApplied) {
-      showModalBottomSheet(
-          isScrollControlled: true,
-          context: context,
-          builder: (context) {
-            //builder shows widget tree to display in bottom sheet
-            return Container(
-              //height:MediaQuery.of(context).size.height,
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-              child: MealDetails(
-                  meals: meals,
-                  card: card,
-                  shop: widget.shop,
-                  subtotal: subtotal,
-                  promo: promo,
-                  user: user,
-                  cardPayment: cardPaymentDetail,
-                  promoApplied: isPromoApplied,
-                  category: widget.category),
-            );
-          });
-    }
 
     Price price = Price();
     Auth _auth = Auth();
@@ -362,11 +365,11 @@ class _CheckOutState extends State<CheckOut> {
                                 final orders = snapshot.data;
                                 final promoIndex = promo.index;
                                 final isPromoApplied = promoApplied;
-                                final String total = (calculateTotal(
-                                        snapshot.data, dropdownValue))
-                                    .toStringAsFixed(2);
-                                cardPaymentDetail cardPayment =
-                                    cardPaymentDetail(
+                                // final String total = (calculateTotal(
+                                //         snapshot.data, dropdownValue))
+                                //     .toStringAsFixed(2);
+                                CardPaymentDetail cardPayment =
+                                    CardPaymentDetail(
                                         promoApplied: isPromoApplied,
                                         promoIndex: promoIndex,
                                         orders: orders,

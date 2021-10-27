@@ -1,50 +1,33 @@
-
-class Transaction{
-
-  String TransactionId;
-  String MerchantCode;
-  String SiteCode;
-  String TransactionRefrences;
-  double Amount;
-  String Status;
-  String StatusMessage;
-  DateTime CreatedDate;
-
+class Transaction {
+  String transactionId;
+  String merchantCode;
+  String siteCode;
+  String transactionRefrences;
+  double amount;
+  String status;
+  String statusMessage;
+  DateTime createdDate;
 
   Transaction(
-      {
-        this.Amount,
-        this.CreatedDate,
-        this.MerchantCode,
-        this.SiteCode,
-        this.Status,
-        this.StatusMessage,
-        this.TransactionId,
-        this.TransactionRefrences
-      }
-      );
-
+      {this.amount,
+      this.createdDate,
+      this.merchantCode,
+      this.siteCode,
+      this.status,
+      this.statusMessage,
+      this.transactionId,
+      this.transactionRefrences});
 
   factory Transaction.fromJson(Map<String, dynamic> json) {
     return Transaction(
-     TransactionRefrences:json['TransactionRefrences'],
-      Amount:json['Amount'],
-      CreatedDate:json['CreatedDate'],
-      MerchantCode:json['MerchantCode'],
-      SiteCode:json['SiteCode'],
-      Status:json['Status'],
-      StatusMessage:json['StatusMessage'],
-      TransactionId:json[' TransactionId'],
+      transactionRefrences: json['TransactionRefrences'],
+      amount: json['Amount'],
+      createdDate: json['CreatedDate'],
+      merchantCode: json['MerchantCode'],
+      siteCode: json['SiteCode'],
+      status: json['Status'],
+      statusMessage: json['StatusMessage'],
+      transactionId: json[' TransactionId'],
     );
   }
-
-
-
-
-
-
-
-
-
-
 }

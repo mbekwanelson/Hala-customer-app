@@ -38,20 +38,20 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
         trackColor: Colors.white,
         progressBarColor: Colors.orange,
         hideShadow: true);
-    var info02 = InfoProperties(
-      bottomLabelStyle: TextStyle(
-          color: Colors.orangeAccent,
-          fontSize: 20,
-          fontWeight: FontWeight.w600),
-      topLabelText: shopName,
-      bottomLabelText: progressUpdate,
-      mainLabelStyle: TextStyle(
-          color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w100),
-      // modifier: (double value) {
-      //   final budget = (value).toInt();
-      //   return '\$ $budget';
-      // }
-    );
+    // var info02 = InfoProperties(
+    //   bottomLabelStyle: TextStyle(
+    //       color: Colors.orangeAccent,
+    //       fontSize: 20,
+    //       fontWeight: FontWeight.w600),
+    //   topLabelText: shopName,
+    //   bottomLabelText: progressUpdate,
+    //   mainLabelStyle: TextStyle(
+    //       color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w100),
+    //   // modifier: (double value) {
+    //   //   final budget = (value).toInt();
+    //   //   return '\$ $budget';
+    //   // }
+    // );
     CircularSliderAppearance appearance02 = CircularSliderAppearance(
         customWidths: customWidth02,
         customColors: customColors02,
@@ -66,9 +66,9 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
         max: 100,
         value: 8,
         pageColors: [Colors.black, Colors.black87]);
-    var example02 = ExamplePage(
-      viewModel: viewModel02,
-    );
+    // var example02 = ExamplePage(
+    //   viewModel: viewModel02,
+    // );
 
     void updateShop() {
       for (String string in shopsSeen) {
