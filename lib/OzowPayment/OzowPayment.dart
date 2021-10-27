@@ -5,7 +5,7 @@ import 'dart:core';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart'; //! TODO sya : find alternative to flutter_webview_plugin plugin
+// import 'package:flutter_webview_plugin/flutter_webview_plugin.dart'; //! TODO sya : find alternative to flutter_webview_plugin plugin
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:mymenu/Authenticate/Auth.dart';
@@ -185,14 +185,15 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
       String selectedUrl =
           json.decode(resp.body)["payment_request"]['longurl'].toString() +
               "?embed=form";
-      FlutterWebviewPlugin().close();
-      FlutterWebviewPlugin().launch(selectedUrl,
-          rect: new Rect.fromLTRB(
-              5.0,
-              MediaQuery.of(context).size.height / 7,
-              MediaQuery.of(context).size.width - 5.0,
-              MediaQuery.of(context).size.height / 7),
-          userAgent: kAndroidUserAgent);
+      //! TODO sya :  flutter webview plugin code
+      // FlutterWebviewPlugin().close();
+      // FlutterWebviewPlugin().launch(selectedUrl,
+      //     rect: new Rect.fromLTRB(
+      //         5.0,
+      //         MediaQuery.of(context).size.height / 7,
+      //         MediaQuery.of(context).size.width - 5.0,
+      //         MediaQuery.of(context).size.height / 7),
+      //     userAgent: kAndroidUserAgent);
     } else {
       _scaffoldKey.currentState.showSnackBar(new SnackBar(
           content: Text(json.decode(resp.body)['message'].toString())));
