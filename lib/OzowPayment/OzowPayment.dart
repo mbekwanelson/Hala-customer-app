@@ -5,7 +5,7 @@ import 'dart:core';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart'; //! TODO sya : find alternative to commons plugin
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart'; //! TODO sya : find alternative to flutter_webview_plugin plugin
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:mymenu/Authenticate/Auth.dart';
@@ -163,15 +163,23 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
         },
         body: json.encode(body));
 
-    _controller.loadUrl(
-        url: json.decode(json.encode(resp))["url"].toString() != null
-            ? json.decode(json.encode(resp))["url"].toString()
-            : "http://demo.ozow.com/error.aspx");
+    //! TODO sya : needs testing
+    var url1 = json.decode(json.encode(resp))["url"].toString() != null
+        ? json.decode(json.encode(resp))["url"].toString()
+        : "http://demo.ozow.com/error.aspx";
+    _controller.loadUrl(urlRequest: URLRequest(url: Uri.parse(url1)));
+    // _controller.loadUrl(
+    //     url: json.decode(json.encode(resp))["url"].toString() != null
+    //         ? json.decode(json.encode(resp))["url"].toString()
+    //         : "http://demo.ozow.com/error.aspx");
 
-    _controller.loadUrl(
-        url: Uri.dataFromString(resp.body,
-                mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
-            .toString());
+    //! TODO sya : needs testing
+    var url2 = resp.body;
+    _controller.loadUrl(urlRequest: URLRequest(url: Uri.parse(url2)));
+    // _controller.loadUrl(
+    //     url: Uri.dataFromString(resp.body,
+    //             mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
+    //         .toString());
 
     if (json.decode(resp.body)['success'] == true) {
       String selectedUrl =
@@ -255,10 +263,15 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
               .then((value) async {
             var response = PaymentRequest.fromJson(json.decode(value.body));
             _controller = w;
-            _controller.loadUrl(
-                url: response.url != null
-                    ? response.url
-                    : "http://demo.ozow.com/error.aspx");
+            //! TODO sya : needs testing
+            var url3 = response.url != null
+                ? response.url
+                : "http://demo.ozow.com/error.aspx";
+            _controller.loadUrl(urlRequest: URLRequest(url: Uri.parse(url3)));
+            // _controller.loadUrl(
+            //     url: response.url != null
+            //         ? response.url
+            //         : "http://demo.ozow.com/error.aspx");
           });
           // await _controller.postUrl(url: 'https://api.ozow.com/PostPaymentRequest',postData: utf8.encode(body.toString()));
           // print(await _controller.getTRexRunnerHtml());
@@ -266,59 +279,60 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
           //  print(await _controller.getHtml());
           //createRequest();
         },
-        onLoadStop: (InAppWebViewController controller, String url) async {
-          String transationStatus =
-              await getTransactionStatus(widget.transactionReference);
+        //! TODO sya : InAppWebView
+        // onLoadStop: (InAppWebViewController controller, String url) async {
+        //   String transationStatus =
+        //       await getTransactionStatus(widget.transactionReference);
 
-          if (transationStatus == "Complete" && count == 0) {
-            //! TODO Commons widget
-            // successDialog(context, "Your payment has been successfully made!",
-            //     positiveAction: () {},
-            //     positiveText: "Confirm",
-            //     negativeAction: () {},
-            //     negativeText: "Cancel");
-            // sends user coordinates to database
-            Position position = await Geolocator.getCurrentPosition(
-                desiredAccuracy: LocationAccuracy.high);
-            await Database()
-                .loadLocation(position.latitude, position.longitude);
-            for (int j = 0; j < widget.customerOrderDetail.orders.length; j++) {
-              // updates customer order
-              String isOperational = await Auth().checkOutApprovedCard(
-                  widget.customerOrderDetail.orders[j],
-                  widget.customerOrderDetail.promoValue,
-                  widget.customerOrderDetail.promoIndex,
-                  widget.customerOrderDetail.promoApplied,
-                  widget.deliveryFee,
-                  widget.category);
-            }
-            ;
-            count++;
-            widget.customerOrderDetail.orders.forEach((element) {});
+        //   if (transationStatus == "Complete" && count == 0) {
+        //     //! TODO sya : Commons widget
+        //     // successDialog(context, "Your payment has been successfully made!",
+        //     //     positiveAction: () {},
+        //     //     positiveText: "Confirm",
+        //     //     negativeAction: () {},
+        //     //     negativeText: "Cancel");
+        //     // sends user coordinates to database
+        //     Position position = await Geolocator.getCurrentPosition(
+        //         desiredAccuracy: LocationAccuracy.high);
+        //     await Database()
+        //         .loadLocation(position.latitude, position.longitude);
+        //     for (int j = 0; j < widget.customerOrderDetail.orders.length; j++) {
+        //       // updates customer order
+        //       String isOperational = await Auth().checkOutApprovedCard(
+        //           widget.customerOrderDetail.orders[j],
+        //           widget.customerOrderDetail.promoValue,
+        //           widget.customerOrderDetail.promoIndex,
+        //           widget.customerOrderDetail.promoApplied,
+        //           widget.deliveryFee,
+        //           widget.category);
+        //     }
+        //     ;
+        //     count++;
+        //     widget.customerOrderDetail.orders.forEach((element) {});
 
-            controller.goBack();
-            Navigator.pop(context);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => StreamProvider.value(
-                        value: AfterCheckOutState()
-                            .getShopProgress(uid: widget.uid),
-                        child: AfterCheckOut())));
-          } else if (transationStatus == "Cancelled" ||
-              transationStatus == "Abandoned") {
-            //! TODO Commons widget
-            // errorDialog(context, "Transaction failed!",
-            //     positiveAction: () {},
-            //     positiveText: "Confirm",
-            //     negativeAction: () {},
-            //     negativeText: "Cancel");
-            Navigator.pop(context);
+        //     controller.goBack();
+        //     Navigator.pop(context);
+        //     Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //             builder: (context) => StreamProvider.value(
+        //                 value: AfterCheckOutState()
+        //                     .getShopProgress(uid: widget.uid),
+        //                 child: AfterCheckOut())));
+        //   } else if (transationStatus == "Cancelled" ||
+        //       transationStatus == "Abandoned") {
+        //     //! TODO Commons widget
+        //     // errorDialog(context, "Transaction failed!",
+        //     //     positiveAction: () {},
+        //     //     positiveText: "Confirm",
+        //     //     negativeAction: () {},
+        //     //     negativeText: "Cancel");
+        //     Navigator.pop(context);
 
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => CheckOut()));
-          }
-        }, //was here
+        //     Navigator.push(
+        //         context, MaterialPageRoute(builder: (context) => CheckOut()));
+        //   }
+        // }, //was here
       ),
     );
   }
