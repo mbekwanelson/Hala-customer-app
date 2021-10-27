@@ -30,7 +30,7 @@ class _MessageDriverState extends State<MessageDriver> {
     return uid == null
         ? Loading()
         : StreamBuilder(
-            stream: messageDriverState().Messages(uid),
+            stream: MessageDriverState().messagesList(uid),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (!snapshot.hasData) {
                 return Scaffold(
@@ -66,7 +66,7 @@ class _MessageDriverState extends State<MessageDriver> {
                                 ),
                                 // color: Colors.black,
                                 onPressed: () async {
-                                  await messageDriverState()
+                                  await MessageDriverState()
                                       .sendDriverMessage(message.text);
                                   setState(() {
                                     message.text = "";
@@ -164,7 +164,7 @@ class _MessageDriverState extends State<MessageDriver> {
                       ),
                       // color: Colors.black,
                       onPressed: () async {
-                        await messageDriverState()
+                        await MessageDriverState()
                             .sendDriverMessage(message.text);
                         message.text = "";
                       },
