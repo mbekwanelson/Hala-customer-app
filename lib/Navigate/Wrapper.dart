@@ -36,7 +36,8 @@ class _WrapperState extends State<Wrapper> {
             // ),
             ChangeNotifierProvider.value(value: UserDrawerState()),
             ChangeNotifierProvider.value(value: OptionsState()),
-            StreamProvider.value(value: OptionsState().getOptions()),
+            StreamProvider.value(
+                initialData: [], value: OptionsState().getOptions()),
           ],
           child: Options(),
         );

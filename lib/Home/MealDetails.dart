@@ -236,6 +236,7 @@ class _MealDetailsState extends State<MealDetails> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               StreamProvider.value(
+                                                initialData: [],
                                                   value: AfterCheckOutState()
                                                       .getShopProgress(
                                                           uid: widget.user),

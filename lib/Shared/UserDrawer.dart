@@ -113,6 +113,7 @@ class _UserDrawerState extends State<UserDrawer> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => StreamProvider.value(
+                            initialData: [],
                             value:
                                 AfterCheckOutState().getShopProgress(uid: uid),
                             child: AfterCheckOut())));

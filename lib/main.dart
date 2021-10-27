@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({String this.title});
+  MyHomePage({this.title});
 
   final String title;
 

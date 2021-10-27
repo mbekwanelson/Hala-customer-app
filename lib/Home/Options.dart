@@ -131,6 +131,7 @@ class _OptionsState extends State<Options> {
                                               return MultiProvider(
                                                   providers: [
                                                     StreamProvider.value(
+                                                      initialData: [],
                                                       value: ShopsState().getShops(
                                                           category:
                                                               optionCategories[

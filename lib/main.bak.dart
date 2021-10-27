@@ -55,6 +55,7 @@ class _MainState extends State<Main> {
       DeviceOrientation.portraitDown,
     ]);
     return StreamProvider<User>.value(
+      initialData: null,
       //providing stream to root widget
       //actively listening to auth requests user sign in/out
       value: Auth().user, // whether user signed in or not

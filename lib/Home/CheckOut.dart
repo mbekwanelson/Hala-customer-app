@@ -385,6 +385,7 @@ class _CheckOutState extends State<CheckOut> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             StreamProvider.value(
+                                                initialData: [],
                                                 value: AfterCheckOutState()
                                                     .getShopProgress(uid: uid),
                                                 child:

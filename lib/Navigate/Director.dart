@@ -41,6 +41,7 @@ class _DirectorState extends State<Director> {
         : MultiProvider(
             providers: [
               StreamProvider<List<FoodItem>>.value(
+                  initialData: [],
                   value: ShopsState().shopChosen(
                       shopChosen: widget.shop.shopName,
                       category: widget.category)),
