@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as _fb_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mymenu/Models/ConfirmCheckOut.dart';
+import 'package:mymenu/Models/User.dart';
 
 class Auth {
   //allows us to use firebase authentication -- line below
 
-  final FirebaseAuth _auth =
-      FirebaseAuth.instance; //_ means private in variable auth
+  final _fb_auth.FirebaseAuth _auth =
+      _fb_auth.FirebaseAuth.instance; //_ means private in variable auth
 
-  String uid;
+  late String uid;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   //List<Order> orders = [Order(image: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg",price: 0,food_id: "placeholder")];
   //create user object based on Firebase user
@@ -21,11 +22,31 @@ class Auth {
 
   bool showSignIn = true;
 
-  Stream<User> get user {
-    //tells us each time user signs in / out
-    return _auth.authStateChanges();
+  User? get currentUser {
+    return User.fromFirebaseUser(_auth.currentUser);
   }
 
+  Stream<User?> get user {
+    //tells us each time user signs in / out
+    User? user;
+    var tempUser;
+    try {
+      // user = _auth.authStateChanges().map(
+      //       (_fb_auth.User firebaseUser) => firebaseUser == null
+      //           ? User(userId: "", isEmailVerified: false)
+      //           : User.fromFirebaseUser(firebaseUser),
+      //     );
+
+    } catch (e) {
+      // print(e);
+      user = null;
+    }
+    return user;
+  }
+
+  Future<void> reloadUser() {
+    return _auth.currentUser.reload();
+  }
   //sign in with email and password
 
   //sign out

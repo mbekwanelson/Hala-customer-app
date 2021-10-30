@@ -1,9 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart' as _auth;
 import 'package:flutter/material.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Authenticate/Authenticate.dart';
 import 'package:mymenu/Authenticate/VerificationEmail.dart';
 import 'package:mymenu/Home/Options.dart';
+import 'package:mymenu/Models/User.dart';
 import 'package:mymenu/States/OptionsState.dart';
 import 'package:mymenu/States/UserDrawerState.dart';
 import 'package:provider/provider.dart';
@@ -16,12 +17,12 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
-    dynamic user = Provider.of<User>(context); // acessing user data from
-    Auth().user;
+    var user = Provider.of<User>(context); // acessing user data from
+    var auth = Auth();
 
     // if it returns a user that means that that user is signed in (registered)
     try {
-      user.reload().then((value) {});
+      auth.reloadUser().then((value) {});
       if (user == null) {
         // user not signed in
         return Authenticate();

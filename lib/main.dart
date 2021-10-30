@@ -1,64 +1,77 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+// import 'package:firebase_auth/firebase_auth.dart' as _auth;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mymenu/Authenticate/Auth.dart';
+import 'package:mymenu/Navigate/Wrapper.dart';
+import 'package:mymenu/Notifications/PushNotificationsManager.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(MyApp());
+//import 'package:here_sdk/core.dart';
+import 'Models/User.dart';
+import 'Services/firebase_analytics.dart';
+
+void main() async {
+  //SdkContext.init(IsolateOrigin.main);
+  WidgetsFlutterBinding.ensureInitialized(); //helps with multiprovider
+  await Firebase.initializeApp();
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    navigatorObservers: [observer],
+    home: Main(analytics: analytics, observer: observer),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class Main extends StatefulWidget {
+  final FirebaseAnalytics? analytics;
+  final FirebaseAnalyticsObserver? observer;
+  Main({this.analytics, this.observer});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+  _MainState createState() => _MainState();
+}
+
+class _MainState extends State<Main> {
+  PushNotificationsManager pushNotificationsManager =
+      PushNotificationsManager();
+  Future _sendAnalytics() async {
+    await widget.analytics!.logEvent(
+      name: 'test_event',
+      parameters: <String, dynamic>{
+        'string': 'string',
+        'int': 42,
+        'long': 12345678910,
+        'double': 42.0,
+        'bool': true,
+      },
     );
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({this.title});
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    // _currentScreen();
+    _sendAnalytics();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    return StreamProvider<User>.value(
+      initialData: User(userId: "", isEmailVerified: false),
+      //providing stream to root widget
+      //actively listening to auth requests user sign in/out
+      value: Auth().user, // whether user signed in or not
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: SizedBox(
+          height: double.infinity,
+          width: 900,
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Wrapper(),
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }

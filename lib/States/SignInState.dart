@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:flutter_facebook_login/flutter_facebook_login.dart'; //! TODO sya : find alternative
 // import 'package:http/http.dart' as http;
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as _fb_auth;
 import 'package:flutter/cupertino.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
@@ -15,7 +15,7 @@ class SignInState with ChangeNotifier {
   bool loading = false;
   final _formKey = GlobalKey<
       FormState>(); // will allow us to validate our form make sure the user doesnt f up
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final _fb_auth.FirebaseAuth _auth = _fb_auth.FirebaseAuth.instance;
   String error = "";
   String email = "";
   String password = "";
@@ -23,7 +23,7 @@ class SignInState with ChangeNotifier {
   GlobalKey<FormState> get formKey => _formKey;
   SignInState();
 
-  String validateEmail(String email) {
+  String? validateEmail(String email) {
     if (email.isEmpty) {
       //user didn't enter email
       notifyListeners();
@@ -35,7 +35,7 @@ class SignInState with ChangeNotifier {
   }
 
   // ensures user types correct password
-  String validatePassword(String password) {
+  String? validatePassword(String password) {
     if (password.length < 6) {
       //user didn't enter valid password
       notifyListeners();
@@ -47,7 +47,7 @@ class SignInState with ChangeNotifier {
   }
 
   signInClicked() async {
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       // after validating if entered correct entries
       //true:false if email and correct type password entered
       loading = true;
@@ -62,23 +62,22 @@ class SignInState with ChangeNotifier {
   }
 
   // Returns user object which contains firebaseID
-  CustomUser _userFromFireBaseUser(User user) {
-    return user != null ? CustomUser(userId: user.uid) : null;
+  User? _userFromFireBaseUser(_fb_auth.User firebaseUser) {
+    return firebaseUser != null ? User.fromFirebaseUser(firebaseUser) : null;
   }
 
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
+      _fb_auth.UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      User fb_user = result.user;
-      //! TODO sya : facebook login code
-      // if (fb_user.isEmailVerified) {
-      //   return _userFromFireBaseUser(fb_user);
-      // }
+      _fb_auth.User? firebaseUser = result.user;
+      if (firebaseUser!.emailVerified) {
+        return _userFromFireBaseUser(firebaseUser);
+      }
       error = "Verify Email!";
       notifyListeners();
       return null;
-    } catch (e) {
+    } on _fb_auth.FirebaseAuthException catch (e) {
       print(e);
       switch (e.code) {
         case "ERROR_EMAIL_ALREADY_IN_USE":
@@ -112,30 +111,68 @@ class SignInState with ChangeNotifier {
         default:
           error = "An undefined Error happened.";
       }
-      return null;
     }
+    // catch (e) {
+    //   print(e);
+    //   switch (e.code) {
+    //     case "ERROR_EMAIL_ALREADY_IN_USE":
+    //       error = "Email already registered, sign in.";
+    //       break;
+
+    //     case "ERROR_INVALID_EMAIL":
+    //       error = "Your email address appears to be malformed.";
+    //       break;
+    //     case "ERROR_WRONG_PASSWORD":
+    //       error = "You have entered an incorrect password";
+    //       break;
+    //     case "ERROR_USER_NOT_FOUND":
+    //       error = "User with this email doesn't exist.";
+    //       break;
+    //     case "ERROR_USER_DISABLED":
+    //       error = "User with this email has been disabled.";
+    //       break;
+    //     case "ERROR_TOO_MANY_REQUESTS":
+    //       error = "Too many requests. Try again later.";
+    //       break;
+    //     case "ERROR_OPERATION_NOT_ALLOWED":
+    //       error = "Signing in with Email and Password is not enabled.";
+    //       break;
+    //     case "ERROR_NETWORK_REQUEST_FAILED":
+    //       error = "Please check your internet connection";
+    //       break;
+    //     case "ERROR_USER_NOT_FOUND":
+    //       error = "There is no user record corresponding to this account";
+    //       break;
+    //     default:
+    //       error = "An undefined Error happened.";
+    //   }
+    //   return null;
+    // }
   }
 
   Future<User> handleGoogleSignIn() async {
     // hold the instance of the authenticated user
     User user;
+    var tempUser;
     bool new_user = true;
     // flag to check whether we're signed in already
     bool isSignedIn = await _googleSignIn.isSignedIn();
     if (isSignedIn) {
       // if so, return the current user
-      user = await _auth.currentUser;
+      user = User.fromFirebaseUser(_auth.currentUser);
       await _googleSignIn.signOut();
     } else {
-      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+          await googleUser!.authentication;
 
       // get the credentials to (access / id token)
       // to sign in via Firebase Authentication
-      final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-      user = (await _auth.signInWithCredential(credential)).user;
+      final _fb_auth.AuthCredential credential =
+          _fb_auth.GoogleAuthProvider.credential(
+              accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+      tempUser = (await _auth.signInWithCredential(credential)).user;
+      user = User.fromFirebaseUser(tempUser);
     }
 
     if (user != null) {
@@ -155,8 +192,8 @@ class SignInState with ChangeNotifier {
       await Future.delayed(const Duration(seconds: 1), () => "1");
       if (new_user) {
         await FirebaseFirestore.instance.collection("Users").doc(uid).set({
-          "name": user.displayName,
-          "email": user.email,
+          "name": tempUser.displayName,
+          "email": tempUser.email,
           "user": "Customer",
           "date": DateTime.now()
         });
