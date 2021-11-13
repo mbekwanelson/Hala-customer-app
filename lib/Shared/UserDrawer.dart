@@ -1,4 +1,3 @@
-
 import "package:flutter/material.dart";
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Models/Customer.dart';
@@ -15,7 +14,6 @@ class UserDrawer extends StatefulWidget {
   _UserDrawerState createState() => _UserDrawerState();
 }
 
-
 class _UserDrawerState extends State<UserDrawer> {
   Customer customer;
   String uid = "";
@@ -23,15 +21,17 @@ class _UserDrawerState extends State<UserDrawer> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    UserDrawerState().customerInfo().then((value){
+    UserDrawerState().customerInfo().then((value) {
       customer = value;
-
     });
-    Auth().inputData().then((value){
-      setState(() {
-        uid = value;
-      });
+    setState(() {
+      uid = Auth().inputData();
     });
+    // Auth().inputData().then((value){
+    //   setState(() {
+    //     uid = value;
+    //   });
+    // });
   }
 
   @override
@@ -39,71 +39,60 @@ class _UserDrawerState extends State<UserDrawer> {
     final userDrawerState = Provider.of<UserDrawerState>(context);
     userDrawerState.logUser();
     return Container(
-      margin: EdgeInsets.only(right:80),
-      color:Colors.grey[800],
+      margin: EdgeInsets.only(right: 80),
+      color: Colors.grey[800],
       child: ListView(
         children: <Widget>[
           Container(
-            height:300,
+            height: 300,
             child: UserAccountsDrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.grey[800],
               ),
               accountName: Padding(
-                padding: const EdgeInsets.only(bottom:12),
-                child: Text(
-                    userDrawerState.name ?? "Nah"
-                ),
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Text(userDrawerState.name ?? "Nah"),
               ),
-              accountEmail: Text(
-                  userDrawerState.email ?? "Nah"
-              ),
-              currentAccountPicture:CircleAvatar(
-                radius:50,
-                backgroundImage: AssetImage("Picture/avatar.png") ,
+              accountEmail: Text(userDrawerState.email ?? "Nah"),
+              currentAccountPicture: CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage("Picture/avatar.png"),
                 backgroundColor: Colors.grey[400],
               ),
             ),
           ),
 
           ListTile(
-            title:Text(
-                "Sign out",
-              style: TextStyle(
-                color:Colors.red
-              ),
+            title: Text(
+              "Sign out",
+              style: TextStyle(color: Colors.red),
             ),
-            onTap: (){
+            onTap: () {
               Auth().signOut();
-              Navigator.of(context).pop();//closes menu in home pAGE
+              Navigator.of(context).pop(); //closes menu in home pAGE
               Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Wrapper())
-              );
+                  context, MaterialPageRoute(builder: (context) => Wrapper()));
             },
           ),
           Divider(
-            height:5,
-            color:Colors.black,
+            height: 5,
+            color: Colors.black,
           ),
 
           TextFormField(
-            controller: userDrawerState.promoCode,
-            decoration:textInputDecoration.copyWith(hintText: "Enter Promo code")
-          ),
+              controller: userDrawerState.promoCode,
+              decoration:
+                  textInputDecoration.copyWith(hintText: "Enter Promo code")),
 
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-                userDrawerState.validPromo ?? "",
-              style: TextStyle(
-                color: Colors.amber,
-                fontSize: 15
-              ),
+              userDrawerState.validPromo ?? "",
+              style: TextStyle(color: Colors.amber, fontSize: 15),
             ),
           ),
           FlatButton(
-            onPressed: ()async{
+            onPressed: () async {
               //userDrawerState.findPromos();
               userDrawerState.verifyPromo();
             },
@@ -121,20 +110,17 @@ class _UserDrawerState extends State<UserDrawer> {
           // ),
 
           FlatButton(
-            child: Text(
-              "Order Progress"
-            ),
-            onPressed:(){
-              print(uid);
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => StreamProvider.value(
-    value: AfterCheckOutState().getShopProgress(uid: uid),
-    child: AfterCheckOut())
-    )
-    );
-    }),
+              child: Text("Order Progress"),
+              onPressed: () {
+                print(uid);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => StreamProvider.value(
+                            value:
+                                AfterCheckOutState().getShopProgress(uid: uid),
+                            child: AfterCheckOut())));
+              }),
         ],
       ),
     );

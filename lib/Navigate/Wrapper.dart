@@ -1,5 +1,4 @@
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fbauth;
 import 'package:flutter/material.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Authenticate/Authenticate.dart';
@@ -24,25 +23,18 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
-
-
-    dynamic user = Provider.of<FirebaseUser>(context); // acessing user data from
+    dynamic user = Provider.of<fbauth.User>(context); // acessing user data from
     Auth().user;
 
     // if it returns a user that means that that user is signed in (registered)
     try {
-      user.reload().then((value){
-
-      });
-      if (user==null){
+      user.reload().then((value) {});
+      if (user == null) {
         // user not signed in
         return Authenticate();
-      }
-      else if(user.isEmailVerified == false){
+      } else if (user.isEmailVerified == false) {
         return VerificationEmail();
-      }
-
-      else{
+      } else {
         // Bastard signed in!
         return MultiProvider(
           providers: [
@@ -51,17 +43,13 @@ class _WrapperState extends State<Wrapper> {
             // ),
             ChangeNotifierProvider.value(value: UserDrawerState()),
             ChangeNotifierProvider.value(value: OptionsState()),
-            StreamProvider.value(
-                value: OptionsState().getOptions()
-            ),
+            StreamProvider.value(value: OptionsState().getOptions()),
           ],
           child: Options(),
         );
       }
-    }catch (e) {
+    } catch (e) {
       return Authenticate();
     }
-
-
   }
 }

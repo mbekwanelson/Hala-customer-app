@@ -1,11 +1,9 @@
-
-
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+// import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fbauth;
 import 'package:flutter/cupertino.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
@@ -15,8 +13,9 @@ import 'package:mymenu/Models/User.dart';
 class SignInState with ChangeNotifier {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   bool loading = false;
-  final _formKey = GlobalKey<FormState>(); // will allow us to validate our form make sure the user doesnt f up
-  final FirebaseAuth _auth= FirebaseAuth.instance;
+  final _formKey = GlobalKey<
+      FormState>(); // will allow us to validate our form make sure the user doesnt f up
+  final fbauth.FirebaseAuth _auth = fbauth.FirebaseAuth.instance;
   String error = "";
   String email = "";
   String password = "";
@@ -47,8 +46,6 @@ class SignInState with ChangeNotifier {
     return null;
   }
 
-
-
   signInClicked() async {
     if (_formKey.currentState.validate()) {
       // after validating if entered correct entries
@@ -65,26 +62,25 @@ class SignInState with ChangeNotifier {
   }
 
   // Returns user object which contains firebaseID
-  User _userFromFireBaseUser(FirebaseUser user){
-    return user!=null ? User(userId: user.uid) : null;
+  User _userFromFireBaseUser(fbauth.User user) {
+    return user != null ? User(userId: user.uid) : null;
   }
 
-  Future signInWithEmailAndPassword(String email,String password) async{
-    try{
-      AuthResult result  = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      FirebaseUser fb_user = result.user;
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
+      var result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      fbauth.User fb_user = result.user;
 
-      if(fb_user.isEmailVerified){
+      if (fb_user.emailVerified) {
         return _userFromFireBaseUser(fb_user);
       }
       error = "Verify Email!";
       notifyListeners();
       return null;
-    }
-    catch(e){
+    } catch (e) {
       print(e);
       switch (e.code) {
-
         case "ERROR_EMAIL_ALREADY_IN_USE":
           error = "Email already registered, sign in.";
           break;
@@ -96,7 +92,7 @@ class SignInState with ChangeNotifier {
           error = "You have entered an incorrect password";
           break;
         case "ERROR_USER_NOT_FOUND":
-          error= "User with this email doesn't exist.";
+          error = "User with this email doesn't exist.";
           break;
         case "ERROR_USER_DISABLED":
           error = "User with this email has been disabled.";
@@ -120,53 +116,49 @@ class SignInState with ChangeNotifier {
     }
   }
 
-
-  Future<FirebaseUser> handleGoogleSignIn() async {
+  Future<fbauth.User> handleGoogleSignIn() async {
     // hold the instance of the authenticated user
-    FirebaseUser user;
+    fbauth.User user;
     bool new_user = true;
     // flag to check whether we're signed in already
     bool isSignedIn = await _googleSignIn.isSignedIn();
     if (isSignedIn) {
       // if so, return the current user
-      user = await _auth.currentUser();
+      user = _auth.currentUser;
       await _googleSignIn.signOut();
-    }
-    else {
-      final GoogleSignInAccount googleUser =
-      await _googleSignIn.signIn();
+    } else {
+      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+          await googleUser.authentication;
 
       // get the credentials to (access / id token)
       // to sign in via Firebase Authentication
-      final AuthCredential credential =
-      GoogleAuthProvider.getCredential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken
-      );
+      final credential = fbauth.GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
       user = (await _auth.signInWithCredential(credential)).user;
     }
 
-    if (user!=null){
+    if (user != null) {
       dynamic uid = await Auth().inputData();
-       Firestore.instance.collection("Users").snapshots().forEach((element) {
-
+      FirebaseFirestore.instance
+          .collection("Users")
+          .snapshots()
+          .forEach((element) {
         // checks if user is already on database
-        element.documents.forEach((document) {
-          if(uid ==document.documentID){
+        element.docs.forEach((document) {
+          if (uid == document.id) {
             new_user = false;
           }
         });
       });
 
       await Future.delayed(const Duration(seconds: 1), () => "1");
-      if(new_user){
-        await Firestore.instance.collection("Users").document(uid).setData({
-          "name":user.displayName,
-          "email":user.email,
-          "user":"Customer",
-          "date":DateTime.now()
+      if (new_user) {
+        await FirebaseFirestore.instance.collection("Users").doc(uid).set({
+          "name": user.displayName,
+          "email": user.email,
+          "user": "Customer",
+          "date": DateTime.now()
         });
       }
     }
@@ -174,49 +166,49 @@ class SignInState with ChangeNotifier {
   }
 
   /// This mehtod makes the real auth
-  Future firebaseAuthWithFacebook({@required FacebookAccessToken token}) async {
-    AuthCredential credential= FacebookAuthProvider.getCredential(accessToken: token.token);
-    dynamic user = await _auth.signInWithCredential(credential);
-    return user;
-  }
+  // Future firebaseAuthWithFacebook({@required FacebookAccessToken token}) async {
+  //   AuthCredential credential= FacebookAuthProvider.getCredential(accessToken: token.token);
+  //   dynamic user = await _auth.signInWithCredential(credential);
+  //   return user;
+  // }
 
-  Future signInFB() async {
-    bool new_facebook_user = true;
-    final fbLogin = new FacebookLogin();
-    FacebookLoginResult result = await fbLogin.logIn(["email"]);
-    final String token = result.accessToken.token;
-    final response = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
-    final profile = jsonDecode(response.body);
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final FacebookAccessToken facebookAccessToken = result.accessToken;
-        await firebaseAuthWithFacebook(
-            token: facebookAccessToken);
-        dynamic uid = await Auth().inputData();
-        Firestore.instance.collection("Users").snapshots().forEach((element) {
-          // checks if user is already on database
-          element.documents.forEach((document) {
-            if(uid ==document.documentID){
-              new_facebook_user = false;
-            }
-          });
-        });
+  // Future signInFB() async {
+  //   bool new_facebook_user = true;
+  //   final fbLogin = new FacebookLogin();
+  //   FacebookLoginResult result = await fbLogin.logIn(["email"]);
+  //   final String token = result.accessToken.token;
+  //   final response = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
+  //   final profile = jsonDecode(response.body);
+  //   switch (result.status) {
+  //     case FacebookLoginStatus.loggedIn:
+  //       final FacebookAccessToken facebookAccessToken = result.accessToken;
+  //       await firebaseAuthWithFacebook(
+  //           token: facebookAccessToken);
+  //       dynamic uid = await Auth().inputData();
+  //       FirebaseFirestore.instance.collection("Users").snapshots().forEach((element) {
+  //         // checks if user is already on database
+  //         element.documents.forEach((document) {
+  //           if(uid ==document.documentID){
+  //             new_facebook_user = false;
+  //           }
+  //         });
+  //       });
 
-        await Future.delayed(const Duration(seconds: 1), () => "1");
-        if(new_facebook_user){
-          await Firestore.instance.collection("Users").document(uid).setData({
-            "name":profile["name"],
-            "email":profile["email"],
-            "user":"Customer",
-            "date":DateTime.now()
-          });
-        }
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-        break;
-      case FacebookLoginStatus.error:
-        break;
-    }
-    return profile;
-  }
+  //       await Future.delayed(const Duration(seconds: 1), () => "1");
+  //       if(new_facebook_user){
+  //         await FirebaseFirestore.instance.collection("Users").document(uid).setData({
+  //           "name":profile["name"],
+  //           "email":profile["email"],
+  //           "user":"Customer",
+  //           "date":DateTime.now()
+  //         });
+  //       }
+  //       break;
+  //     case FacebookLoginStatus.cancelledByUser:
+  //       break;
+  //     case FacebookLoginStatus.error:
+  //       break;
+  //   }
+  //   return profile;
+  // }
 }
