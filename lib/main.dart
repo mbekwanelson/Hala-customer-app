@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fbauth;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,9 +14,10 @@ import 'package:provider/provider.dart';
 //import 'package:here_sdk/core.dart';
 import 'Services/firebase_analytics.dart';
 
-void main() {
+void main() async {
   //SdkContext.init(IsolateOrigin.main);
   WidgetsFlutterBinding.ensureInitialized(); //helps with multiprovider
+  await Firebase.initializeApp();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     navigatorObservers: [observer],
