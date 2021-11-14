@@ -1,10 +1,6 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
-class ConfirmCheckOut{
-
+class ConfirmCheckOut {
   String title;
   double price;
   Timestamp time;
@@ -13,5 +9,12 @@ class ConfirmCheckOut{
   List<dynamic> mealOptions;
   String category;
 
-  ConfirmCheckOut({this.title,this.price,this.quantity,this.time,this.shop,this.mealOptions,this.category});
+  ConfirmCheckOut(
+      {this.title,
+      this.price,
+      this.quantity,
+      this.time,
+      this.shop,
+      this.mealOptions,
+      this.category});
 }

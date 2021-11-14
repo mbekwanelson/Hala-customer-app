@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Home/Home.dart';
-import 'package:mymenu/Home/Options.dart';
-import 'package:mymenu/Home/Shops.dart';
-import 'package:mymenu/Maps/Models/LocationN.dart';
-import 'package:mymenu/Maps/State/AppState.dart';
 import 'package:mymenu/Models/FoodItem.dart';
-import 'package:mymenu/Models/Order.dart';
-import 'package:mymenu/Models/Restuarant.dart';
 import 'package:mymenu/Models/Shop.dart';
-import 'package:mymenu/Models/User.dart';
-import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/States/DescriptionState.dart';
 import 'package:mymenu/States/HomeState.dart';

@@ -5,15 +5,9 @@ import 'package:mymenu/Authenticate/Authenticate.dart';
 import 'package:mymenu/Authenticate/VerificationEmail.dart';
 import 'package:mymenu/Home/Options.dart';
 
-import 'package:mymenu/Models/User.dart';
-import 'package:mymenu/Navigate/Director.dart';
-import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/States/OptionsState.dart';
-import 'package:mymenu/States/ShopsState.dart';
 import 'package:mymenu/States/UserDrawerState.dart';
 import 'package:provider/provider.dart';
-import 'package:mymenu/Home/Shops.dart';
-import 'package:mymenu/Home/Shops.dart';
 
 class Wrapper extends StatefulWidget {
   @override

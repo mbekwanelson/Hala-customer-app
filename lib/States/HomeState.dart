@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Models/FoodItem.dart';
 import 'package:mymenu/Models/Meal.dart';
 import 'package:mymenu/Models/MealOption.dart';

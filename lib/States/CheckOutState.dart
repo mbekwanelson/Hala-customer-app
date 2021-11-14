@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fbauth;
@@ -7,7 +6,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Models/ConfirmCheckOut.dart';
 import 'package:mymenu/Models/PromoCheckOut.dart';
-import 'package:mymenu/Models/Promotion.dart';
 import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/Shared/Price.dart';
 

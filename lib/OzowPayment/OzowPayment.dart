@@ -9,15 +9,12 @@ import 'package:http/http.dart' as http;
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Home/AfterCheckOut.dart';
 import 'package:mymenu/Home/CheckOut.dart';
-import 'package:mymenu/Models/ConfirmCheckOut.dart';
 import 'package:mymenu/Models/PaymentRequest.dart';
 import 'package:mymenu/Models/Transaction.dart';
 import 'package:mymenu/Models/cardPaymentDetail.dart';
-import 'package:mymenu/OzowPayment/OzowPaymentState.dart';
 import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/States/AfterCheckOutState.dart';
 import 'package:provider/provider.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:core';
 
 class OzowPayment extends StatefulWidget {

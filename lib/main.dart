@@ -4,18 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart' as fbauth;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mymenu/Home/Home.dart';
 
 import 'package:mymenu/Authenticate/Auth.dart';
-import 'package:mymenu/Home/Shops.dart';
-import 'package:mymenu/Navigate/Director.dart';
 import 'package:mymenu/Notifications/PushNotificationsManager.dart';
 import 'package:mymenu/Navigate/Wrapper.dart';
-import 'package:mymenu/States/UserDrawerState.dart';
-import 'package:mymenu/VoucherHome/VoucherHome.dart';
 
 import 'package:provider/provider.dart';
-import 'package:mymenu/Maps/MyMap.dart';
 //import 'package:here_sdk/core.dart';
 import 'Services/firebase_analytics.dart';
 

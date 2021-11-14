@@ -1,10 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart' as fbauth;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Authenticate/ResetPassword.dart';
-import 'package:mymenu/Navigate/Wrapper.dart';
 import 'package:mymenu/Shared/Constants.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/States/SignInState.dart';

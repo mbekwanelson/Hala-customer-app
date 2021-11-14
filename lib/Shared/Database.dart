@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Maps/Models/LocationN.dart';
 import 'package:mymenu/Models/FoodItem.dart';
-import 'package:mymenu/Models/Restuarant.dart';
 
 class Database {
   List<FoodItem> burgers;

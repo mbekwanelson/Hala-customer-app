@@ -3,7 +3,6 @@ import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Models/Customer.dart';
 import 'package:mymenu/Navigate/Wrapper.dart';
 import 'package:mymenu/Shared/Constants.dart';
-import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/States/AfterCheckOutState.dart';
 import 'package:mymenu/States/UserDrawerState.dart';
 import 'package:provider/provider.dart';

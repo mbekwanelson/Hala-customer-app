@@ -1,12 +1,8 @@
 import 'dart:ui';
 
-import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:commons/commons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:mymenu/Models/Restuarant.dart';
 import 'package:mymenu/Models/Shop.dart';
 import 'package:mymenu/Navigate/Director.dart';
 import 'package:mymenu/Shared/Loading.dart';

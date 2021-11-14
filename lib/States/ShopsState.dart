@@ -1,16 +1,13 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart' as l2;
-import 'package:location/location.dart' as l;
 import 'package:mymenu/Maps/Requests/GoogleMapsServices.dart';
 import 'package:mymenu/Models/FoodItem.dart';
-import 'package:mymenu/Models/Option.dart';
 import 'package:mymenu/Models/Restuarant.dart';
 import 'package:mymenu/Models/Shop.dart';
 

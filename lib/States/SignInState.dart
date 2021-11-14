@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:firebase_auth/firebase_auth.dart' as fbauth;
 import 'package:flutter/cupertino.dart';

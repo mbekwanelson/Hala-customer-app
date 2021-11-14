@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
-import 'package:mymenu/Models/Message.dart';
 import 'package:mymenu/Shared/Constants.dart';
-import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/States/messageDriverState.dart';
 

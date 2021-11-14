@@ -1,12 +1,10 @@
 // import 'package:commons/commons.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Home/AfterCheckOut.dart';
 import 'package:mymenu/Models/ConfirmCheckOut.dart';
 import 'package:mymenu/Models/PromoCheckOut.dart';
-import 'package:mymenu/Models/Promotion.dart';
 import 'package:mymenu/Models/Shop.dart';
 import 'package:mymenu/Models/cardPaymentDetail.dart';
 import 'package:mymenu/OzowPayment/OzowPayment.dart';

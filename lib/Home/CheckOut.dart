@@ -1,27 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:mymenu/Home/AfterCheckOut.dart';
 import 'package:mymenu/Home/MealDetails.dart';
-import 'package:mymenu/Home/OrderPlaced.dart';
-import 'package:mymenu/Home/messageDriver.dart';
-import 'package:mymenu/Maps/MyMap.dart';
 import 'package:mymenu/Models/ConfirmCheckOut.dart';
-import 'package:mymenu/Models/Order.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Models/PromoCheckOut.dart';
-import 'package:mymenu/Models/Promotion.dart';
 import 'package:mymenu/Models/Shop.dart';
 import 'package:mymenu/Models/cardPaymentDetail.dart';
-import 'package:mymenu/OzowPayment/OzowPayment.dart';
-import 'package:mymenu/Shared/Database.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/Shared/Price.dart';
 import 'package:mymenu/States/AfterCheckOutState.dart';
 import 'package:mymenu/States/CheckOutState.dart';
-import 'package:mymenu/States/MealDetailsState.dart';
 import 'package:provider/provider.dart';
 // import 'package:commons/commons.dart';
 
