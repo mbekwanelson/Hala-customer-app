@@ -1,4 +1,5 @@
 // import 'package:commons/commons.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -277,7 +278,13 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
               await getTransactionStatus(widget.transactionReference);
 
           if (transationStatus == "Complete" && count == 0) {
-            // TODO sya replase success dialog
+            // TODO sya test success dialog
+            CoolAlert.show(
+              context: context,
+              type: CoolAlertType.success,
+              text: 'Your payment has been successfully made!',
+              // autoCloseDuration: Duration(seconds: 2),
+            );
             // successDialog(context, "Your payment has been successfully made!",
             //     positiveAction: () {},
             //     positiveText: "Confirm",
@@ -313,7 +320,16 @@ class _RedirectToOzowState extends State<RedirectToOzow> {
                         child: AfterCheckOut())));
           } else if (transationStatus == "Cancelled" ||
               transationStatus == "Abandoned") {
-            // TODO sya replace error dialouge
+            // TODO sya test error dialouge
+            CoolAlert.show(
+              context: context,
+              type: CoolAlertType.error,
+              title: 'Transaction failed!',
+              text: 'Sorry, something went wrong',
+
+              // loopAnimation: false,
+              // animType: CoolAlertAnimType.
+            );
             // errorDialog(context, "Transaction failed!",
             //     positiveAction: () {},
             //     positiveText: "Confirm",

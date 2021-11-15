@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 // import 'package:commons/commons.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mymenu/Models/Shop.dart';
@@ -96,7 +97,13 @@ class _ShopsState extends State<Shops> {
                                                     )));
                                       });
                                     } else {
-                                      // TODO sya replace info dialogue
+                                      // TODO sya test info dialogue
+                                      CoolAlert.show(
+                                        context: context,
+                                        type: CoolAlertType.info,
+                                        text:
+                                            "${shops[index].shopName} is Closed, Trading hours ${shops[index].openingTime.substring(11, 16)} - ${shops[index].closingTime.substring(11, 16)}",
+                                      );
                                       // infoDialog(
                                       //     context,
                                       //     "${shops[index].shopName} is Closed, Trading hours ${shops[index].openingTime.substring(11,16)} - ${shops[index].closingTime.substring(11,16)}",

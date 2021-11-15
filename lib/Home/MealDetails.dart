@@ -1,4 +1,5 @@
 // import 'package:commons/commons.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
@@ -171,7 +172,13 @@ class _MealDetailsState extends State<MealDetails> {
                                       widget.shop.shopName, widget.category);
 
                               if (isOperational == "Closed") {
-                                // TODO sya replace info dialogue
+                                // TODO sya test info dialogue
+                                CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.info,
+                                  text:
+                                      "${widget.shop.shopName} is Closed, Trading hours ${widget.shop.openingTime.substring(11, 16)} - ${widget.shop.closingTime.substring(11, 16)}",
+                                );
                                 // infoDialog(context,
                                 //     "${widget.shop.shopName} is Closed, Trading hours ${widget.shop.openingTime.substring(11, 16)} - ${widget.shop.closingTime.substring(11, 16)}",
                                 //     positiveAction: () {},
@@ -214,7 +221,13 @@ class _MealDetailsState extends State<MealDetails> {
                                     .isShopOperational(
                                         widget.shop.shopName, widget.category);
                                 if (isOperational == "Closed") {
-                                  // TODO sya replace info dialogue
+                                  // TODO sya test info dialogue
+                                  CoolAlert.show(
+                                    context: context,
+                                    type: CoolAlertType.info,
+                                    text:
+                                        "${widget.shop.shopName} is Closed, Trading hours ${widget.shop.openingTime.substring(11, 16)} - ${widget.shop.closingTime.substring(11, 16)}",
+                                  );
                                   // infoDialog(context,
                                   //     "${widget.shop.shopName} is Closed, Trading hours ${widget.shop.openingTime.substring(11, 16)} - ${widget.shop.closingTime.substring(11, 16)}",
                                   //     positiveAction: () {},

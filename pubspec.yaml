@@ -51,6 +51,7 @@ dependencies:
   # carousel_slider: ^2.2.1 #not used
   hexcolor: 2.0.5 #^1.0.6
   # commons: ^0.7.8+3 #uses get version
+  cool_alert: ^1.0.3 #replaces commons
 
 
 
@@ -70,7 +71,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  dependency_validator: ^3.0.0
+  # dependency_validator: ^3.0.0
 
 
 # For information on the generic Dart part of this file, see the
