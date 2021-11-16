@@ -18,7 +18,9 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
+    print("Sigin in build");
     final singInState = Provider.of<SignInState>(context);
+    print("Sign in state: ${singInState}");
 
     //if loading is true  return loading widget
     return singInState.loading
@@ -113,6 +115,7 @@ class _SignInState extends State<SignIn> {
                                               HexColor("#393939")),
                                     ),
                                     onPressed: () async {
+                                      print("Sign in btn clicked");
                                       singInState.signInClicked();
                                     },
                                     //color:Colors.black,
@@ -139,6 +142,7 @@ class _SignInState extends State<SignIn> {
                                       //backgroundColor: HexColor("#393939")
                                     ),
                                     onPressed: () async {
+                                      print("register btn clicked");
                                       widget.toggleView();
                                     },
                                     child: Text(
@@ -159,6 +163,7 @@ class _SignInState extends State<SignIn> {
                         child: FlatButton(
                             color: HexColor("#393939"),
                             onPressed: () {
+                              print("forgot password btn clicked");
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

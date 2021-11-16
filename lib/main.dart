@@ -57,6 +57,7 @@ class _MainState extends State<Main> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    print("main build");
     return StreamProvider<fbauth.User>.value(
       //providing stream to root widget
       //actively listening to auth requests user sign in/out

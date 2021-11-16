@@ -23,7 +23,10 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) {
+    print("authenticate build");
+
     if (showSignIn) {
+      print("showing sign in page");
       return ChangeNotifierProvider.value(
         value: SignInState(),
         child: Container(
@@ -31,6 +34,7 @@ class _AuthenticateState extends State<Authenticate> {
         ),
       );
     } else {
+      print("showing register page");
       return ChangeNotifierProvider.value(
         value: RegisterState(),
         child: Container(

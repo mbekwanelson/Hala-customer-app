@@ -4,6 +4,7 @@ import 'package:mymenu/Authenticate/Auth.dart';
 import 'package:mymenu/Authenticate/Authenticate.dart';
 import 'package:mymenu/Authenticate/VerificationEmail.dart';
 import 'package:mymenu/Home/Options.dart';
+import 'package:mymenu/Models/User.dart';
 
 import 'package:mymenu/States/OptionsState.dart';
 import 'package:mymenu/States/UserDrawerState.dart';
@@ -17,18 +18,27 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
-    dynamic user = Provider.of<fbauth.User>(context); // acessing user data from
-    Auth().user;
+    print("Wrapper build");
+    var user = Provider.of<fbauth.User>(
+        context); // acessing user data from Auth().user;
+    print("user: $user");
 
     // if it returns a user that means that that user is signed in (registered)
     try {
-      user.reload().then((value) {});
+      print("trying to reload user");
+      // user.reload().then((value) {});
       if (user == null) {
+        print("User is null showing signin page");
+
         // user not signed in
         return Authenticate();
-      } else if (user.isEmailVerified == false) {
+      } else if (user.emailVerified == false) {
+        print(
+            "user is logged in but email is not verified : loading email verification screen");
+
         return VerificationEmail();
       } else {
+        print("User signed in : ${user.email}");
         // Bastard signed in!
         return MultiProvider(
           providers: [
@@ -43,6 +53,8 @@ class _WrapperState extends State<Wrapper> {
         );
       }
     } catch (e) {
+      print("an error ocured: ");
+      print(e);
       return Authenticate();
     }
   }

@@ -45,17 +45,25 @@ class SignInState with ChangeNotifier {
   }
 
   signInClicked() async {
+    print("signinstate >> signinclicked");
     if (_formKey.currentState.validate()) {
       // after validating if entered correct entries
       //true:false if email and correct type password entered
       loading = true;
-      dynamic result = await signInWithEmailAndPassword(
-          email, password); //used dynamic because could either get user or null
-      if (result == null) {
-        //error = "Could not sign in with those credentials";
-        loading = false;
+      print("calling sign in method with $email and $password");
+      try {
+        var result = await signInWithEmailAndPassword(email,
+            password); //used dynamic because could either get user or null
+        if (result == null) {
+          print("result is null");
+          //error = "Could not sign in with those credentials";
+          loading = false;
+        }
+      } on fbauth.FirebaseAuthException catch (e) {
+        print("Firebase auth exception catch: ${e.code} : ${e.message}");
       }
     }
+    print("Notifying listeners");
     notifyListeners();
   }
 
@@ -65,19 +73,26 @@ class SignInState with ChangeNotifier {
   }
 
   Future signInWithEmailAndPassword(String email, String password) async {
+    print("Signinstate >> signInWithEmailAndPassword");
     try {
+      print("sending sign in request");
       var result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      fbauth.User fb_user = result.user;
+      print("usercredential result: ${result}");
+      var fb_user = result.user;
+      print("user from firebase: $fb_user");
 
       if (fb_user.emailVerified) {
+        print("email is verified: returning custom user");
         return _userFromFireBaseUser(fb_user);
       }
+      print("email is not verified, notifying users and returning null");
       error = "Verify Email!";
       notifyListeners();
       return null;
     } catch (e) {
-      print(e);
+      print("catching exception:");
+      print("code: ${e.code} : message : ${e.message}");
       switch (e.code) {
         case "ERROR_EMAIL_ALREADY_IN_USE":
           error = "Email already registered, sign in.";
@@ -89,7 +104,7 @@ class SignInState with ChangeNotifier {
         case "ERROR_WRONG_PASSWORD":
           error = "You have entered an incorrect password";
           break;
-        case "ERROR_USER_NOT_FOUND":
+        case "user-not-found":
           error = "User with this email doesn't exist.";
           break;
         case "ERROR_USER_DISABLED":
@@ -110,6 +125,7 @@ class SignInState with ChangeNotifier {
         default:
           error = "An undefined Error happened.";
       }
+      print("returning null, error is : $error");
       return null;
     }
   }
