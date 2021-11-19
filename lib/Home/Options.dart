@@ -16,27 +16,105 @@ class Options extends StatefulWidget {
 
 class _OptionsState extends State<Options> {
   Position currentUserPosition;
+  bool location_requested = false;
 
   @override
   void initState() {
     // TODO: implement initState
-
-    Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((value) {
-      setState(() {
-        currentUserPosition = value;
-      });
-    });
+    // print("Options/homepage init state");
+    // print("geolocator trying to get location");
+    // Geolocator()
+    //     .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+    //     .then((value) {
+    //   print("value from geolocator: ${value}");
+    //   setState(() {
+    //     currentUserPosition = value;
+    //   });
+    //   print("updated current position");
+    // });
+    _getUserLocation2();
     super.initState();
+  }
+
+  // @override
+  // void didChangeDependencies() {
+  //   // if (!location_requested) {
+  //   //   _getUserLocation();
+  //   // }
+  //   super.didChangeDependencies();
+  // }
+
+  void _getUserLocation() {
+    // setState(() {
+    location_requested = true;
+    // });
+    print("_getUserLocation");
+    print("geolocator trying to get location");
+    var gl = Geolocator();
+
+    gl.isLocationServiceEnabled().then((serviceEnabled) {
+      if (serviceEnabled) {
+        print("geolocation services are enabled");
+
+        gl
+            .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+            .then((value) {
+          print("value from geolocator: ${value}");
+          // setState(() {
+          currentUserPosition = value;
+          // });
+          print("updated current position to : $currentUserPosition");
+        });
+      } else {
+        print("geolocation services are disabled");
+      }
+    }).catchError((e) {
+      print("an error occured: $e");
+    });
+  }
+
+  Position _getUserLocation2() {
+    // setState(() {
+    location_requested = true;
+    // });
+    print("_getUserLocation");
+    print("geolocator trying to get location");
+    var gl = Geolocator();
+
+    gl.isLocationServiceEnabled().then((serviceEnabled) {
+      if (serviceEnabled) {
+        print("geolocation services are enabled");
+
+        gl
+            .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+            .then((value) {
+          print("value from geolocator: ${value}");
+          // setState(() {
+          currentUserPosition = value;
+
+          // });
+          print("updated current position to : $currentUserPosition");
+          return currentUserPosition;
+        });
+      } else {
+        print("geolocation services are disabled");
+        return null;
+      }
+    }).catchError((e) {
+      print("an error occured: $e");
+      return null;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    print("Options/homepage build");
     final optionsState = Provider.of<OptionsState>(context);
     final optionCategories = Provider.of<List<Option>>(context);
 
-    return optionCategories == null && currentUserPosition == null
+    currentUserPosition = _getUserLocation2();
+
+    return (optionCategories == null && currentUserPosition == null)
         ? Loading()
         : Scaffold(
             resizeToAvoidBottomInset: true,
@@ -121,6 +199,10 @@ class _OptionsState extends State<Options> {
                                           ),
                                         ),
                                         onTap: () {
+                                          print(
+                                              "${optionCategories[index].category} category clicked");
+                                          print(
+                                              "user location is : $currentUserPosition");
                                           setState(() {
                                             optionsState.logOptionScreen(
                                                 optionCategories[index]

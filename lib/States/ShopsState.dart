@@ -77,8 +77,53 @@ class ShopsState with ChangeNotifier {
     });
   }
 
+  Future<Position> _getUserLocation2() async {
+    Position currentUserPosition;
+    // setState(() {
+    // location_requested = true;
+    // });
+    print("_getUserLocation");
+    print("geolocator trying to get location");
+    var gl = Geolocator();
+
+    var serviceEnabled = await gl.isLocationServiceEnabled();
+    // .then((serviceEnabled) {
+    if (serviceEnabled) {
+      print("geolocation services are enabled");
+      try {
+        var value =
+            await gl.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        // .then((value) {
+        print("value from geolocator: ${value}");
+        // setState(() {
+        currentUserPosition = value;
+
+        // });
+        print("updated current position to : $currentUserPosition");
+        return currentUserPosition;
+      } catch (e) {
+        print("an error occured: $e");
+        return null;
+      }
+    } else {
+      print("geolocation services are disabled");
+      return null;
+    }
+    // }
+    // .catchError((e) {
+    //   print("an error occured: $e");
+    //   return null;
+    // });
+  }
+
   Stream<List<Shop>> getShops(
       {String category, Position currentUserPosition}) async* {
+    if (currentUserPosition == null) {
+      print("passed user position is null Getting position again");
+      currentUserPosition = await _getUserLocation2();
+      print(".........................");
+    }
+    print("Getting shops");
     List<Shop> shops = [];
     CollectionReference collectionReference = FirebaseFirestore.instance
         .collection("Options")
@@ -87,16 +132,32 @@ class ShopsState with ChangeNotifier {
     Future<QuerySnapshot> fquerySnapshot = collectionReference.get();
 
     QuerySnapshot snapshot = await fquerySnapshot; //.then((snapshot) async {
+    print("snapshot : $snapshot");
     try {
+      print(
+          "trying to loop through the shops, length is : ${snapshot.docs.length}");
       for (int shop = 0; shop < snapshot.docs.length; shop++) {
+        print("shop No: $shop");
+        print("Name : ${snapshot.docs[shop].data()['name']}");
+        print("category : ${snapshot.docs[shop].data()['category']}");
+        print("longitude : ${snapshot.docs[shop].data()['longitude']}");
+        print("latitude : ${snapshot.docs[shop].data()['latitude']}");
+        print("categories : ${snapshot.docs[shop].data()['categories']}");
+        print("ClosingTime : ${snapshot.docs[shop].data()['ClosingTime']}");
+        print("OpeningTime : ${snapshot.docs[shop].data()['OpeningTime']}");
+        print("");
+
+        print("saving map coordinates");
         double lat = snapshot.docs[shop].data()["latitude"];
         double long = snapshot.docs[shop].data()["longitude"];
 
+        print("saving current date");
         DateTime currentTime = DateTime.now();
         int Year = currentTime.year;
         int Day = currentTime.day;
         int Month = currentTime.month;
 
+        print("Checking opening and closing times");
         DateTime _CurrentTime = new DateTime(
             Year, Month, Day, currentTime.hour, currentTime.minute);
         DateTime openingTime =
@@ -110,6 +171,8 @@ class ShopsState with ChangeNotifier {
         bool isShopOperating = _CurrentTime.isAfter(_OpeningTime) &&
             _CurrentTime.isBefore(_ClosingTime);
 
+        print("checking distance");
+        print("current user position is $currentUserPosition");
         final l2.Distance distance = new l2.Distance();
         double km = 0.00;
         String carRouteDistance = await GoogleMapsServices()
@@ -119,7 +182,9 @@ class ShopsState with ChangeNotifier {
                 LatLng(lat, long));
 
         km = double.parse(carRouteDistance) / 1000;
+        print("shop is $km  away");
         if (km <= CUTOFFDISTANCE) {
+          print("shop is within cutoff distance");
           shops.add(Shop(
             shopName: snapshot.docs[shop].data()["name"],
             shopBackground: snapshot.docs[shop].data()["background"],

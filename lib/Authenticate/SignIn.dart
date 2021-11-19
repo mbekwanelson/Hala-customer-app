@@ -18,9 +18,9 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
-    print("Sigin in build");
+    // print("Sigin in build");
     final singInState = Provider.of<SignInState>(context);
-    print("Sign in state: ${singInState}");
+    // print("Sign in state: ${singInState}");
 
     //if loading is true  return loading widget
     return singInState.loading
