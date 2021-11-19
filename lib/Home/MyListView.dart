@@ -16,21 +16,23 @@ class MyListView extends StatefulWidget {
 class _MyListViewState extends State<MyListView> {
   @override
   Widget build(BuildContext context) {
+    print("mylistview build");
     Orientation screenSize = MediaQuery.of(context).orientation;
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait
         ? "Yes"
         : "No";
 
     if (widget.foodAndConnect.length == 0) {
+      print("length of food and connect is 0");
       return Expanded(child: Loading());
     } else {
       return MyListViewPhone(
           foodAndConnect: widget.foodAndConnect, category: widget.category);
-      return isPortrait == "Yes"
-          ? MyListViewPhone(
-              foodAndConnect: widget.foodAndConnect,
-            )
-          : MyListViewDesktop(foodAndConnect: widget.foodAndConnect);
+      // return isPortrait == "Yes"
+      //     ? MyListViewPhone(
+      //         foodAndConnect: widget.foodAndConnect,
+      //       )
+      //     : MyListViewDesktop(foodAndConnect: widget.foodAndConnect);
     }
   }
 }

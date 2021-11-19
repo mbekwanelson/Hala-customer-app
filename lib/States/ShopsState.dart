@@ -196,10 +196,10 @@ class ShopsState with ChangeNotifier {
             openingTime: _OpeningTime.toString(),
             closingTime: _ClosingTime.toString(),
           ));
-          print(shop);
+          // print(shop);
         }
       }
-      print(shops);
+      // print(shops);
     } catch (a, e) {
       print(e);
       print(a);

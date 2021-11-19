@@ -23,8 +23,11 @@ class Shops extends StatefulWidget {
 class _ShopsState extends State<Shops> {
   @override
   Widget build(BuildContext context) {
+    print("shops buildd");
     final shops = Provider.of<List<Shop>>(context);
     final shopsState = Provider.of<ShopsState>(context);
+    print("shops : $shops");
+    print("shopsStte: $shopsState");
     return shops == null
         ? Loading()
         : ChangeNotifierProvider.value(
@@ -84,7 +87,11 @@ class _ShopsState extends State<Shops> {
                                     const EdgeInsets.fromLTRB(20, 0, 20, 20),
                                 child: GestureDetector(
                                   onTap: () {
+                                    print(
+                                        "selected shop: ${shops[index].shopName}");
                                     if (shops[index].isShopOperating) {
+                                      print(
+                                          "${shops[index].shopName} is operating");
                                       shopsState.logShopSelected(
                                           shops[index].shopName);
                                       setState(() {
@@ -97,6 +104,8 @@ class _ShopsState extends State<Shops> {
                                                     )));
                                       });
                                     } else {
+                                      print(
+                                          "${shops[index].shopName} is not operating showing info dialogue");
                                       // TODO sya test info dialogue
                                       CoolAlert.show(
                                         context: context,

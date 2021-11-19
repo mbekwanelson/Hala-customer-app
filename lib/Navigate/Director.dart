@@ -26,6 +26,7 @@ class _DirectorState extends State<Director> {
   void initState() {
     setState(() {
       uid = Auth().inputData();
+      print("updating uid to $uid");
     });
     // TODO: implement initState
     super.initState();
@@ -39,6 +40,7 @@ class _DirectorState extends State<Director> {
   @override
   @override
   Widget build(BuildContext context) {
+    print("Direcor build");
     return uid == null
         ? Loading()
         : MultiProvider(
