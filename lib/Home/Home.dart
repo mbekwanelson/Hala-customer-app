@@ -27,6 +27,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    print("home build");
     print('${widget.category} Home State Category');
 
     List<String> words = [
@@ -49,6 +50,9 @@ class _HomeState extends State<Home> {
 
     final foodItems = Provider.of<List<FoodItem>>(context);
     final homeState = Provider.of<HomeState>(context);
+
+    print("food Items: $foodItems");
+    print("homestate: $homeState");
 
     return foodItems == null
         ? Loading()
@@ -96,6 +100,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
+                  //filters
                   Container(
                     width: MediaQuery.of(context).size.width,
                     child: Row(
@@ -110,6 +115,7 @@ class _HomeState extends State<Home> {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               onPressed: () async {
+                                print("tab 0 clicked");
                                 setState(() {
                                   homeState.tab = 0;
                                 });
@@ -208,6 +214,7 @@ class _HomeState extends State<Home> {
                     MealDescription(meals: homeState.meals),
                   if (homeState.tab == 3)
                     MyListView(foodAndConnect: homeState.desserts),
+                  //checkout btn
                   Container(
                     width: 165,
                     //color:Colors.grey[500],
@@ -221,6 +228,7 @@ class _HomeState extends State<Home> {
                           padding: EdgeInsets.only(bottom: 1),
                           child: FlatButton(
                             onPressed: () {
+                              print("checkout btn pressed");
                               setState(() {
                                 Navigator.push(
                                     context,
