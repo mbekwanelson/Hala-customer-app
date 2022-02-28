@@ -28,7 +28,7 @@ dependencies:
   provider: ^4.0.4
   flutter_spinkit: "^4.1.2"
   google_maps_flutter: ^0.5.25+3
-  location: 3.2.4 #^2.3.5
+  # location: 3.2.4 #^2.3.5
 
   # firebase_messaging: #7.0.3 #6.0.9
 
@@ -49,7 +49,7 @@ dependencies:
   google_sign_in: ^4.5.4
   # flutter_facebook_login: ^3.0.0
   # carousel_slider: ^2.2.1 #not used
-  hexcolor: 2.0.5 #^1.0.6
+  # hexcolor: 2.0.5 #^1.0.6
   # commons: ^0.7.8+3 #uses get version
   cool_alert: ^1.0.3 #replaces commons
 
@@ -66,6 +66,7 @@ dependencies:
   # flutter_webview_plugin: ^0.4.0 #0.3.11
   sleek_circular_slider: ^1.2.0+web
   # flutter_linkify: ^3.1.2
+
 
 
 dev_dependencies:

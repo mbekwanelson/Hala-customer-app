@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+// import 'package:hexcolor/hexcolor.dart';
 import 'package:mymenu/Home/MealDetails.dart';
 import 'package:mymenu/Models/ConfirmCheckOut.dart';
 import 'package:mymenu/Authenticate/Auth.dart';
@@ -147,7 +147,7 @@ class _CheckOutState extends State<CheckOut> {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     child: Card(
-                      color: HexColor("#393939"),
+                      color: Color(0xFF393939),
                       child: Padding(
                         padding: const EdgeInsets.all(25),
                         child: Center(

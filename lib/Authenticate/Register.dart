@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+// import 'package:hexcolor/hexcolor.dart';
 import 'package:mymenu/Shared/Constants.dart';
 import 'package:mymenu/Shared/Loading.dart';
 import 'package:mymenu/States/RegisterState.dart';
@@ -21,7 +21,8 @@ class _RegisterState extends State<Register> {
     return registerState.loading
         ? Loading()
         : Scaffold(
-            backgroundColor: HexColor("#393939"),
+            backgroundColor: Color(0xFF393939),
+            // backgroundColor: HexColor("#393939"),
             body: SingleChildScrollView(
               child: Container(
                 height: MediaQuery.of(context).size.height,
@@ -126,8 +127,10 @@ class _RegisterState extends State<Register> {
                                 borderRadius: BorderRadius.circular(18),
                                 side: BorderSide(color: Colors.black87)),
                           ),
+                          // backgroundColor: MaterialStateProperty.all<Color>(
+                          //     HexColor("#393939")),
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              HexColor("#393939")),
+                              Color(0xFF393939)),
                         ),
                         //color: Colors.black,
                         child: Text(

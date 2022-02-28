@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+// import 'package:hexcolor/hexcolor.dart';
 import 'package:mymenu/Authenticate/ResetPassword.dart';
 import 'package:mymenu/Shared/Constants.dart';
 import 'package:mymenu/Shared/Loading.dart';
@@ -110,9 +110,12 @@ class _SignInState extends State<SignIn> {
                                             side: BorderSide(
                                                 color: Colors.black87)),
                                       ),
+                                      // backgroundColor:
+                                      //     MaterialStateProperty.all<Color>(
+                                      //         HexColor("#393939")),
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
-                                              HexColor("#393939")),
+                                              Color(0xFF393939)),
                                     ),
                                     onPressed: () async {
                                       print("Sign in btn clicked");
@@ -136,9 +139,12 @@ class _SignInState extends State<SignIn> {
                                             side: BorderSide(
                                                 color: Colors.black87)),
                                       ),
+                                      // backgroundColor:
+                                      //     MaterialStateProperty.all<Color>(
+                                      //         HexColor("#393939")),
                                       backgroundColor:
                                           MaterialStateProperty.all<Color>(
-                                              HexColor("#393939")),
+                                              Color(0xFF93939)),
                                       //backgroundColor: HexColor("#393939")
                                     ),
                                     onPressed: () async {
@@ -161,7 +167,8 @@ class _SignInState extends State<SignIn> {
                       Padding(
                         padding: const EdgeInsets.all(20),
                         child: FlatButton(
-                            color: HexColor("#393939"),
+                            // color: HexColor("#393939"),
+                            color: Color(0xFF393939),
                             onPressed: () {
                               print("forgot password btn clicked");
                               Navigator.push(
