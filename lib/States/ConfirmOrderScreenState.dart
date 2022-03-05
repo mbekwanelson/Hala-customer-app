@@ -12,6 +12,7 @@ class ConfirmOrderScreenState {
   Future confirmOrders() async {
     List<ConfirmOrder> confirmOrders = [];
     dynamic uid = await Auth().inputData();
+
     await FirebaseFirestore.instance
         .collection("OrdersShops")
         .doc("OrdersShops")
@@ -28,9 +29,29 @@ class ConfirmOrderScreenState {
             date: value['date'].toDate(),
             shopName: "Food and Connect"));
       });
-
       print(element.data().length);
     });
+
+    //dec
+    // await FirebaseFirestore.instance
+    //     .collection("OrdersShops")
+    //     .doc("OrdersShops")
+    //     .collection("Food and Connect")
+    //     .doc(uid)
+    //     .snapshots()
+    //     .forEach((element) {
+    //   element.data().forEach((key, value) {
+    //     //print(" key = $key : value = ${value["title"]}");
+    //     confirmOrders.add(ConfirmOrder(
+    //         orderName: value['title'],
+    //         price: value['price'].toDouble(),
+    //         quantity: value['quantity'],
+    //         date: value['date'].toDate(),
+    //         shopName: "Food and Connect"));
+    //   });
+
+    //   print(element.data().length);
+    // });
     await Future.delayed(const Duration(seconds: 1), () => "1");
     return confirmOrders;
   }

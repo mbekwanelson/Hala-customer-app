@@ -116,7 +116,8 @@ class _AfterCheckOutState extends State<AfterCheckOut> {
               )
             ],
           ));
-    } else if (shopsSeen == []) {
+      // } else if (shopsSeen == []) {        //dec
+    } else if (shopsSeen == [] || shopsSeen.length == 0) {
       return Scaffold(
           appBar: AppBar(
             title: Text(

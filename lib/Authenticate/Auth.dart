@@ -142,6 +142,7 @@ class Auth {
         'user': uid,
         'date': DateTime.now(),
         'shopSeen': "No",
+        'checkOut': "Yes", //dec
         'promo': promoApplied == "Yes" ? promo : 0,
         "Payment Method": "Card",
         "deliveryFee": deliveryFee

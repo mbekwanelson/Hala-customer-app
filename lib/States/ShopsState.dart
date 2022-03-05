@@ -181,6 +181,12 @@ class ShopsState with ChangeNotifier {
                     currentUserPosition.longitude),
                 LatLng(lat, long));
 
+        print(
+            "-------------------------------- Car Route Distance           ------------------");
+        print(carRouteDistance);
+        print(
+            "-------------------------------- Car Route Distance Printed   ------------------");
+
         km = double.parse(carRouteDistance) / 1000;
         print("shop is $km  away");
         if (km <= CUTOFFDISTANCE) {
