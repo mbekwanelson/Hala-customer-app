@@ -91,7 +91,7 @@ class CheckOutState with ChangeNotifier {
     dynamic uid = await Auth().inputData();
     DocumentSnapshot user =
         await FirebaseFirestore.instance.collection("Users").doc(uid).get();
-    return user['promotions'];
+    return user['promotions']; //TODO sya check if field exists
   }
 
   Future<PromoCheckOut> shopPromo(String shop) async {
